@@ -16,9 +16,9 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('img_id')->unsigned()->nullable();
-            $table->integer('video_id')->unsigned()->nullable();
-            $table->integer('voice_id')->unsigned()->nullable();
+            $table->string('image')->nullable();
+            $table->string('video')->nullable();
+            $table->string('voice')->nullable();
             $table->string('title');
             $table->text('description');
             $table->timestamp('published_at');
@@ -29,20 +29,20 @@ class CreatePostsTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')->onDelete('set null');
 
-            $table->foreign('img_id')
-                ->references('id')
-                ->on('images')
-                ->onUpdate('cascade')->onDelete('set null');
-
-            $table->foreign('video_id')
-                ->references('id')
-                ->on('videos')
-                ->onUpdate('cascade')->onDelete('set null');
-
-            $table->foreign('voice_id')
-                ->references('id')
-                ->on('voices')
-                ->onUpdate('cascade')->onDelete('set null');
+//            $table->foreign('img_id')
+//                ->references('id')
+//                ->on('images')
+//                ->onUpdate('cascade')->onDelete('set null');
+//
+//            $table->foreign('video_id')
+//                ->references('id')
+//                ->on('videos')
+//                ->onUpdate('cascade')->onDelete('set null');
+//
+//            $table->foreign('voice_id')
+//                ->references('id')
+//                ->on('voices')
+//                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -56,15 +56,15 @@ class CreatePostsTable extends Migration
         Schema::table('posts', function($table) {
             $table->dropForeign(['user_id']);
         });
-        Schema::table('posts', function($table) {
-            $table->dropForeign(['img_id']);
-        });
-        Schema::table('posts', function($table) {
-            $table->dropForeign(['video_id']);
-        });
-        Schema::table('posts', function($table) {
-            $table->dropForeign(['voice_id']);
-        });
+//        Schema::table('posts', function($table) {
+//            $table->dropForeign(['img_id']);
+//        });
+//        Schema::table('posts', function($table) {
+//            $table->dropForeign(['video_id']);
+//        });
+//        Schema::table('posts', function($table) {
+//            $table->dropForeign(['voice_id']);
+//        });
 
         Schema::dropIfExists('posts');
     }

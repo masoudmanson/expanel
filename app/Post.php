@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class Post extends Model
 {
 
+    protected $table = 'posts';
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'image'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');

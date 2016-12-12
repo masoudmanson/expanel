@@ -16,7 +16,7 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('img_id')->unsigned()->nullable();
+            $table->string('image')->nullable();
             $table->string('title');
             $table->text('description');
             $table->timestamps();
@@ -26,10 +26,10 @@ class CreateClientsTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')->onDelete('set null');
 
-            $table->foreign('img_id')
-                ->references('id')
-                ->on('images')
-                ->onUpdate('cascade')->onDelete('set null');
+//            $table->foreign('img_id')
+//                ->references('id')
+//                ->on('images')
+//                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -43,9 +43,9 @@ class CreateClientsTable extends Migration
         Schema::table('clients', function($table) {
             $table->dropForeign(['user_id']);
         });
-        Schema::table('clients', function($table) {
-            $table->dropForeign(['img_id']);
-        });
+//        Schema::table('clients', function($table) {
+//            $table->dropForeign(['img_id']);
+//        });
         Schema::dropIfExists('clients');
     }
 }

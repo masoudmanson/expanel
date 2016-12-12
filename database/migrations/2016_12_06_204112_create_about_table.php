@@ -16,7 +16,7 @@ class CreateAboutTable extends Migration
         Schema::create('about', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('img_id')->unsigned()->nullable();
+            $table->string('image')->nullable();
             $table->text('description');
             $table->timestamps();
 
@@ -25,10 +25,10 @@ class CreateAboutTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')->onDelete('set null');
 
-            $table->foreign('img_id')
-                ->references('id')
-                ->on('images')
-                ->onUpdate('cascade')->onDelete('set null');
+//            $table->foreign('img_id')
+//                ->references('id')
+//                ->on('images')
+//                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -42,9 +42,9 @@ class CreateAboutTable extends Migration
         Schema::table('about', function($table) {
             $table->dropForeign(['user_id']);
         });
-        Schema::table('about', function($table) {
-            $table->dropForeign(['img_id']);
-        });
+//        Schema::table('about', function($table) {
+//            $table->dropForeign(['img_id']);
+//        });
         Schema::dropIfExists('about');
     }
 }

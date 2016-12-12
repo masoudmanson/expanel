@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use File;
+use App\ImageModel;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -25,7 +28,8 @@ class PostsController extends Controller
 
         $posts = Post::latest('published_at')->published()->byUser()->get();
 
-        dd($posts);
+        return view('pages.post',compact('posts'));
+//        dd($posts);
 
     }
 
@@ -36,7 +40,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('postCreate');
+        return view('pages.createPost');
     }
 
     /**
@@ -47,12 +51,25 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->validate($request,[
-//            '*' => 'required',
-//            'email' => 'email',
-//            'password' => 'min:3|confirmed',
-//        ]);
         $request['user_id'] = Auth::user()->id;
+
+        $img = $request->file('img');
+
+        $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
+
+        $img = Image::make($img);
+
+        $img->fit(200, 200);
+
+//        $path = public_path().'/post_imgs/'.$request['user_id'];
+        $path = config('path.post_image').$request['user_id'];
+
+        if(!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        }
+
+        $img->save($path."/".$request['image']);
+
         Post::create($request->all());
 
         return redirect('post');
@@ -96,6 +113,14 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $img = $request->file('img');
+
+        if($img->getClientOriginalName() != $post->image){
+            //update image
+        }
+        else{
+            // $request['image'] = name+extention
+        }
         $post->update($request->all());
 
         return redirect()->route('post.show', $post->id);

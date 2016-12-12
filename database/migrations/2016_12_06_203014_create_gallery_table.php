@@ -16,8 +16,8 @@ class CreateGalleryTable extends Migration
         Schema::create('gallery', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('img_id')->unsigned()->nullable();
-            $table->integer('video_id')->unsigned()->nullable();
+            $table->string('image')->nullable();
+            $table->string('video')->nullable();
             $table->text('description');
             $table->timestamps();
 
@@ -26,15 +26,15 @@ class CreateGalleryTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')->onDelete('set null');
 
-            $table->foreign('img_id')
-                ->references('id')
-                ->on('images')
-                ->onUpdate('cascade')->onDelete('set null');
-
-            $table->foreign('video_id')
-                ->references('id')
-                ->on('videos')
-                ->onUpdate('cascade')->onDelete('set null');
+//            $table->foreign('img_id')
+//                ->references('id')
+//                ->on('images')
+//                ->onUpdate('cascade')->onDelete('set null');
+//
+//            $table->foreign('video_id')
+//                ->references('id')
+//                ->on('videos')
+//                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -48,12 +48,12 @@ class CreateGalleryTable extends Migration
         Schema::table('gallery', function($table) {
             $table->dropForeign(['user_id']);
         });
-        Schema::table('gallery', function($table) {
-            $table->dropForeign(['img_id']);
-        });
-        Schema::table('gallery', function($table) {
-            $table->dropForeign(['video_id']);
-        });
+//        Schema::table('gallery', function($table) {
+//            $table->dropForeign(['img_id']);
+//        });
+//        Schema::table('gallery', function($table) {
+//            $table->dropForeign(['video_id']);
+//        });
         Schema::dropIfExists('gallery');
     }
 }
