@@ -7,5 +7,6 @@
  */
 
 return [
-    'post_image' => public_path().'/post_imgs/'
+    'post_image' => public_path().'/post_imgs/',
+    'gallery_image' => public_path().'/gallery_imgs/'
 ];

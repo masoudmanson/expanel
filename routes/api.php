@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+//Route::group(['middleware' => 'auth:api'], function () {
+//
+//    Route::get('/user', function (Request $request) {
+//
+//        var_dump(Auth::guard('api')->id());
+//    });
+//
+//    Route::get('/post', function (Request $request) {
+//        return $request->user();
+//    });
+//});
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    })->middleware('jwt.auth');
+
+Route::post('auth', 'Api\AuthController@authenticate');
+Route::get('auth/me', 'Api\AuthController@getAuthenticatedUser');
+
+Route::get('gallery','Api\ApiGalleryController@slm')->middleware('jwt.auth');

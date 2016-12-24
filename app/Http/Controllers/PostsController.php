@@ -57,18 +57,13 @@ class PostsController extends Controller
 
         $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
 
-        $img = Image::make($img);
-
-        $img->fit(200, 200);
-
-//        $path = public_path().'/post_imgs/'.$request['user_id'];
         $path = config('path.post_image').$request['user_id'];
 
         if(!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
         }
 
-        $img->save($path."/".$request['image']);
+        Image::make($img)->fit(200, 200)->save($path."/".$request['image']);
 
         Post::create($request->all());
 
