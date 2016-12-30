@@ -17,6 +17,8 @@
         </div>
 
         <input type="file" name="img" id="img">
+        <input type="file" name="vid" id="vid">
+        <input type="file" name="voc" id="voc">
 
         <button type="submit">save</button>
     </form>

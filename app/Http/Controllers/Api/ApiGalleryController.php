@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Gallery;
 use App\Http\Controllers\Controller;
 use Response;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -13,33 +14,76 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class ApiGalleryController extends Controller
 {
 
-
-    public function slm()
+    public function index()
     {
-//        try {
-//            $gallery = Gallery::latest('updated_at');
-//var_dump('salam');
-//        } catch (JWTException $e) {
-//            // something went wrong whilst attempting to encode the token
+
+        try {
+            $statusCode = 200;
+            $response = [
+                'photos'  => []
+            ];
+
+            $gallery = Gallery::latest('updated_at')->byUser()->get();
+
+            foreach($gallery as $photo){
+
+                $response['photos'][] = [
+                    'id' => $photo->id,
+                    'user_id' => $photo->user()->get(),
+//                    'url' => $photo->url,
+//                    'title' => $photo->title,
+                    'description' => $photo->description,
+//                    'category' => $photo->category,
+                ];
+            }
+
+//            return Response::json(compact('gallery'));
+        } catch (Exception $e) {
+//            var_dump($e->getCode());
+//            $statusCode = $e->getCode();
+            $response = [
+                "error" => "something went wrong."
+            ];
+            $statusCode = 400;
+            // something went wrong whilst attempting to encode the token
 //            return response()->json(['error' => 'could_not_create_token'], 500);
-//        }
-
-        $gallery = Gallery::latest('updated_at');
-
+        }
+        finally{
+            return Response::json($response, $statusCode);
+        }
 //        return response()->json([$gallery, 200]);
-
-        return Response::json(compact('gallery'));
     }
 
-//    /**
-//     * Show the form for creating a new resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function create()
-//    {
-//        return view('pages.createGallery');
-//    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Gallery  $gallery
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Gallery $gallery)
+    {
+        try{
+            $photo = $gallery;
+            $statusCode = 200;
+            $response = [ "photo" => [
+                'id' => (int) $photo->id,
+                'user_id' => (int) $photo->user_id,
+//                'title' => $photo->title,
+//                'url' => $photo->url,
+                'description' => $photo->description
+            ]];
+
+        }catch(Exception $e){
+            $response = [
+                "error" => "File doesn`t exists"
+            ];
+            $statusCode = 404;
+        }finally{
+            return Response::json($response, $statusCode);
+        }
+
+    }
 //
 //    /**
 //     * Store a newly created resource in storage.

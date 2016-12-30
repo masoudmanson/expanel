@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
@@ -54,8 +55,6 @@ class GalleryController extends Controller
 
         $this->upload_pic($img , $request);
 
-        $path = config('path.gallery_image').$request['user_id'];
-
         Gallery::create($request->all());
 
         return redirect('gallery');
@@ -85,7 +84,7 @@ class GalleryController extends Controller
     public function edit(Gallery $gallery)
     {
         if ($gallery->user_id == Auth::user()->id)
-            return view('$galleryEdit', compact('$gallery'));
+            return view('galleryEdit', compact('$gallery'));
         else
             return redirect('$gallery');
         //

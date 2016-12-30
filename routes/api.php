@@ -26,10 +26,15 @@ use Illuminate\Support\Facades\Auth;
 //});
 
     Route::get('/user', function (Request $request) {
-        return $request->user();
+//        return $request->user();
+        Auth::guard('api')->id();
     })->middleware('jwt.auth');
 
 Route::post('auth', 'Api\AuthController@authenticate');
 Route::get('auth/me', 'Api\AuthController@getAuthenticatedUser');
 
-Route::get('gallery','Api\ApiGalleryController@slm')->middleware('jwt.auth');
+Route::group(['middleware' => 'jwt.auth'], function() {
+    Route::resource('gallery', 'Api\ApiGalleryController');
+    Route::resource('post','Api\ApiPostsController');
+    Route::resource('about','Api\ApiAboutController');
+});

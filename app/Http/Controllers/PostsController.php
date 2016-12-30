@@ -57,17 +57,15 @@ class PostsController extends Controller
 
         $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
 
-        $path = config('path.post_image').$request['user_id'];
+        $this->upload_pic($img , $request);
 
-        if(!File::exists($path)) {
-            File::makeDirectory($path, $mode = 0777, true, true);
-        }
+//        $store = $request->file('vid')->store($path);
+//
+//        var_dump($store);
 
-        Image::make($img)->fit(200, 200)->save($path."/".$request['image']);
-
-        Post::create($request->all());
-
-        return redirect('post');
+//        Post::create($request->all());
+//
+//        return redirect('post');
     }
 
     /**
@@ -130,5 +128,16 @@ class PostsController extends Controller
     public function destroy($post)
     {
         //
+    }
+
+    private function upload_pic($img , $request)
+    {
+        $path = config('path.post_image').$request['user_id'];
+
+        if(!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        }
+
+        Image::make($img)->fit(200, 200)->save($path."/".$request['image']);
     }
 }

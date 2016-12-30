@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile',
+        'used_id',
         'api_token',
     ];
 
@@ -39,4 +40,20 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
+
+    public function scopeIsSuperUser($query)
+    {
+        $query->where('type_id', '=', 2);
+    }
+
+    public function scopeIsSpecialUser($query)
+    {
+        $query->where('type_id', '=', 1);
+    }
+    
+    public function scopeIsSimpleUser($query)
+    {
+        $query->where('type_id', '=', 0);
+    }
+
 }

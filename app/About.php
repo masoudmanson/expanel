@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Gallery extends Model
+class About extends Model
 {
 
-    protected $table = 'gallery';
+    protected $table = 'about';
 
     protected $fillable = [
         'user_id',

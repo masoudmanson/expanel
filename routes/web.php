@@ -15,8 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/post','PostsController');
-Route::resource('/gallery','GalleryController');
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/post', 'PostsController');
+    Route::resource('/gallery', 'GalleryController');
+    Route::resource('/about', 'AboutController');
+});
 
 Auth::routes();
 

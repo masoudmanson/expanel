@@ -8,5 +8,7 @@
 
 return [
     'post_image' => public_path().'/post_imgs/',
-    'gallery_image' => public_path().'/gallery_imgs/'
+    'post_video' => public_path().'/post_videos/',
+    'gallery_image' => public_path().'/gallery_imgs/',
+    'gallery_video' => public_path().'/gallery_videos/'
 ];
