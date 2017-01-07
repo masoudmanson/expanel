@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Response;
 use Exception;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ApiAboutController extends Controller
 {
@@ -19,12 +20,16 @@ class ApiAboutController extends Controller
      */
     public function index()
     {
+
         try{
-            $about = About::byUser()->orderBy('created_at', 'desc')->first();;
+            $token = JWTAuth::getToken();
+            $used_id = JWTAuth::getPayload($token)->get('app_id');
+
+            $about = About::byId($used_id)->orderBy('created_at', 'desc')->first();;
             $statusCode = 200;
-            $response = [ "photo" => [
+            $response = [ "about" => [
                 'id' => (int) $about->id,
-                'user_id' => (int) $about->user_id,
+//                'user_id' => (int) $about->user_id,
 //                'title' => $photo->title,
 //                'url' => $photo->url,
                 'description' => $about->description

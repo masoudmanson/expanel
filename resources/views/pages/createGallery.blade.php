@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-    <h1>create post</h1>
+    <h1>create gallery</h1>
     <br>
-    <form action="/post" method="post" enctype="multipart/form-data">
+    <form action="/gallery" method="post" enctype="multipart/form-data">
 
         {{csrf_field()}}
 
@@ -18,9 +18,18 @@
 
         <input type="file" name="img" id="img">
         <input type="file" name="vid" id="vid">
-        <input type="file" name="aud" id="aud">
 
         <button type="submit">save</button>
     </form>
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
 @stop

@@ -96,9 +96,12 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'img' => [
+            'empty_when' => 'custom-message',
         ],
+//        'vid' => [
+//            'empty_when' => 'custom-message2',
+//        ],
     ],
 
     /*

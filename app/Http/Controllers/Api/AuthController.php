@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         $previous_used_id = array();
         if ($user->used_id) {
-            echo 'inja';
+
             $previous_used_id = json_decode($user->used_id, true);
 
         }
@@ -64,9 +64,6 @@ class AuthController extends Controller
 
             $user->save();
         }
-
-
-        dd($user);
 
         // all good so return the token
         return response()->json(compact('token'));

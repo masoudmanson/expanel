@@ -28,4 +28,9 @@ class Gallery extends Model
         $user = Auth::user();
         $query->where('user_id','=', $user->id);
     }
+
+    public function scopeById($query,$id)
+    {
+        $query->where('user_id','=', $id);
+    }
 }

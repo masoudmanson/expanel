@@ -7,8 +7,10 @@
  */
 
 return [
-    'post_image' => public_path().'/post_imgs/',
-    'post_video' => public_path().'/post_videos/',
-    'gallery_image' => public_path().'/gallery_imgs/',
-    'gallery_video' => public_path().'/gallery_videos/'
+    'post_image' => public_path().'/images/post_imgs/',
+    'post_video' => public_path().'/videos/post_videos/',
+    'post_audio' => public_path().'/audios/post_audios/',
+    'post_pdf' => public_path().'/audios/post_pdfs/',
+    'gallery_image' => public_path().'/images/gallery_imgs/',
+    'gallery_video' => public_path().'/videos/gallery_videos/'
 ];

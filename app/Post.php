@@ -15,7 +15,11 @@ class Post extends Model
         'user_id',
         'title',
         'description',
-        'image'
+        'image',
+        'video',
+        'audio',
+        'pdf',
+        'link',
     ];
 
     public function user()
@@ -37,5 +41,10 @@ class Post extends Model
     {
         $user = Auth::user();
         $query->where('user_id','=', $user->id);
+    }
+
+    public function scopeById($query,$id)
+    {
+        $query->where('user_id','=', $id);
     }
 }

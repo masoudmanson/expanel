@@ -6,6 +6,7 @@ use App\Gallery;
 use App\Http\Controllers\Controller;
 use Response;
 use Exception;
+use JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -23,14 +24,21 @@ class ApiGalleryController extends Controller
                 'photos'  => []
             ];
 
-            $gallery = Gallery::latest('updated_at')->byUser()->get();
+            $token = JWTAuth::getToken();
+            $used_id = JWTAuth::getPayload($token)->get('app_id');
+
+            $gallery = Gallery::latest('updated_at')->byId($used_id)->get();
 
             foreach($gallery as $photo){
 
+                if($photo->image)
+                    $url = config('path.gallery_image').$used_id."/".$photo->image;
+                else
+                    $url = config('path.gallery_image').$used_id."/".$photo->video;
                 $response['photos'][] = [
                     'id' => $photo->id,
-                    'user_id' => $photo->user()->get(),
-//                    'url' => $photo->url,
+//                    'user_id' => $photo->user()->get(),
+                    'url' => $url,
 //                    'title' => $photo->title,
                     'description' => $photo->description,
 //                    'category' => $photo->category,

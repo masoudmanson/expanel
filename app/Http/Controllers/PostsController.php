@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use File;
 use App\ImageModel;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class PostsController extends Controller
 {
@@ -28,7 +30,7 @@ class PostsController extends Controller
 
         $posts = Post::latest('published_at')->published()->byUser()->get();
 
-        return view('pages.post',compact('posts'));
+        return view('pages.post', compact('posts'));
 //        dd($posts);
 
     }
@@ -46,26 +48,42 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  CreatePostRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
+        //todo : test
         $request['user_id'] = Auth::user()->id;
 
-        $img = $request->file('img');
+        $files = $request->file();
 
-        $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
+        if ($img = array_get($files, 'img')) {
+                $request['image'] = $request['user_id'] . '_' . time() . '.' . $img->getClientOriginalExtension();
+                $this->upload_file($img, $request, 'image', true);
 
-        $this->upload_pic($img , $request);
+        } elseif ($vid = array_get($files, 'vid')) {
+                $request['video'] = $request['user_id'] . '_' . time() . '.' . $vid->getClientOriginalExtension();
+                $this->upload_file($vid, $request,'video');
+            }
+
+        if ($aud = array_get($files, 'aud')) {
+                $request['audio'] = $request['user_id'] . '_' . time() . '.' . $aud->getClientOriginalExtension();
+                $this->upload_file($aud, $request,'audio');
+            }
+        if ($pdf = array_get($files, 'pdf')) {
+
+                $request['pdf'] = $request['user_id'] . '_' . time() . '.' . $pdf->getClientOriginalExtension();
+                $this->upload_file($pdf, $request,'pdf');
+            }
 
 //        $store = $request->file('vid')->store($path);
 //
 //        var_dump($store);
 
-//        Post::create($request->all());
-//
-//        return redirect('post');
+        Post::create($request->all());
+
+        return redirect('post');
     }
 
     /**
@@ -100,19 +118,43 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  CreatePostRequest $request
      * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(CreatePostRequest $request, Post $post)
     {
-        $img = $request->file('img');
+        //todo : test
+        $request['user_id'] = Auth::user()->id;
 
-        if($img->getClientOriginalName() != $post->image){
-            //update image
+        $files = $request->file();
+
+        if ($img = array_get($files, 'img')) {
+            if ($img->getBasename() != $post->image) {
+
+                $request['image'] = $request['user_id'] . '_' . time() . '.' . $img->getClientOriginalExtension();
+                $this->upload_file($img, $request, 'image', true);
+            }
+        } elseif ($vid = array_get($files, 'vid')) {
+            if ($vid->getBasename() != $post->video) {
+
+                $request['video'] = $request['user_id'] . '_' . time() . '.' . $vid->getClientOriginalExtension();
+                $this->upload_file($vid, $request,'video');
+            }
         }
-        else{
-            // $request['image'] = name+extention
+        if ($aud = array_get($files, 'aud')) {
+            if ($aud->getBasename() != $post->audio) {
+
+                $request['audio'] = $request['user_id'] . '_' . time() . '.' . $aud->getClientOriginalExtension();
+                $this->upload_file($aud, $request,'audio');
+            }
+        }
+        if ($pdf = array_get($files, 'pdf')) {
+            if ($pdf->getBasename() != $post->pdf) {
+
+                $request['pdf'] = $request['user_id'] . '_' . time() . '.' . $pdf->getClientOriginalExtension();
+                $this->upload_file($pdf, $request,'pdf');
+            }
         }
         $post->update($request->all());
 
@@ -130,14 +172,27 @@ class PostsController extends Controller
         //
     }
 
-    private function upload_pic($img , $request)
+    private function upload_file($file, $request, $file_type ,$is_image = false )
     {
-        $path = config('path.post_image').$request['user_id'];
+        $path = config('path.post_'.$file_type) . $request['user_id'];
 
-        if(!File::exists($path)) {
+        if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
         }
 
-        Image::make($img)->fit(200, 200)->save($path."/".$request['image']);
+        if ($is_image)
+            Image::make($file)->fit(200, 200)->save($path . "/" . $request['image']);
+        else
+            $store = $file->store($path);
     }
+//
+//    private function upload_video($request, $vid)
+//    {
+//        $path = config('path.post_video') . $request['user_id'];
+//
+//        $store = $vid->store($path);
+//
+////        dd($store);
+//    }
 }
+
