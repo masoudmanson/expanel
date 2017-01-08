@@ -30,7 +30,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     static $user_id;
 
     return [
-        'user_id' =>$user_id ?: $user_id = 151,
+        'user_id' =>$user_id ?: $user_id = 1,
         'title' => $faker->title,
         'description' => $faker->text,
     ];

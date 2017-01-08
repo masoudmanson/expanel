@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->string('image')->nullable();
             $table->string('video')->nullable();
             $table->string('audio')->nullable();
@@ -29,6 +30,11 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onUpdate('cascade')->onDelete('set null');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
                 ->onUpdate('cascade')->onDelete('set null');
 
 //            $table->foreign('img_id')
@@ -57,6 +63,9 @@ class CreatePostsTable extends Migration
     {
         Schema::table('posts', function($table) {
             $table->dropForeign(['user_id']);
+        });
+        Schema::table('posts', function($table) {
+            $table->dropForeign(['category_id']);
         });
 //        Schema::table('posts', function($table) {
 //            $table->dropForeign(['img_id']);
