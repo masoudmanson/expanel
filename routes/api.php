@@ -35,6 +35,6 @@ Route::get('auth/me', 'Api\AuthController@getAuthenticatedUser');
 
 Route::group(['middleware' => 'jwt.auth'], function() {
     Route::resource('gallery', 'Api\ApiGalleryController');
-    Route::resource('post','Api\ApiPostsController');
+//    Route::resource('post','Api\ApiPostsController');
     Route::resource('about','Api\ApiAboutController');
 });
