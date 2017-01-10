@@ -22,6 +22,21 @@
         <button type="submit">save</button>
     </form>
 
+    <h1>gallery cover</h1>
+    <br>
+    <form action="/cover" method="post" enctype="multipart/form-data">
+
+        {{csrf_field()}}
+
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="page" id="page" value="gallery">
+        </div>
+
+        <input type="file" name="img" id="img">
+
+        <button type="submit">save</button>
+    </form>
+
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>

@@ -40,14 +40,6 @@ class AboutController extends Controller
     {
         $request['user_id'] = Auth::user()->id;
 
-//        $img = $request->file('img');
-//
-//        $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
-//
-//        $this->upload_pic($img , $request);
-//
-//        $path = config('path.gallery_image').$request['user_id'];
-
         About::create($request->all());
 
         return redirect('about');
@@ -62,7 +54,7 @@ class AboutController extends Controller
     public function show(About $about)
     {
         if ($about->user_id == Auth::user()->id)
-//            dd($gallery);
+
             return view('about', compact('$about'));
         else
             return redirect('about');
@@ -91,15 +83,9 @@ class AboutController extends Controller
      */
     public function update(Request $request, About $about)
     {
-//        $img = $request->file('img');
 
         $request['user_id'] = Auth::user()->id;
 
-//        if($img->getBasename() != $about->image){
-//
-//            $request['image'] = $request['user_id'].'_'.time().'.'.$img->getClientOriginalExtension();
-//            $this->upload_pic($img , $request);
-//        }
         $about->update($request->all());
 
         return redirect()->route('about.show', $about->id);

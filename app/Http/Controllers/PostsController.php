@@ -172,6 +172,15 @@ class PostsController extends Controller
         //
     }
 
+    /**
+     * Managing all file uploads with any validated extensions.
+     *
+     * @param  $file
+     * @param  CreatePostRequest $request
+     * @param  string $file_type
+     * @param  bool $is_image
+     * @return void
+     */
     private function upload_file($file, $request, $file_type ,$is_image = false )
     {
         $path = config('path.post_'.$file_type) . $request['user_id'];

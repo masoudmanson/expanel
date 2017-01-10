@@ -19,6 +19,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/post', 'PostsController');
     Route::resource('/gallery', 'GalleryController');
     Route::resource('/about', 'AboutController');
+    Route::resource('/cover', 'CoverController');
+    Route::resource('/client', 'ClientController');
 });
 
 Auth::routes();

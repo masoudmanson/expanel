@@ -10,10 +10,13 @@ class About extends Model
 
     protected $table = 'about';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
-        'image',
-        'video',
         'description',
 
     ];

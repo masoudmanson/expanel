@@ -41,6 +41,21 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    public function gallery()
+    {
+        return $this->hasMany('App\Gallery');
+    }
+
+    public function cover()
+    {
+        return $this->hasMany('App\Cover');
+    }
+
+    public function about()
+    {
+        return $this->hasOne('App\About');
+    }
+
     public function scopeIsSuperUser($query)
     {
         $query->where('type_id', '=', 2);
@@ -50,7 +65,7 @@ class User extends Authenticatable
     {
         $query->where('type_id', '=', 1);
     }
-    
+
     public function scopeIsSimpleUser($query)
     {
         $query->where('type_id', '=', 0);

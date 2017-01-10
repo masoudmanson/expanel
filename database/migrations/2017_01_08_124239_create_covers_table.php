@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAboutTable extends Migration
+class CreateCoversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,17 @@ class CreateAboutTable extends Migration
      */
     public function up()
     {
-        Schema::create('about', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('covers', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->text('description');
+            $table->enum('page', ['default','gallery', 'post']);
+            $table->string('image');//->default image address //todo : test
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')->onDelete('set null');
-
-//            $table->foreign('img_id')
-//                ->references('id')
-//                ->on('images')
-//                ->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -38,12 +34,10 @@ class CreateAboutTable extends Migration
      */
     public function down()
     {
-        Schema::table('about', function($table) {
+        Schema::table('covers', function($table) {
             $table->dropForeign(['user_id']);
         });
-//        Schema::table('about', function($table) {
-//            $table->dropForeign(['img_id']);
-//        });
-        Schema::dropIfExists('about');
+
+        Schema::dropIfExists('covers');
     }
 }

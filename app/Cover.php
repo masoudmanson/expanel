@@ -5,10 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Gallery extends Model
+class Cover extends Model
 {
-
-    protected $table = 'gallery';
 
     /**
      * The attributes that are mass assignable.
@@ -18,9 +16,7 @@ class Gallery extends Model
     protected $fillable = [
         'user_id',
         'image',
-        'video',
-        'description',
-
+        'page',
     ];
 
     public function user()

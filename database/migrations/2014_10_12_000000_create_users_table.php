@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('type_id')->unsigned()->default(0);
             $table->string('mobile')->nullable();
             $table->string('tel')->nullable();
+            $table->string('image')->default('avatar.png');
             $table->rememberToken();
             $table->timestamps();
         });
