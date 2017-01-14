@@ -55,6 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\About');
     }
+    public function menu()
+    {
+        return $this->hasOne('App\Menu');
+    }
 
     public function scopeIsSuperUser($query)
     {

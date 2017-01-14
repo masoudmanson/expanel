@@ -27,11 +27,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-
-        $posts = Post::latest('published_at')->published()->byUser()->get();
-
+//        $posts = Post::latest('published_at')->published()->byUser()->get();
+        $posts = Auth::user()->post()->latest('updated_at')->get();
         return view('pages.post', compact('posts'));
-//        dd($posts);
 
     }
 
@@ -59,23 +57,23 @@ class PostsController extends Controller
         $files = $request->file();
 
         if ($img = array_get($files, 'img')) {
-                $request['image'] = $request['user_id'] . '_' . time() . '.' . $img->getClientOriginalExtension();
-                $this->upload_file($img, $request, 'image', true);
+            $request['image'] = $request['user_id'] . '_' . time() . '.' . $img->getClientOriginalExtension();
+            $this->upload_file($img, $request, 'image', true);
 
         } elseif ($vid = array_get($files, 'vid')) {
-                $request['video'] = $request['user_id'] . '_' . time() . '.' . $vid->getClientOriginalExtension();
-                $this->upload_file($vid, $request,'video');
-            }
+            $request['video'] = $request['user_id'] . '_' . time() . '.' . $vid->getClientOriginalExtension();
+            $this->upload_file($vid, $request, 'video');
+        }
 
         if ($aud = array_get($files, 'aud')) {
-                $request['audio'] = $request['user_id'] . '_' . time() . '.' . $aud->getClientOriginalExtension();
-                $this->upload_file($aud, $request,'audio');
-            }
+            $request['audio'] = $request['user_id'] . '_' . time() . '.' . $aud->getClientOriginalExtension();
+            $this->upload_file($aud, $request, 'audio');
+        }
         if ($pdf = array_get($files, 'pdf')) {
 
-                $request['pdf'] = $request['user_id'] . '_' . time() . '.' . $pdf->getClientOriginalExtension();
-                $this->upload_file($pdf, $request,'pdf');
-            }
+            $request['pdf'] = $request['user_id'] . '_' . time() . '.' . $pdf->getClientOriginalExtension();
+            $this->upload_file($pdf, $request, 'pdf');
+        }
 
 //        $store = $request->file('vid')->store($path);
 //
@@ -139,21 +137,21 @@ class PostsController extends Controller
             if ($vid->getBasename() != $post->video) {
 
                 $request['video'] = $request['user_id'] . '_' . time() . '.' . $vid->getClientOriginalExtension();
-                $this->upload_file($vid, $request,'video');
+                $this->upload_file($vid, $request, 'video');
             }
         }
         if ($aud = array_get($files, 'aud')) {
             if ($aud->getBasename() != $post->audio) {
 
                 $request['audio'] = $request['user_id'] . '_' . time() . '.' . $aud->getClientOriginalExtension();
-                $this->upload_file($aud, $request,'audio');
+                $this->upload_file($aud, $request, 'audio');
             }
         }
         if ($pdf = array_get($files, 'pdf')) {
             if ($pdf->getBasename() != $post->pdf) {
 
                 $request['pdf'] = $request['user_id'] . '_' . time() . '.' . $pdf->getClientOriginalExtension();
-                $this->upload_file($pdf, $request,'pdf');
+                $this->upload_file($pdf, $request, 'pdf');
             }
         }
         $post->update($request->all());
@@ -181,9 +179,9 @@ class PostsController extends Controller
      * @param  bool $is_image
      * @return void
      */
-    private function upload_file($file, $request, $file_type ,$is_image = false )
+    private function upload_file($file, $request, $file_type, $is_image = false)
     {
-        $path = config('path.post_'.$file_type) . $request['user_id'];
+        $path = config('path.post_' . $file_type) . $request['user_id'];
 
         if (!File::exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);

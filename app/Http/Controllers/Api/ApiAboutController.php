@@ -25,7 +25,7 @@ class ApiAboutController extends Controller
             $token = JWTAuth::getToken();
             $used_id = JWTAuth::getPayload($token)->get('app_id');
 
-            $about = About::byId($used_id)->orderBy('created_at', 'desc')->first();;
+            $about = About::byId($used_id)->orderBy('created_at', 'desc')->first();
             $statusCode = 200;
             $response = [ "about" => [
                 'id' => (int) $about->id,

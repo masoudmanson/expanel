@@ -27,8 +27,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $gallery = Gallery::latest('updated_at')->byUser()->get();
-
+//        $gallery = Gallery::latest('updated_at')->byUser()->get();
+        $gallery = $user = Auth::user()->gallery()->latest('updated_at')->get();
         return view('pages.gallery', compact('gallery'));
     }
 
@@ -78,7 +78,6 @@ class GalleryController extends Controller
     public function show(Gallery $gallery)
     {
         if ($gallery->user_id == Auth::user()->id)
-//            dd($gallery);
             return view('gallery', compact('gallery'));
         else
             return redirect('gallery');

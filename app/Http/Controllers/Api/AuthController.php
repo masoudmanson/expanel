@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Menu;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -76,6 +77,8 @@ class AuthController extends Controller
             if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
             }
+            $id = JWTAuth::parseToken()->getPayload()->get('app_id');
+            $menu = Menu::byId($id)->get();
 
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 
@@ -92,7 +95,8 @@ class AuthController extends Controller
         }
 
         // the token is valid and we have found the user via the sub claim
-        return response()->json(compact('user'));
+        //todo : need to be custom json format
+        return response()->json(compact('user','menu'));
     }
 
     /**

@@ -21,7 +21,7 @@ class ApiGalleryController extends Controller
         try {
             $statusCode = 200;
             $response = [
-                'photos'  => []
+                'photos' => []
             ];
 
             $token = JWTAuth::getToken();
@@ -29,12 +29,12 @@ class ApiGalleryController extends Controller
 
             $gallery = Gallery::latest('updated_at')->byId($used_id)->get();
 
-            foreach($gallery as $photo){
+            foreach ($gallery as $photo) {
 
-                if($photo->image)
-                    $url = config('path.gallery_image').$used_id."/".$photo->image;
+                if ($photo->image)
+                    $url = config('path.gallery_image') . $used_id . "/" . $photo->image;
                 else
-                    $url = config('path.gallery_image').$used_id."/".$photo->video;
+                    $url = config('path.gallery_video') . $used_id . "/" . $photo->video;
                 $response['photos'][] = [
                     'id' => $photo->id,
 //                    'user_id' => $photo->user()->get(),
@@ -55,8 +55,7 @@ class ApiGalleryController extends Controller
             $statusCode = 400;
             // something went wrong whilst attempting to encode the token
 //            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-        finally{
+        } finally {
             return Response::json($response, $statusCode);
         }
 //        return response()->json([$gallery, 200]);
@@ -66,28 +65,28 @@ class ApiGalleryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Gallery  $gallery
+     * @param  Gallery $gallery
      * @return \Illuminate\Http\Response
      */
     public function show(Gallery $gallery)
     {
-        try{
+        try {
             $photo = $gallery;
             $statusCode = 200;
-            $response = [ "photo" => [
-                'id' => (int) $photo->id,
-                'user_id' => (int) $photo->user_id,
+            $response = ["photo" => [
+                'id' => (int)$photo->id,
+                'user_id' => (int)$photo->user_id,
 //                'title' => $photo->title,
 //                'url' => $photo->url,
                 'description' => $photo->description
             ]];
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $response = [
                 "error" => "File doesn`t exists"
             ];
             $statusCode = 404;
-        }finally{
+        } finally {
             return Response::json($response, $statusCode);
         }
 

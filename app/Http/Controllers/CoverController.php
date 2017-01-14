@@ -19,7 +19,7 @@ class CoverController extends Controller
      */
     public function index()
     {
-        $covers = Cover::latest('updated_at')->byUser()->get();
+        $covers = Auth::user()->cover()->latest('updated_at')->get();
 
         return view('cover', compact('covers'));
     }
