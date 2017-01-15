@@ -34,4 +34,13 @@ class Cover extends Model
     {
         $query->where('user_id','=', $id);
     }
+
+    public function scopeGallery($query)
+    {
+        $query->where('page','=','gallery');
+    }
+    public function scopePost($query)
+    {
+        $query->where('page','=','post');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Cover;
 use App\Gallery;
 use App\Http\Controllers\Controller;
 use Response;
@@ -39,13 +40,13 @@ class ApiGalleryController extends Controller
                     'id' => $photo->id,
 //                    'user_id' => $photo->user()->get(),
                     'url' => $url,
-//                    'title' => $photo->title,
                     'description' => $photo->description,
-//                    'category' => $photo->category,
                 ];
-            }
 
-//            return Response::json(compact('gallery'));
+            }
+            $cover = Cover::gallery()->byId($used_id)->latest()->first();
+            $response['cover'] = config('path.gallery_cover') . $used_id . "/" .$cover->image;
+
         } catch (Exception $e) {
 //            var_dump($e->getCode());
 //            $statusCode = $e->getCode();
