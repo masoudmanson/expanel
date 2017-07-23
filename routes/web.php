@@ -28,3 +28,6 @@ Auth::routes();
 Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
 
 Route::get('/rate', 'PagesController@rate')->name('rate');
+Route::get('/transactions', 'PagesController@transactions')->name('transactions');
+Route::get('/factors', 'PagesController@factors')->name('factors');
+Route::get('/settings', 'PagesController@settings')->name('settings');

@@ -13,79 +13,13 @@
     <!-- BEGIN CONTAINER -->
     <div class="page-container">
 
-    @include('partials.sidemenu', array('li' => 'dashboard'))
+    @include('partials.sidemenu', array('li' => 'statistic'))
 
     <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
                 <h1 class="page-title"> نرخ تبدیل ارز </h1>
-
-                <div class="row widget-row">
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد تراکنش ها</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-casablanca icon-graph"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">تراکنش</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="7,644">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">مبلغ مبادله شده</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-haze fa fa-money"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="256,800,000">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">نرخ تبدیل ارز</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="3850">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">کاربران استفاده کننده</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow icon-user"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">نفر</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="5,071">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-                </div>
 
                 <div class="row">
                     {{-- Exchage Rate Setting Form --}}
@@ -172,17 +106,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">تراکنش های بخصوص</span>
-                                </div>
-                                <div class="actions">
-                                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm active">
-                                            <input type="radio" name="options" class="toggle" id="option1">روزانه</label>
-                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" id="option2">هفتگی</label>
-                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" id="option2">ماهانه</label>
-                                    </div>
+                                    <span class="caption-helper">نرخ های اخیر</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -194,8 +118,8 @@
                                                 <div id="sparkline_bar"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها <small>(ریال)</small> </div>
-                                                <div class="number"> 25,256,000 </div>
+                                                <div class="title" style="padding-bottom: 5px"> بیشترین نرخ <small>(ریال)</small> </div>
+                                                <div class="number  font-red-haze"> 4,125 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -206,8 +130,8 @@
                                                 <div id="sparkline_bar2"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> جمع تراکنش ها </div>
-                                                <div class="number"> 719 </div>
+                                                <div class="title" style="padding-bottom: 5px"> کمترین نرخ <small>(ریال)</small> </div>
+                                                <div class="number font-blue-soft"> 3,856 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -216,38 +140,47 @@
                                     <table class="table table-hover table-light">
                                         <thead>
                                         <tr>
-                                            <th> کاربر </th>
-                                            <th> مبلغ </th>
+                                            <th> ارز </th>
                                             <th> نرخ تبدیل </th>
-                                            <th> تاریخ </th>
+                                            <th> زمان استفاده شده </th>
+                                            <th> تاریخ تنظیم </th>
+                                            <th> IP </th>
                                         </tr>
                                         </thead>
                                         <tr>
-                                            <td class="font-blue-chambray">حمیدرضا آموزگار</td>
-                                            <td class="font-red-haze bold"> $5200 </td>
-                                            <td> 3900 </td>
-                                            <td> 3 مرداد 96 </td>
+                                            <td class="font-blue-chambray">یورو €</td>
+                                            <td class="font-red-haze bold"> 4125 </td>
+                                            <td> 02:15:00 </td>
+                                            <td>3 مرداد 96 - 12:04:23</td>
+                                            <td> 172.16.1.58 </td>
                                         </tr>
-
                                         <tr>
-                                            <td class="font-blue-chambray">عماد قربانی نیا</td>
-                                            <td class="font-red-haze bold"> $3045 </td>
-                                            <td> 3867 </td>
-                                            <td> 3 مرداد 96 </td>
+                                            <td class="font-blue-chambray">یورو €</td>
+                                            <td class="font-red-haze bold"> 3985 </td>
+                                            <td> 00:15:00 </td>
+                                            <td>3 مرداد 96 - 12:04:23</td>
+                                            <td> 172.16.1.58 </td>
                                         </tr>
-
                                         <tr>
-                                            <td class="font-blue-chambray">مسعود امجدی</td>
-                                            <td class="font-red-haze bold"> $2500 </td>
-                                            <td> 3680 </td>
-                                            <td> 3 مرداد 96 </td>
+                                            <td class="font-blue-chambray">یورو €</td>
+                                            <td class="font-red-haze bold"> 4015 </td>
+                                            <td> 01:05:00 </td>
+                                            <td>3 مرداد 96 - 12:04:23</td>
+                                            <td> 172.16.3.96 </td>
                                         </tr>
-
                                         <tr>
-                                            <td class="font-blue-chambray">پوریا پهلوانی</td>
-                                            <td class="font-red-haze bold"> $1560 </td>
-                                            <td> 3998 </td>
-                                            <td> 3 مرداد 96 </td>
+                                            <td class="font-blue-chambray">یورو €</td>
+                                            <td class="font-red-haze bold"> 4200 </td>
+                                            <td> 00:10:00 </td>
+                                            <td>3 مرداد 96 - 12:04:23</td>
+                                            <td> 172.16.3.36 </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-blue-chambray">یورو €</td>
+                                            <td class="font-red-haze bold"> 3950 </td>
+                                            <td> 08:15:00 </td>
+                                            <td>3 مرداد 96 - 12:04:23</td>
+                                            <td> 172.16.1.41 </td>
                                         </tr>
                                     </table>
                                 </div>

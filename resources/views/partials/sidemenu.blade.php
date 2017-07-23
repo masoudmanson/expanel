@@ -4,7 +4,7 @@
         <!-- BEGIN SIDEBAR MENU -->
         <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <li id="dashboard-li" class="nav-item ">
-                <a href="javascript:;" class="nav-link">
+                <a href="{{ route('dashboard') }}" class="nav-link">
                     <i class="icon-home"></i>
                     <span class="title">داشبورد</span>
                     <span class="selected"></span>
@@ -15,6 +15,7 @@
                 <a href="{{ route('rate') }}" class="nav-link nav-toggle">
                     <i class="icon-shuffle"></i>
                     <span class="title">نرخ ارز</span>
+                    <span class="selected"></span>
                 </a>
             </li>
 
@@ -23,15 +24,16 @@
                     <i class="icon-note"></i>
                     <span class="title">تراکنش ها</span>
                     <span class="arrow"></span>
+                    <span class="selected"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
+                        <a href="{{ route('factors') }}" class="nav-link ">
                             <span class="title">فاکتور گیری</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
+                        <a href="{{ route('transactions') }}" class="nav-link ">
                             <span class="title">لیست تراکنش ها</span>
                         </a>
                     </li>
@@ -39,9 +41,10 @@
             </li>
 
             <li id="settings-li" class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                <a href="{{ route('settings') }}" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">تنظیمات</span>
+                    <span class="selected"></span>
                 </a>
             </li>
         </ul>
