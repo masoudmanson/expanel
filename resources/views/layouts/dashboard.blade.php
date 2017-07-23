@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="پنل کاربری اپلیکیشن شخصی رابین" name="description" />
+    <meta content="پنل صرافی" name="description" />
     <meta content="Masoud Amjadi" name="author" />
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->

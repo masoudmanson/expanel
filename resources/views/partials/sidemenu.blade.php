@@ -12,7 +12,7 @@
             </li>
 
             <li id="statistic-li" class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
+                <a href="{{ route('rate') }}" class="nav-link nav-toggle">
                     <i class="icon-shuffle"></i>
                     <span class="title">نرخ ارز</span>
                 </a>

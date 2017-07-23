@@ -26,3 +26,5 @@ Route::group(['middleware' => 'auth'], function() {
 Auth::routes();
 
 Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
+
+Route::get('/rate', 'PagesController@rate')->name('rate');
