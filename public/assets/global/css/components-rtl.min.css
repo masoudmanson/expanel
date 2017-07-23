@@ -4239,8 +4239,8 @@ li [class*=" fa-"].icon-large, li [class*=" glyphicon-"].icon-large, li [class*=
 
 .btn.yellow-gold:not(.btn-outline) {
     color: #fff;
-    background-color: #E87E04;
-    border-color: #E87E04
+    background-color: #ff9c07;
+    border-color: #ff9c07
 }
 
 .btn.yellow-gold:not(.btn-outline).focus, .btn.yellow-gold:not(.btn-outline):focus {
@@ -4266,29 +4266,29 @@ li [class*=" fa-"].icon-large, li [class*=" glyphicon-"].icon-large, li [class*=
 }
 
 .btn.yellow-gold:not(.btn-outline).disabled.focus, .btn.yellow-gold:not(.btn-outline).disabled:focus, .btn.yellow-gold:not(.btn-outline).disabled:hover, .btn.yellow-gold:not(.btn-outline)[disabled].focus, .btn.yellow-gold:not(.btn-outline)[disabled]:focus, .btn.yellow-gold:not(.btn-outline)[disabled]:hover, fieldset[disabled] .btn.yellow-gold:not(.btn-outline).focus, fieldset[disabled] .btn.yellow-gold:not(.btn-outline):focus, fieldset[disabled] .btn.yellow-gold:not(.btn-outline):hover {
-    background-color: #E87E04;
-    border-color: #E87E04
+    background-color: #ff9c07;
+    border-color: #ff9c07
 }
 
 .btn.yellow-gold:not(.btn-outline) .badge {
-    color: #E87E04;
+    color: #ff9c07;
     background-color: #fff
 }
 
 .btn.btn-outline.yellow-gold {
-    border-color: #E87E04;
-    color: #E87E04;
+    border-color: #ff9c07;
+    color: #ff9c07;
     background: 0 0
 }
 
 .btn.btn-outline.yellow-gold.active, .btn.btn-outline.yellow-gold:active, .btn.btn-outline.yellow-gold:active:focus, .btn.btn-outline.yellow-gold:active:hover, .btn.btn-outline.yellow-gold:focus, .btn.btn-outline.yellow-gold:hover {
-    border-color: #E87E04;
+    border-color: #ff9c07;
     color: #fff;
-    background-color: #E87E04
+    background-color: #ff9c07
 }
 
 .btn.yellow-gold-stripe {
-    border-right: 4px solid #E87E04 !important
+    border-right: 4px solid #ff9c07 !important
 }
 
 .btn.yellow-gold.btn-no-border:not(.active) {
@@ -6896,7 +6896,7 @@ td > .mt-checkbox.mt-checkbox-single, td > .mt-radio.mt-radio-single, th > .mt-c
 }
 
 .form-control.yellow-gold {
-    border-color: #E87E04
+    border-color: #ff9c07
 }
 
 .form-control.yellow-gold:focus {
@@ -6904,7 +6904,7 @@ td > .mt-checkbox.mt-checkbox-single, td > .mt-radio.mt-radio-single, th > .mt-c
 }
 
 .form-control.focus-yellow-gold:focus {
-    border-color: #E87E04
+    border-color: #ff9c07
 }
 
 .form-control.yellow-casablanca {
@@ -11294,7 +11294,7 @@ body[ng-controller] .modal {
 }
 
 .portlet.box.yellow-gold > .portlet-title, .portlet.yellow-gold, .portlet > .portlet-body.yellow-gold {
-    background-color: #E87E04
+    background-color: #ff9c07
 }
 
 .portlet.box.yellow > .portlet-title > .actions .btn-default > i {
@@ -12567,7 +12567,7 @@ body[ng-controller] .modal {
 }
 
 .progress-bar.yellow-gold {
-    background: #E87E04 !important;
+    background: #ff9c07 !important;
     color: #fff !important
 }
 
@@ -13960,7 +13960,7 @@ body[ng-controller] .modal {
 }
 
 .dashboard-stat.yellow-gold {
-    background-color: #E87E04
+    background-color: #ff9c07
 }
 
 .dashboard-stat.yellow-gold.dashboard-stat-light:hover {
@@ -16185,7 +16185,8 @@ body[ng-controller] .modal {
 
 .widget-thumb .widget-thumb-body .widget-thumb-body-stat {
     display: block;
-    font-size: 30px;
+    font-size: 21px;
+    padding-top: 10px;
     font-weight: 600;
     color: #3e4f5e
 }
@@ -21444,7 +21445,7 @@ body.stop-scrolling {
 }
 
 .mt-element-list .list-default.mt-list-head.yellow-gold {
-    background-color: #E87E04;
+    background-color: #ff9c07;
     color: #fff
 }
 
@@ -21462,7 +21463,7 @@ body.stop-scrolling {
 }
 
 .mt-element-list .list-todo .list-count.yellow-gold, .mt-element-list .list-todo.mt-list-head.yellow-gold {
-    background-color: #E87E04;
+    background-color: #ff9c07;
     color: #fff
 }
 
@@ -21471,20 +21472,20 @@ body.stop-scrolling {
 }
 
 .mt-element-list .list-todo .list-todo-line.yellow-gold {
-    border-color: #E87E04
+    border-color: #ff9c07
 }
 
 .mt-element-list .list-todo .list-todo-item.yellow-gold:after {
-    border-left-color: #E87E04 !important
+    border-left-color: #ff9c07 !important
 }
 
 .mt-element-list .list-todo .list-todo-item.yellow-gold .list-toggle {
-    background: #E87E04;
+    background: #ff9c07;
     color: #fff !important
 }
 
 .mt-element-list .list-todo .list-todo-item.yellow-gold .list-toggle > .badge {
-    color: #E87E04;
+    color: #ff9c07;
     background: #fff
 }
 
@@ -22545,11 +22546,11 @@ body.stop-scrolling {
 }
 
 .mt-element-list .list-todo-item.yellow-gold:after {
-    border-left-color: #E87E04
+    border-left-color: #ff9c07
 }
 
 .mt-element-list .list-todo-item.yellow-gold .list-toggle {
-    background: #E87E04
+    background: #ff9c07
 }
 
 .mt-element-list .list-todo-item.yellow-casablanca:after {
@@ -25423,27 +25424,27 @@ body.stop-scrolling {
 }
 
 .border-after-yellow-gold:after, .border-before-yellow-gold:before, .border-yellow-gold {
-    border-color: #E87E04 !important
+    border-color: #ff9c07 !important
 }
 
 .border-top-after-yellow-gold:after, .border-top-before-yellow-gold:before, .border-top-yellow-gold {
-    border-top-color: #E87E04 !important
+    border-top-color: #ff9c07 !important
 }
 
 .border-bottom-after-yellow-gold:after, .border-bottom-before-yellow-gold:before, .border-bottom-yellow-gold {
-    border-bottom-color: #E87E04 !important
+    border-bottom-color: #ff9c07 !important
 }
 
 .border-left-after-yellow-gold:after, .border-left-before-yellow-gold:before, .border-left-yellow-gold {
-    border-right-color: #E87E04 !important
+    border-right-color: #ff9c07 !important
 }
 
 .border-right-after-yellow-gold:after, .border-right-before-yellow-gold:before, .border-right-yellow-gold {
-    border-left-color: #E87E04 !important
+    border-left-color: #ff9c07 !important
 }
 
 .bg-yellow-gold {
-    background: #E87E04 !important
+    background: #ff9c07 !important
 }
 
 .bg-yellow-gold-opacity {
@@ -25451,11 +25452,11 @@ body.stop-scrolling {
 }
 
 .bg-after-yellow-gold:after, .bg-before-yellow-gold:before, .bg-hover-yellow-gold:hover {
-    background: #E87E04 !important
+    background: #ff9c07 !important
 }
 
 .font-yellow-gold {
-    color: #E87E04 !important
+    color: #ff9c07 !important
 }
 
 .bg-font-yellow-gold {

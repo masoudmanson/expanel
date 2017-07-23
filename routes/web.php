@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::group(['middleware' => 'auth'], function() {
@@ -26,7 +26,3 @@ Route::group(['middleware' => 'auth'], function() {
 Auth::routes();
 
 Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
-
-//Route::group(['middleware' => ['auth']], function() {
-//    Route::get('/home', 'HomeController@index')
-//});

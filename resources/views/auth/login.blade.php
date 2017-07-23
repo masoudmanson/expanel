@@ -1,72 +1,3 @@
-{{--@extends('layouts.app')--}}
-
-{{--@section('content')--}}
-{{--<div class="container">--}}
-    {{--<div class="row">--}}
-        {{--<div class="col-md-8 col-md-offset-2">--}}
-            {{--<div class="panel panel-default">--}}
-                {{--<div class="panel-heading">Login</div>--}}
-                {{--<div class="panel-body">--}}
-                    {{--<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">--}}
-                        {{--{{ csrf_field() }}--}}
-
-                        {{--<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">--}}
-                            {{--<label for="email" class="col-md-4 control-label">E-Mail Address</label>--}}
-
-                            {{--<div class="col-md-6">--}}
-                                {{--<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>--}}
-
-                                {{--@if ($errors->has('email'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('email') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">--}}
-                            {{--<label for="password" class="col-md-4 control-label">Password</label>--}}
-
-                            {{--<div class="col-md-6">--}}
-                                {{--<input id="password" type="password" class="form-control" name="password" required>--}}
-
-                                {{--@if ($errors->has('password'))--}}
-                                    {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('password') }}</strong>--}}
-                                    {{--</span>--}}
-                                {{--@endif--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<div class="col-md-6 col-md-offset-4">--}}
-                                {{--<div class="checkbox">--}}
-                                    {{--<label>--}}
-                                        {{--<input type="checkbox" name="remember"> Remember Me--}}
-                                    {{--</label>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<div class="form-group">--}}
-                            {{--<div class="col-md-8 col-md-offset-4">--}}
-                                {{--<button type="submit" class="btn btn-primary">--}}
-                                    {{--Login--}}
-                                {{--</button>--}}
-
-                                {{--<a class="btn btn-link" href="{{ url('/password/reset') }}">--}}
-                                    {{--Forgot Your Password?--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--@endsection--}}
-
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -152,7 +83,7 @@
                             <div class="forgot-password">
                                 <a href="javascript:;" id="forget-password" class="forget-password">رمز عبورتان را فراموش کرده اید؟</a>
                             </div>
-                            <button class="btn yellow" type="submit">ورود</button>
+                            <button class="btn yellow-gold" type="submit">ورود</button>
                         </div>
                     </div>
                 </form>
@@ -165,8 +96,8 @@
                         <input class="form-control form-control-solid placeholder-no-fix form-group" id="email" placeholder="پست الکترونیکی" type="email" name="email" value="{{ old('email') }}" required/>
                     </div>
                     <div class="form-actions">
-                        <button type="button" id="back-btn" class="btn yellow btn-outline">بازگشت</button>
-                        <button type="submit" class="btn yellow uppercase pull-right">ارسال</button>
+                        <button type="button" id="back-btn" class="btn yellow-gold btn-outline">بازگشت</button>
+                        <button type="submit" class="btn yellow-gold uppercase pull-right">ارسال</button>
                     </div>
                 </form>
                 <!-- END FORGOT PASSWORD FORM -->
@@ -176,17 +107,12 @@
                     <div class="col-xs-5 bs-reset">
                         <ul class="login-social">
                             <li>
-                                <a href="javascript:;" title="فیسبوک رابین">
-                                    <i class="icon-social-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" title="توییتر رابین">
+                                <a href="https://twitter.com/Fanex_fanap" target="_blank" title="توییتر FANEx">
                                     <i class="icon-social-twitter"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:;" title="تلگرام رابین">
+                                <a href="https://t.me/fanex_fanap" target="_blank" title="تلگرام FANEx">
                                     <i class="icon-paper-plane"></i>
                                 </a>
                             </li>
@@ -195,7 +121,7 @@
                     </div>
                     <div class="col-xs-7 bs-reset">
                         <div class="login-copyright text-right">
-                            <p>Copyright &copy; Rabin {{ Carbon\Carbon::now()->year }}</p>
+                            <p>Copyright &copy; FANEx {{ Carbon\Carbon::now()->year }}</p>
                         </div>
                     </div>
                 </div>
@@ -229,10 +155,6 @@
 <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/backstretch/jquery.backstretch.min.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
-
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-{{--<script src="{{ asset('assets/global/scripts/app.min.js') }}" type="text/javascript"></script>--}}
-<!-- END THEME GLOBAL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/pages/scripts/login-5.min.js') }}" type="text/javascript"></script>

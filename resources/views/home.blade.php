@@ -1,114 +1,21 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    پنل کاربری اپلیکیشن شخصی رابین
+    پنل صرافی
 @endsection
 
 @section('content')
 
-    <!-- BEGIN HEADER -->
-    <div class="page-header navbar navbar-fixed-top">
-        <!-- BEGIN HEADER INNER -->
-        <div class="page-header-inner ">
-            <!-- BEGIN LOGO -->
-            <div class="page-logo bg-yellow">
-                <a href="{{ route('dashboard') }}">
-                    <img src="{{ asset('imgs/logo-white.png') }}" alt="logo" class="logo-default" />
-                </a>
-            </div>
-            <!-- END LOGO -->
+    @include('partials.header')
 
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-            <!-- END RESPONSIVE MENU TOGGLER -->
-
-            <!-- BEGIN PAGE ACTIONS -->
-            <div class="page-actions">
-                <div class="btn-group">
-                    <button type="button" id="add_new_btn" class="btn btn-circle btn-outline yellow dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-plus"></i>&nbsp;
-                        <span class="hidden-sm hidden-xs">افزودن&nbsp;</span>&nbsp;
-                        <i class="fa fa-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-docs"></i> پست جدید </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-picture"></i> عکس جدید </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="icon-camcorder"></i> ویدیو جدید </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- END PAGE ACTIONS -->
-
-            <!-- BEGIN PAGE TOP -->
-            <div class="page-top">
-
-                <!-- BEGIN TOP NAVIGATION MENU -->
-                <div class="top-menu">
-                    <ul class="nav navbar-nav pull-right">
-                        <!-- BEGIN USER LOGIN DROPDOWN -->
-                        <li class="dropdown dropdown-user dropdown-dark">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img alt="" class="img-circle" src="{{ asset('imgs/avatar.png') }}" />
-                                <span class="username username-hide-on-mobile"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} </span>
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i> پروفایل من </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-calendar"></i> تقویم </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-envelope-open"></i> نامه ها
-                                        <span class="badge badge-danger"> 3 </span>
-                                    </a>
-                                </li>
-                                <li class="divider"> </li>
-                                <li style="margin-bottom: 10px">
-                                    @if(!Auth::guest())
-                                        <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <i class="icon-logout"></i> خروج
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    @endif
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- END USER LOGIN DROPDOWN -->
-                    </ul>
-                </div>
-                <!-- END TOP NAVIGATION MENU -->
-            </div>
-            <!-- END PAGE TOP -->
-        </div>
-        <!-- END HEADER INNER -->
-    </div>
-    <!-- END HEADER -->
-
-    <div class="clearfix"> </div>
+    <div class="clearfix"></div>
 
     <!-- BEGIN CONTAINER -->
     <div class="page-container">
 
-        @include('partials.sidemenu', array('li' => 'dashboard'))
+    @include('partials.sidemenu', array('li' => 'dashboard'))
 
-        <!-- BEGIN CONTENT -->
+    <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
@@ -118,12 +25,13 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد دانلودها</h4>
+                            <h4 class="widget-thumb-heading">تعداد تراکنش ها</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-casablanca icon-graph"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">نفر</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">0</span>
+                                    <span class="widget-thumb-subtitle">تراکنش</span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                          data-value="7,644">0</span>
                                 </div>
                             </div>
                         </div>
@@ -133,12 +41,13 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">کل پست ها</h4>
+                            <h4 class="widget-thumb-heading">مبلغ مبادله شده</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-haze icon-layers"></i>
+                                <i class="widget-thumb-icon bg-yellow-haze fa fa-money"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">پست</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="24">0</span>
+                                    <span class="widget-thumb-subtitle">ریال</span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                          data-value="256,800,000">0</span>
                                 </div>
                             </div>
                         </div>
@@ -148,12 +57,13 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">کل نظرات</h4>
+                            <h4 class="widget-thumb-heading">نرخ تبدیل ارز</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-lemon icon-speech"></i>
+                                <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">نظر</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="666">0</span>
+                                    <span class="widget-thumb-subtitle">ریال</span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                          data-value="3850">0</span>
                                 </div>
                             </div>
                         </div>
@@ -163,17 +73,178 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">بازدیدها</h4>
+                            <h4 class="widget-thumb-heading">کاربران استفاده کننده</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow icon-eye"></i>
+                                <i class="widget-thumb-icon bg-yellow icon-user"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">نفر</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">0</span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                          data-value="5,071">0</span>
                                 </div>
                             </div>
                         </div>
                         <!-- END WIDGET THUMB -->
                     </div>
+                </div>
+
+                <div class="row">
+                    {{-- Exchage Rate Setting Form --}}
+                    <div class="col-md-6 ">
+                        <!-- BEGIN Portlet PORTLET-->
+                        <div class="portlet light exchange-rate">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption">
+                                    <i class="icon-shuffle font-yellow-crusta"></i>
+                                    <span class="caption-subject bold font-yellow-crusta uppercase"> تنظیم نرخ تبدیل ارز </span>
+                                </div>
+                                <ul class="nav nav-tabs">
+                                    {{--<li>--}}
+                                        {{--<a href="#portlet_tab2" data-toggle="tab"> لیر ترکیه ₺ </a>--}}
+                                    {{--</li>--}}
+                                    <li class="active">
+                                        <a href="#portlet_tab1" data-toggle="tab"> یورو € </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p>زمان کنونی: </p>
+                                            <div id="server-time">بارگزاری ...</div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="tab-pane active" id="portlet_tab1">
+                                        <div>
+                                            <h4>تنظیم نرخ تبدیل <b>یورو €</b> به <b>ریال</b></h4>
+                                            <br>
+                                            <form role="form">
+                                                <div class="form-body">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control input-lg" placeholder="نرخ تبدیل ارز">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-actions right">
+                                                    <button type="button" class="btn default">انصراف</button>
+                                                    <button type="submit" class="btn yellow-crusta">تنظیم</button>
+                                                </div>
+                                                <br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {{--<div class="tab-pane" id="portlet_tab2">--}}
+                                        {{--<div>--}}
+                                            {{--<h4>تنظیم نرخ تبدیل <b>لیر ترکیه ₺</b> به <b>ریال</b></h4>--}}
+                                            {{--<br>--}}
+                                            {{--<form role="form">--}}
+                                                {{--<div class="form-body">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<input type="text" class="form-control input-lg" placeholder="نرخ تبدیل ارز">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+
+                                                {{--<div class="form-actions right">--}}
+                                                    {{--<button type="button" class="btn default">انصراف</button>--}}
+                                                    {{--<button type="submit" class="btn yellow-crusta">تنظیم</button>--}}
+                                                {{--</div>--}}
+                                                {{--<br>--}}
+                                            {{--</form>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Top Transactions List --}}
+                    <div class="col-lg-6 col-xs-12 col-sm-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption caption-md">
+                                    <i class="icon-bar-chart font-yellow-casablanca"></i>
+                                    <span class="caption-subject font-yellow-casablanca bold">لیست</span>
+                                    <span class="caption-helper">تراکنش های بخصوص</span>
+                                </div>
+                                <div class="actions">
+                                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm active">
+                                            <input type="radio" name="options" class="toggle" id="option1">روزانه</label>
+                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
+                                            <input type="radio" name="options" class="toggle" id="option2">هفتگی</label>
+                                        <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
+                                            <input type="radio" name="options" class="toggle" id="option2">ماهانه</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row number-stats margin-bottom-30">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="stat-left">
+                                            <div class="stat-chart">
+                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                <div id="sparkline_bar"></div>
+                                            </div>
+                                            <div class="stat-number">
+                                                <div class="title" style="margin-bottom: 5px"> جمع پرداختی <small>(ریال)</small> </div>
+                                                <div class="number"> 25,256,000 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="stat-right">
+                                            <div class="stat-chart">
+                                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
+                                                <div id="sparkline_bar2"></div>
+                                            </div>
+                                            <div class="stat-number">
+                                                <div class="title" style="margin-bottom: 5px"> تراکنش جدید </div>
+                                                <div class="number"> 719 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable table-scrollable-borderless">
+                                    <table class="table table-hover table-light">
+                                        <thead>
+                                        <tr>
+                                            <th> کاربر </th>
+                                            <th> مبلغ </th>
+                                            <th> نرخ تبدیل </th>
+                                        </tr>
+                                        </thead>
+                                        <tr>
+                                            <td class="font-blue-chambray">حمیدرضا آموزگار</td>
+                                            <td class="font-red-haze bold"> $5200 </td>
+                                            <td> 3900 </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="font-blue-chambray">عماد قربانی نیا</td>
+                                            <td class="font-red-haze bold"> $3045 </td>
+                                            <td> 3867 </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="font-blue-chambray">مسعود امجدی</td>
+                                            <td class="font-red-haze bold"> $2500 </td>
+                                            <td> 3680 </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="font-blue-chambray">پوریا پهلوانی</td>
+                                            <td class="font-red-haze bold"> $1560 </td>
+                                            <td> 3998 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- END CONTENT BODY -->
@@ -181,5 +252,25 @@
         <!-- END CONTENT -->
     </div>
     <!-- END CONTAINER -->
+@endsection
 
+@section('scripts')
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            $('#server-time').text(h + ":" + m + ":" + s);
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }
+            return i;
+        }
+    </script>
 @endsection

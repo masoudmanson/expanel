@@ -41,13 +41,13 @@
 </head>
 <!-- END HEAD -->
 
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid"  onload="startTime()">
 
     @yield('content')
 
     <!-- BEGIN FOOTER -->
     <div class="page-footer">
-        <div class="page-footer-inner"> {{ Carbon\Carbon::now()->year }} &copy; Rabin
+        <div class="page-footer-inner"> {{ Carbon\Carbon::now()->year }} &copy; FANEx
            <div class="scroll-to-top">
                 <i class="icon-arrow-up"></i>
             </div>
@@ -88,5 +88,6 @@
     <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+    @yield('scripts')
 </body>
 </html>

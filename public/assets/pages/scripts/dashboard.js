@@ -1371,21 +1371,21 @@ var Dashboard = function() {
 
         init: function() {
 
-            this.initJQVMAP();
-            this.initCalendar();
-            this.initCharts();
-            this.initEasyPieCharts();
-            this.initSparklineCharts();
-            this.initChat();
+            // this.initJQVMAP();
+            // this.initCalendar();
+            // this.initCharts();
+            // this.initEasyPieCharts();
+            // this.initSparklineCharts();
+            // this.initChat();
             this.initDashboardDaterange();
-            this.initMorisCharts();
+            // this.initMorisCharts();
 
-            this.initAmChart1();
-            this.initAmChart2();
-            this.initAmChart3();
-            this.initAmChart4();
+            // this.initAmChart1();
+            // this.initAmChart2();
+            // this.initAmChart3();
+            // this.initAmChart4();
 
-            this.initWorldMapStats();
+            // this.initWorldMapStats();
         }
     };
 
