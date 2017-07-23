@@ -13,70 +13,26 @@
 
             <li id="statistic-li" class="nav-item">
                 <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-bar-chart"></i>
-                    <span class="title">آمار</span>
-                    <span class="arrow"></span>
+                    <i class="icon-shuffle"></i>
+                    <span class="title">نرخ ارز</span>
                 </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">آمار دانلود ها</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">آمار پست ها</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
 
             <li id="posts-li" class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-note"></i>
-                    <span class="title">پست ها</span>
+                    <span class="title">تراکنش ها</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
                         <a href="#" class="nav-link ">
-                            <span class="title">ارسال پست جدید</span>
+                            <span class="title">فاکتور گیری</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
                         <a href="#" class="nav-link ">
-                            <span class="title">لیست پست ها</span>
-                            <span class="badge badge-danger">2</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li id="gallery-li" class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-picture"></i>
-                    <span class="title">گالری</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">ارسال عکس</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">ارسال فیلم</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">ارسال صدا</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <span class="title">لیست گالری</span>
+                            <span class="title">لیست تراکنش ها</span>
                         </a>
                     </li>
                 </ul>
@@ -86,7 +42,6 @@
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">تنظیمات</span>
-                    <span class="arrow"></span>
                 </a>
             </li>
         </ul>

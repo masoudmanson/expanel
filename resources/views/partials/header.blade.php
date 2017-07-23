@@ -18,7 +18,7 @@
         <div class="page-actions">
             <div class="btn-group">
                 <button id="add_new_btn" class="btn btn-circle btn-outline">
-                    <span class="hidden-sm hidden-xs">پنل صرافی پاسارگاد</span>
+                    <span class="hidden-sm hidden-xs">صرافی پاسارگاد</span>
                 </button>
             </div>
         </div>

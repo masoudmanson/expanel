@@ -41,7 +41,7 @@
 </head>
 <!-- END HEAD -->
 
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid"  onload="startTime()">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid"  onload="startTime()" >
 
     @yield('content')
 

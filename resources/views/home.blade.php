@@ -61,7 +61,7 @@
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">ریال</span>
+                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="3850">0</span>
                                 </div>
@@ -110,9 +110,14 @@
                                 <div class="tab-content">
 
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p>زمان کنونی: </p>
-                                            <div id="server-time">بارگزاری ...</div>
+                                        <div class="col-xs-6 exchange-cols">
+                                            <p>زمان کنونی سرور: </p>
+                                            <div id="server-time" class="font-grey-silver">بارگزاری ... </div>
+                                        </div>
+
+                                        <div class="col-xs-6  exchange-cols">
+                                            <p>نرخ کنونی ارز: </p>
+                                            <div class="font-yellow-gold">3850</div>
                                         </div>
                                     </div>
                                     <br>
@@ -189,7 +194,7 @@
                                                 <div id="sparkline_bar"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="margin-bottom: 5px"> جمع پرداختی <small>(ریال)</small> </div>
+                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها <small>(ریال)</small> </div>
                                                 <div class="number"> 25,256,000 </div>
                                             </div>
                                         </div>
@@ -201,7 +206,7 @@
                                                 <div id="sparkline_bar2"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="margin-bottom: 5px"> تراکنش جدید </div>
+                                                <div class="title" style="padding-bottom: 5px"> جمع تراکنش ها </div>
                                                 <div class="number"> 719 </div>
                                             </div>
                                         </div>
@@ -214,30 +219,35 @@
                                             <th> کاربر </th>
                                             <th> مبلغ </th>
                                             <th> نرخ تبدیل </th>
+                                            <th> تاریخ </th>
                                         </tr>
                                         </thead>
                                         <tr>
                                             <td class="font-blue-chambray">حمیدرضا آموزگار</td>
                                             <td class="font-red-haze bold"> $5200 </td>
                                             <td> 3900 </td>
+                                            <td> 3 مرداد 96 </td>
                                         </tr>
 
                                         <tr>
                                             <td class="font-blue-chambray">عماد قربانی نیا</td>
                                             <td class="font-red-haze bold"> $3045 </td>
                                             <td> 3867 </td>
+                                            <td> 3 مرداد 96 </td>
                                         </tr>
 
                                         <tr>
                                             <td class="font-blue-chambray">مسعود امجدی</td>
                                             <td class="font-red-haze bold"> $2500 </td>
                                             <td> 3680 </td>
+                                            <td> 3 مرداد 96 </td>
                                         </tr>
 
                                         <tr>
                                             <td class="font-blue-chambray">پوریا پهلوانی</td>
                                             <td class="font-red-haze bold"> $1560 </td>
                                             <td> 3998 </td>
+                                            <td> 3 مرداد 96 </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -256,15 +266,22 @@
 
 @section('scripts')
     <script>
+        var serverTime = {{ time()*1000 }};
+        console.log(serverTime);
+        var localtime = +Date.now();
+        console.log(localtime);
+        var diff = serverTime - localtime;
+        console.log(diff);
+
         function startTime() {
-            var today = new Date();
+            var today = new Date(+Date.now() + diff);
             var h = today.getHours();
             var m = today.getMinutes();
             var s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
             $('#server-time').text(h + ":" + m + ":" + s);
-            var t = setTimeout(startTime, 500);
+            var t = setTimeout(startTime, 1000);
         }
         function checkTime(i) {
             if (i < 10) {

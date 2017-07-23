@@ -504,13 +504,15 @@ body.page-boxed {
     position: relative;
 }
 
-#server-time {
-    font-size: 42px;
+.exchange-cols {
     text-align: center;
-    color: #ff9c07;
-    font-weight: 600;
 }
 
+.exchange-cols div {
+    font-size: 36px;
+    text-align: center;
+    font-weight: 600;
+}
 .exchange-rate h4 {
     color: #666666;
 }
