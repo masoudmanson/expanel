@@ -34,7 +34,7 @@
                     <li class="dropdown dropdown-user dropdown-dark">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="{{ asset('imgs/avatar.png') }}" />
-                            <span class="username username-hide-on-mobile"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} </span>
+                            <span class="username username-hide-on-mobile"> {{ Auth::user()->exchanger_name.' '.Auth::user()->username }} </span> {{--todo:--}}
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
