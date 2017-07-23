@@ -89,7 +89,7 @@
 
                 <div class="row">
                     {{-- Exchage Rate Setting Form --}}
-                    <div class="col-md-6 ">
+                    <div class="col-lg-6 col-xs-12 col-sm-12">
                         <!-- BEGIN Portlet PORTLET-->
                         <div class="portlet light exchange-rate">
                             <div class="portlet-title tabbable-line">

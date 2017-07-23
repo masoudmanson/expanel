@@ -14,18 +14,18 @@
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
         <!-- END RESPONSIVE MENU TOGGLER -->
 
-        <!-- BEGIN PAGE ACTIONS -->
-        <div class="page-actions">
-            <div class="btn-group">
-                <button id="add_new_btn" class="btn btn-circle btn-outline">
-                    <span class="hidden-sm hidden-xs">صرافی پاسارگاد</span>
-                </button>
-            </div>
-        </div>
-        <!-- END PAGE ACTIONS -->
-
         <!-- BEGIN PAGE TOP -->
         <div class="page-top">
+
+            <!-- BEGIN PAGE ACTIONS -->
+            <div class="page-actions">
+                <div class="btn-group">
+                    <button id="add_new_btn" class="btn btn-circle btn-outline">
+                        <span>صرافی پاسارگاد</span>
+                    </button>
+                </div>
+            </div>
+            <!-- END PAGE ACTIONS -->
 
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
