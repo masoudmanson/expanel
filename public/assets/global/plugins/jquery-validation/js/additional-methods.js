@@ -317,7 +317,7 @@ $.validator.addMethod("creditcardtypes", function(value, element, param) {
 }, "Please enter a valid credit card number.");
 
 /**
- * Validates currencies with any given symbols by @jameslouiz
+ * Validates currency with any given symbols by @jameslouiz
  * Symbols can be optional or required. Symbols required by default
  *
  * Usage examples:

@@ -26,19 +26,20 @@ class Exchanger extends Authenticatable
 
     protected $table = 'exchangers';
 
-    public function scopeFindByUserId($query,$userId)
+//    public function scopeFindByUserId($query,$userId)
+//    {
+//        return $query->where('userId', $userId);
+//    }
+
+    public function rates()
     {
-        return $query->where('userId', $userId);
+        return $this->hasMany('App\Rate','exchanger_id')->orderBy('id', 'DESC');
     }
 
-    public function beneficiary()
-    {
-        return $this->hasMany('App\Beneficiary');
-    }
-
-    public function transaction()
-    {
-        return $this->hasMany('App\Transaction')->orderBy('id', 'DESC');
-    }
+//    public function currencies()
+//    {
+//        return $this->hasMany('App\Currency');
+////            ->orderBy('id', 'DESC');
+//    }
 
 }

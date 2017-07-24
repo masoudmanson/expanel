@@ -19,19 +19,20 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('/post', 'PostsController');
-    Route::resource('/gallery', 'GalleryController');
-    Route::resource('/about', 'AboutController');
-    Route::resource('/cover', 'CoverController');
-    Route::resource('/client', 'ClientController');
+//    Route::resource('/post', 'PostsController');
+//    Route::resource('/gallery', 'GalleryController');
+//    Route::resource('/about', 'AboutController');
+//    Route::resource('/cover', 'CoverController');
+//    Route::resource('/client', 'ClientController');
 });
 
 Auth::routes();
 
 Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
 
-Route::get('/rate', 'PagesController@rate')->name('rate');
+//Route::get('/rates', 'PagesController@rate')->name('rates');
 Route::get('/transactions', 'PagesController@transactions')->name('transactions');
 Route::get('/history', 'PagesController@history')->name('history');
 Route::get('/factors', 'PagesController@factors')->name('factors');
 Route::get('/settings', 'PagesController@settings')->name('settings');
+Route::resource('/rates' , 'RateController');
