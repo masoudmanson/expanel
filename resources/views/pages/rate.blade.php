@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    پنل صرافی
+    پنل صرافی | تنظیم نرخ ارز
 @endsection
 
 @section('content')

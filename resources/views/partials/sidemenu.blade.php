@@ -19,7 +19,7 @@
                 </a>
             </li>
 
-            <li id="posts-li" class="nav-item  ">
+            <li id="transactions-li" class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-note"></i>
                     <span class="title">تراکنش ها</span>
@@ -28,13 +28,18 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ route('factors') }}" class="nav-link ">
-                            <span class="title">فاکتور گیری</span>
+                        <a href="{{ route('transactions') }}" class="nav-link ">
+                            <span class="title">تراکنش های امروز</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="{{ route('transactions') }}" class="nav-link ">
-                            <span class="title">لیست تراکنش ها</span>
+                        <a href="{{ route('factors') }}" class="nav-link ">
+                            <span class="title">تراکنش های فاکتور شده</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ route('history') }}" class="nav-link ">
+                            <span class="title">تاریخچه ی تراکنش ها</span>
                         </a>
                     </li>
                 </ul>

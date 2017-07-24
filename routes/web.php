@@ -32,5 +32,6 @@ Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->mi
 
 Route::get('/rate', 'PagesController@rate')->name('rate');
 Route::get('/transactions', 'PagesController@transactions')->name('transactions');
+Route::get('/history', 'PagesController@history')->name('history');
 Route::get('/factors', 'PagesController@factors')->name('factors');
 Route::get('/settings', 'PagesController@settings')->name('settings');

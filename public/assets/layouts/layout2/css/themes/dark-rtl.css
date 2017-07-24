@@ -204,6 +204,14 @@
     color: #7f96ac;
 }
 
+.table .btn {
+    line-height: 15px;
+}
+
+.btn i {
+    vertical-align: middle !important;
+}
+
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
 .page-sidebar {
     background-color: #333333;
