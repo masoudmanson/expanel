@@ -126,10 +126,12 @@
                                         <div>
                                             <h4>تنظیم نرخ تبدیل <b>یورو €</b> به <b>ریال</b></h4>
                                             <br>
-                                            <form role="form">
+                                            <form role="form" action="/rates" method="post">
+                                                {{ csrf_field() }}
                                                 <div class="form-body">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control input-lg" placeholder="نرخ تبدیل ارز">
+                                                        <input type="number" name="rate" class="form-control input-lg" placeholder="نرخ تبدیل ارز">
+                                                        <input type="hidden" name="currency_id" value="1" class="form-control input-lg" placeholder="نرخ تبدیل ارز">
                                                     </div>
                                                 </div>
 
