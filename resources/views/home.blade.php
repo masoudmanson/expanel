@@ -63,7 +63,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">یورو به ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="3850">0</span>
+                                          data-value="{{$top_widget['my_last_rate']}}">0</span>
                                 </div>
                             </div>
                         </div>
