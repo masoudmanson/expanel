@@ -28,8 +28,7 @@ class HomeController extends Controller
     {
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
-//        $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
-        $top_widget['transactions_sum'] = Transaction::filterBank('canceled')->filterFanex('rejected')->filterUpt('failed')->sum('payment_amount');
+        $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
         //todo : /nzh/biz/getFollowers , count
 
         $exchanger = Auth::user();
@@ -38,8 +37,7 @@ class HomeController extends Controller
 
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
 
-        $special_trans = Transaction::topTen($per)->get();
-//        $special_trans = Transaction::filterBank('canceled')->topTen($per)->get();
+        $special_trans = Transaction::filterBank('successful')->topTen($per)->get();
 
         return view('home', compact('top_widget', 'special_trans'));
     }

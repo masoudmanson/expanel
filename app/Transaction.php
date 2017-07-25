@@ -63,8 +63,8 @@ class Transaction extends Model
     {
         switch ($per) {
             case 'daily':
-//                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURRENT_DATE'))
-                $query->where(DB::raw("TO_CHAR(payment_date, 'DD-MON-YY')"), '=', DB::raw('CURRENT_DATE'))
+                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
+//                $query->where(DB::raw("TO_CHAR(payment_date, 'DD-MON-YY')"), '=', DB::raw('CURRENT_DATE'))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
 
