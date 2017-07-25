@@ -37,7 +37,7 @@ class HomeController extends Controller
 
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
 
-        $special_trans = Transaction::filterBank('successful')->topTen($per)->withUsers()->get();
+        $special_trans = Transaction::joinUsers()->filterBank('successful')->topTen($per)->get();
 
         return view('home', compact('top_widget', 'special_trans'));
     }

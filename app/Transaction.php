@@ -34,6 +34,11 @@ class Transaction extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
+
     public function beneficiary()
     {
         return $this->belongsTo('App\Beneficiary');
@@ -59,9 +64,10 @@ class Transaction extends Model
         return $query->where('upt_status', $filter);
     }
 
-    public function scopeWithUsers($query)
+    public function scopeJoinUsers($query)
     {
-        return $query->where('transaction.user_id', '=', 'users.id');
+        return $query->select("transactions.*", "users.firstname", "users.lastname")
+            ->join('users', 'transactions.user_id', '=', 'users.id');
     }
 
     public function scopeTopTen($query, $per)
