@@ -16,21 +16,19 @@
     </div>
     <div class="portlet-body">
         <div class="tab-content">
-
-            <div class="row">
-                <div class="col-xs-6 exchange-cols">
-                    <p>زمان کنونی سرور: </p>
-                    <div id="server-time" class="font-grey-silver">بارگزاری ... </div>
-                </div>
-
-                <div class="col-xs-6  exchange-cols">
-                    <p>نرخ کنونی ارز: </p>
-                    <div class="font-yellow-gold">{{$top_widget['my_last_rate']}}</div>
-                </div>
-            </div>
-            <br>
-
             <div class="tab-pane active" id="portlet_tab1">
+                <div class="row">
+                    <div class="col-xs-6 exchange-cols">
+                        <p>زمان کنونی سرور: </p>
+                        <div class="font-grey-silver server-time">بارگزاری ... </div>
+                    </div>
+
+                    <div class="col-xs-6  exchange-cols">
+                        <p>نرخ کنونی یورو: </p>
+                        <div class="font-yellow-gold">{{ number_format($top_widget['euro_last_rate']) }} <small>ریال</small></div>
+                    </div>
+                </div>
+                <br>
                 <div>
                     <h4>تنظیم نرخ تبدیل <b>یورو €</b> به <b>ریال</b></h4>
                     <br>
@@ -39,6 +37,18 @@
                 </div>
             </div>
             <div class="tab-pane" id="portlet_tab2">
+                <div class="row">
+                    <div class="col-xs-6 exchange-cols">
+                        <p>زمان کنونی سرور: </p>
+                        <div class="font-grey-silver server-time">بارگزاری ... </div>
+                    </div>
+
+                    <div class="col-xs-6  exchange-cols">
+                        <p>نرخ کنونی لیره: </p>
+                        <div class="font-yellow-gold">{{ number_format($top_widget['lira_last_rate']) }} <small>ریال</small></div>
+                    </div>
+                </div>
+                <br>
                 <div>
                     <h4>تنظیم نرخ تبدیل <b>لیر ترکیه ₺</b> به <b>ریال</b></h4>
                     <br>

@@ -63,7 +63,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">یورو به ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="{{$top_widget['my_last_rate']}}">0</span>
+                                          data-value="{{ number_format($top_widget['euro_last_rate']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">نفر</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="5,071">0</span>
+                                          data-value="{{ number_format($top_widget['users_count']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                                 <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها
                                                     <small>(ریال)</small>
                                                 </div>
-                                                <div class="number"> 25,256,000</div>
+                                                <div class="number">{{ number_format($today['sum']) }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -137,13 +137,13 @@
                                             </div>
                                             <div class="stat-number">
                                                 <div class="title" style="padding-bottom: 5px"> تعداد تراکنش ها</div>
-                                                <div class="number"> 719</div>
+                                                <div class="number">{{ number_format($today['count']) }}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    @if(count($special_trans) > 0)
+                                    @if(count($today['special']) > 0)
                                         <table class="table table-hover table-light">
                                             <thead>
                                             <tr>
@@ -153,11 +153,11 @@
                                                 <th> تاریخ</th>
                                             </tr>
                                             </thead>
-                                            @foreach($special_trans as $special_tran)
+                                            @foreach($today['special'] as $special_tran)
                                                 <tr>
                                                     <td class="font-blue-chambray">{{ $special_tran->firstname . ' ' . $special_tran->lastname }}</td>
-                                                    <td class="font-red-haze bold">{{ $special_tran->premium_amount . ' ' . $special_tran->currency }}</td>
-                                                    <td>{{ $special_tran->exchange_rate }}</td>
+                                                    <td class="font-red-haze bold">{{ number_format($special_tran->premium_amount) . ' ' . $special_tran->currency }}</td>
+                                                    <td>{{ number_format($special_tran->exchange_rate) }} ریال</td>
                                                     <td>{{ jdate($special_tran->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 </tr>
                                             @endforeach
@@ -195,7 +195,7 @@
             var s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
-            $('#server-time').text(h + ":" + m + ":" + s);
+            $('.server-time').text(h + ":" + m + ":" + s);
             var t = setTimeout(startTime, 1000);
         }
         function checkTime(i) {

@@ -20,6 +20,11 @@ class Rate extends Model
         return $this->belongsTo('App\Currency','currency_id');
     }
 
+    public function scopeCurrency($query, $currency)
+    {
+        return $query->where('currency_id', $currency);
+    }
+
     public function scopeLast($query)
     {
         return $query->orderBy('id', 'DESC')->first();

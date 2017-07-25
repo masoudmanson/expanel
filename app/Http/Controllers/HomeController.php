@@ -29,16 +29,22 @@ class HomeController extends Controller
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
+        $top_widget['users_count'] = Transaction::filterBank('successful')->distinct('user_id')->count('user_id');
         //todo : /nzh/biz/getFollowers , count
 
         $exchanger = Auth::user();
-        $rate_obj = $exchanger->rates()->last();
-        $top_widget['my_last_rate'] = $rate_obj->rate;
+        $rate_euro = $exchanger->rates()->currency('1')->last();
+        $rate_lira = $exchanger->rates()->currency('2')->last();
+        $top_widget['euro_last_rate'] = $rate_euro->rate;
+        $top_widget['lira_last_rate'] = $rate_lira->rate;
 
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
+        $today = array();
 
-        $special_trans = Transaction::joinUsers()->filterBank('successful')->topTen($per)->get();
+        $today['special'] = Transaction::joinUsers()->filterBank('successful')->per($per)->orderBy('premium_amount', 'DESC')->limit(10)->get();
+        $today['count'] = Transaction::filterBank('successful')->per($per)->count();
+        $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 
-        return view('home', compact('top_widget', 'special_trans'));
+        return view('home', compact('top_widget', 'today'));
     }
 }

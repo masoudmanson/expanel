@@ -15,7 +15,6 @@ class TransactionController extends Controller
     public function index()
     {
         $payed_transactions = Transaction::filterBank('successful')->filterFanex('pending')->get(); //todo : for test try it with 'canceled' and 'rejected'
-        dd($payed_transactions);
 
         return view('pages.transactions',compact('payed_transactions'));
     }

@@ -70,23 +70,20 @@ class Transaction extends Model
             ->join('users', 'transactions.user_id', '=', 'users.id');
     }
 
-    public function scopeTopTen($query, $per)
+    public function scopePer($query, $per)
     {
         switch ($per) {
             case 'daily':
-//                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
-                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')")
-                    ->orderBy('premium_amount', 'DESC')->limit(10);
+//                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'));
+                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
                 break;
 
             case 'weekly':
-                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
-                    ->orderBy('premium_amount', 'DESC')->limit(10);
+                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'));
                 break;
 
             case 'monthly':
-                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
-                    ->orderBy('premium_amount', 'DESC')->limit(10);
+                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'));
                 break;
             default:
                 return $query;
