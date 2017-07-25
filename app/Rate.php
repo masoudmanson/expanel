@@ -8,7 +8,7 @@ class Rate extends Model
 {
     protected $table = 'rates';
 
-    protected $fillable = ['exchanger_id', 'currency_id' , 'rate'];
+    protected $fillable = ['exchanger_id', 'currency_id' , 'rate', 'ip'];
 
     public function exchanger()
     {

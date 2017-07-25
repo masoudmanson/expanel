@@ -56,10 +56,10 @@ class RateController extends Controller
     public function store(Request $request)
     {
         $request['exchanger_id'] = Auth::user()->id;
+        $request['ip'] = $request->ip();
 
         Rate::create($request->all());
 
-//        return redirect('rates');
         return redirect()->back();
     }
 
