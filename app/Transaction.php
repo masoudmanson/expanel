@@ -59,12 +59,17 @@ class Transaction extends Model
         return $query->where('upt_status', $filter);
     }
 
+    public function scopeWithUsers($query)
+    {
+        return $query->where('transaction.user_id', '=', 'users.id');
+    }
+
     public function scopeTopTen($query, $per)
     {
         switch ($per) {
             case 'daily':
 //                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
-                return $query->where(DB::raw("TO_CHAR(payment_date , 'DD-MON-YY')"), '=', DB::raw("TO_CHAR(CURRENT_DATE)"))
+                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')")
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
 
@@ -78,6 +83,7 @@ class Transaction extends Model
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
             default:
+                return $query;
                 break;
         }
     }
