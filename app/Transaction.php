@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Transaction extends Model
 {
@@ -20,12 +21,12 @@ class Transaction extends Model
 
     public function scopeFindByBillNumber($query, $billNumber)
     {
-        return $query->where('uri', $billNumber); //unique ref. number
+        return $query->where('uri', $billNumber); 
     }
 
     public function scopeHasttl($query)
     {
-        return $query->where('ttl', '>' , Carbon::now() );
+        return $query->where('ttl', '>', Carbon::now());
     }
 
     public function user()
@@ -43,22 +44,40 @@ class Transaction extends Model
         return $this->belongsTo('App\Backlog');
     }
 
-    public function scopeFilterBank($query,$filter)
+    public function scopeFilterBank($query, $filter)
     {
-        return $query->where('bank_status',$filter);
-    }
-    public function scopeFilterFanex($query,$filter)
-    {
-        return $query->where('fanex_status',$filter);
-    }
-    public function scopeFilterUpt($query,$filter)
-    {
-        return $query->where('upt_status',$filter);
+        return $query->where('bank_status', $filter);
     }
 
-    public function scopeOrder($query)
+    public function scopeFilterFanex($query, $filter)
     {
-        $query->where('premium_amount','>', 1000)->orderBy('premium_amount'); // todo : why not working?! :|
+        return $query->where('fanex_status', $filter);
     }
 
+    public function scopeFilterUpt($query, $filter)
+    {
+        return $query->where('upt_status', $filter);
+    }
+
+    public function scopeTopTen($query, $per)
+    {
+        switch ($per) {
+            case 'daily':
+                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
+                    ->orderBy('premium_amount', 'DESC')->limit(10);
+                break;
+
+            case 'weekly':
+                $query->where(DB::raw('payment_date'), '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
+                    ->orderBy('premium_amount', 'DESC')->limit(10);
+                break;
+
+            case 'monthly':
+                $query->where(DB::raw('payment_date'), '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+                    ->orderBy('premium_amount', 'DESC')->limit(10);
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -183,7 +183,7 @@ return [
          * Oracle DB Service Provider
          */
         Yajra\Oci8\Oci8ServiceProvider::class,
-
+        Morilog\Jalali\JalaliServiceProvider::class,
     ],
 
     /*
@@ -234,7 +234,7 @@ return [
 
         'Image' => Intervention\Image\Facades\Image::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-
+        'jDate' => Morilog\Jalali\Facades\jDate::class,
     ],
 
 ];

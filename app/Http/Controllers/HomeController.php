@@ -24,21 +24,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
         //todo : /nzh/biz/getFollowers , count
-//        dd($transactions_sum);
 
         $exchanger = Auth::user();
         $rate_obj = $exchanger->rates()->last();
         $top_widget['my_last_rate'] = $rate_obj->rate;
 
-//        $special_trans = Transaction::order()->get();
+        $per = (isset($request['per'])) ? $request['per'] : 'daily';
 
+        $special_trans = Transaction::filterBank('successful')->topTen($per)->get();
 
-        return view('home' , compact('top_widget'));
+        return view('home', compact('top_widget', 'special_trans'));
     }
 }

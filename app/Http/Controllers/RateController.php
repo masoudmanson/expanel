@@ -19,7 +19,12 @@ class RateController extends Controller
     public function index(Request $request)
     {
         $rates = Auth::user()->rates;
-        return view('pages.rate',compact('rates'));
+
+        $exchanger = Auth::user();
+        $rate_obj = $exchanger->rates()->last();
+        $top_widget['my_last_rate'] = $rate_obj->rate;
+
+        return view('pages.rate',compact('rates', 'top_widget'));
     }
 
     /**

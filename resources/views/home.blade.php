@@ -31,7 +31,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="7,644">0</span>
+                                          data-value="{{ number_format($top_widget['transactions_count']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="256,800,000">0</span>
+                                          data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -105,11 +105,13 @@
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                                         <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm active">
-                                            <input type="radio" name="options" class="toggle" id="option1">روزانه</label>
+                                            <input type="radio" name="options" class="toggle"
+                                                   id="option1">روزانه</label>
                                         <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
                                             <input type="radio" name="options" class="toggle" id="option2">هفتگی</label>
                                         <label class="btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" id="option2">ماهانه</label>
+                                            <input type="radio" name="options" class="toggle"
+                                                   id="option2">ماهانه</label>
                                     </div>
                                 </div>
                             </div>
@@ -121,8 +123,10 @@
                                                 <div id="sparkline_bar"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها <small>(ریال)</small> </div>
-                                                <div class="number"> 25,256,000 </div>
+                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها
+                                                    <small>(ریال)</small>
+                                                </div>
+                                                <div class="number"> 25,256,000</div>
                                             </div>
                                         </div>
                                     </div>
@@ -132,8 +136,8 @@
                                                 <div id="sparkline_bar2"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> جمع تراکنش ها </div>
-                                                <div class="number"> 719 </div>
+                                                <div class="title" style="padding-bottom: 5px"> تعداد تراکنش ها</div>
+                                                <div class="number"> 719</div>
                                             </div>
                                         </div>
                                     </div>
@@ -142,39 +146,24 @@
                                     <table class="table table-hover table-light">
                                         <thead>
                                         <tr>
-                                            <th> کاربر </th>
-                                            <th> مبلغ </th>
-                                            <th> نرخ تبدیل </th>
-                                            <th> تاریخ </th>
+                                            <th> کاربر</th>
+                                            <th> مبلغ</th>
+                                            <th> نرخ تبدیل</th>
+                                            <th> تاریخ</th>
                                         </tr>
                                         </thead>
-                                        <tr>
-                                            <td class="font-blue-chambray">حمیدرضا آموزگار</td>
-                                            <td class="font-red-haze bold"> $5200 </td>
-                                            <td> 3900 </td>
-                                            <td> 3 مرداد 96 </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-blue-chambray">عماد قربانی نیا</td>
-                                            <td class="font-red-haze bold"> $3045 </td>
-                                            <td> 3867 </td>
-                                            <td> 3 مرداد 96 </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-blue-chambray">مسعود امجدی</td>
-                                            <td class="font-red-haze bold"> $2500 </td>
-                                            <td> 3680 </td>
-                                            <td> 3 مرداد 96 </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-blue-chambray">پوریا پهلوانی</td>
-                                            <td class="font-red-haze bold"> $1560 </td>
-                                            <td> 3998 </td>
-                                            <td> 3 مرداد 96 </td>
-                                        </tr>
+                                        @if(count($special_trans) > 0)
+                                            @foreach($special_trans as $special_tran)
+                                                <tr>
+                                                    <td class="font-blue-chambray">{{ $special_tran->firstname . ' ' . $special_tran->lastname }}</td>
+                                                    <td class="font-red-haze bold">{{ $special_tran->premium_amount . ' ' . $special_tran->currency }}</td>
+                                                    <td>{{ $special_tran->exchange_rate }}</td>
+                                                    <td>{{ jdate($special_tran->payment_date)->format('%y %B %d , H:i:s') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h2>تراکنشی برای نمایش وجود ندارد</h2>
+                                        @endif
                                     </table>
                                 </div>
                             </div>
