@@ -28,7 +28,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ route('transactions') }}" class="nav-link ">
+                        <a href="{{ route('transactions.index') }}" class="nav-link ">
                             <span class="title">تراکنش های امروز</span>
                         </a>
                     </li>

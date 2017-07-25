@@ -25,7 +25,7 @@
 
                 <div class="col-xs-6  exchange-cols">
                     <p>نرخ کنونی ارز: </p>
-                    <div class="font-yellow-gold">3850</div>
+                    <div class="font-yellow-gold">{{$top_widget['my_last_rate']}}</div>
                 </div>
             </div>
             <br>
