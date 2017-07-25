@@ -20,7 +20,6 @@ class RateController extends Controller
     {
         $rates = Auth::user()->rates;
         return view('pages.rate',compact('rates'));
-
     }
 
     /**
