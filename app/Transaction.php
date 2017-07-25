@@ -63,18 +63,18 @@ class Transaction extends Model
     {
         switch ($per) {
             case 'daily':
-                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
-//                $query->where(DB::raw("TO_CHAR(payment_date, 'DD-MON-YY')"), '=', DB::raw('CURRENT_DATE'))
+//                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'))
+                return $query->where(DB::raw("TO_CHAR(payment_date , 'DD-MON-YY')"), '=', DB::raw("TO_CHAR(CURRENT_DATE)"))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
 
             case 'weekly':
-                $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
+                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
 
             case 'monthly':
-                $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+                return $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
             default:
