@@ -143,16 +143,16 @@
                                     </div>
                                 </div>
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr>
-                                            <th> کاربر</th>
-                                            <th> مبلغ</th>
-                                            <th> نرخ تبدیل</th>
-                                            <th> تاریخ</th>
-                                        </tr>
-                                        </thead>
-                                        @if(count($special_trans) > 0)
+                                    @if(count($special_trans) > 0)
+                                        <table class="table table-hover table-light">
+                                            <thead>
+                                            <tr>
+                                                <th> کاربر</th>
+                                                <th> مبلغ</th>
+                                                <th> نرخ تبدیل</th>
+                                                <th> تاریخ</th>
+                                            </tr>
+                                            </thead>
                                             @foreach($special_trans as $special_tran)
                                                 <tr>
                                                     <td class="font-blue-chambray">{{ $special_tran->firstname . ' ' . $special_tran->lastname }}</td>
@@ -161,10 +161,10 @@
                                                     <td>{{ jdate($special_tran->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            <h2>تراکنشی برای نمایش وجود ندارد</h2>
-                                        @endif
-                                    </table>
+                                        </table>
+                                    @else
+                                        <h4 class="font-grey-silver text-center">تراکنشی برای نمایش وجود ندارد</h4>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -21,7 +21,7 @@ class Transaction extends Model
 
     public function scopeFindByBillNumber($query, $billNumber)
     {
-        return $query->where('uri', $billNumber); 
+        return $query->where('uri', $billNumber);
     }
 
     public function scopeHasttl($query)
@@ -68,12 +68,12 @@ class Transaction extends Model
                 break;
 
             case 'weekly':
-                $query->where(DB::raw('payment_date'), '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
+                $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
 
             case 'monthly':
-                $query->where(DB::raw('payment_date'), '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+                $query->where('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
                     ->orderBy('premium_amount', 'DESC')->limit(10);
                 break;
             default:
