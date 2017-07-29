@@ -44,12 +44,16 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request , Transaction $transaction)
     {
-        //
+        $identifier = $transaction->toArray();
+        if ($request->ajax())
+            return view('partials.identifier-form', compact('identifier'));
+        return view('identifier', compact('identifier'));
     }
 
     /**
