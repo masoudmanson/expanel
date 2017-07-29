@@ -29,12 +29,12 @@ class Transaction extends Model
         return $query->where('ttl', '>', Carbon::now());
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+//    public function user()
+//    {
+//        return $this->belongsTo('App\User');
+//    }
 
-    public function client()
+    public function user()
     {
         return $this->belongsTo('App\Client');
     }
