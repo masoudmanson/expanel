@@ -18,11 +18,21 @@ class RateController extends Controller
      */
     public function index(Request $request)
     {
-        $rates = Auth::user()->rates;
-
         $exchanger = Auth::user();
-        $rate_obj = $exchanger->rates()->last();
-        $top_widget['my_last_rate'] = $rate_obj->rate;
+
+        $rates = array();
+
+        $rates['euro']['list'] = $exchanger->rates()->currency('1')->get();
+        $rates['euro']['max'] = $exchanger->rates()->currency('1')->max('rate');
+        $rates['euro']['min'] = $exchanger->rates()->currency('1')->min('rate');
+        $rates['lira']['list'] = $exchanger->rates()->currency('2')->get();
+        $rates['lira']['max'] = $exchanger->rates()->currency('2')->max('rate');
+        $rates['lira']['min'] = $exchanger->rates()->currency('2')->min('rate');
+
+        $rate_euro = $exchanger->rates()->currency('1')->last();
+        $rate_lira = $exchanger->rates()->currency('2')->last();
+        $top_widget['euro_last_rate'] = $rate_euro->rate;
+        $top_widget['lira_last_rate'] = $rate_lira->rate;
 
         return view('pages.rate',compact('rates', 'top_widget'));
     }
@@ -46,10 +56,11 @@ class RateController extends Controller
     public function store(Request $request)
     {
         $request['exchanger_id'] = Auth::user()->id;
+        $request['ip'] = $request->ip();
 
         Rate::create($request->all());
 
-        return redirect('rates');
+        return redirect()->back();
     }
 
     /**

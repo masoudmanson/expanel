@@ -8,7 +8,7 @@ class Rate extends Model
 {
     protected $table = 'rates';
 
-    protected $fillable = ['exchanger_id', 'currency_id' , 'rate'];
+    protected $fillable = ['exchanger_id', 'currency_id' , 'rate', 'ip'];
 
     public function exchanger()
     {
@@ -18,6 +18,11 @@ class Rate extends Model
     public function currencies()
     {
         return $this->belongsTo('App\Currency','currency_id');
+    }
+
+    public function scopeCurrency($query, $currency)
+    {
+        return $query->where('currency_id', $currency);
     }
 
     public function scopeLast($query)

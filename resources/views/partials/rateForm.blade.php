@@ -8,7 +8,7 @@
     </div>
 
     <div class="form-actions right">
-        <button type="button" class="btn default">انصراف</button>
+        <button type="reset" class="btn default">انصراف</button>
         <button type="submit" class="btn yellow-crusta">تنظیم</button>
     </div>
     <br>
