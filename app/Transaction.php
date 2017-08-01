@@ -29,12 +29,12 @@ class Transaction extends Model
         return $query->where('ttl', '>', Carbon::now());
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+//    public function user()
+//    {
+//        return $this->belongsTo('App\User');
+//    }
 
-    public function client()
+    public function user()
     {
         return $this->belongsTo('App\Client');
     }
@@ -66,8 +66,19 @@ class Transaction extends Model
 
     public function scopeJoinUsers($query)
     {
-        return $query->select("transactions.*", "users.firstname", "users.lastname")
-            ->join('users', 'transactions.user_id', '=', 'users.id');
+        return $query->join('users', 'transactions.user_id', '=', 'users.id')
+            ->select("transactions.*", "users.firstname", "users.lastname");
+    }
+
+    public function scopeJoinBeneficiaries($query)
+    {
+        return $query->join('beneficiaries', 'transactions.beneficiary_id', '=', 'beneficiaries.id')
+            ->select("transactions.*", "beneficiaries.firstname", "beneficiaries.lastname");
+    }
+
+    public function scopeSelectBoth($query)
+    {
+        $query->select("transactions.*", "users.firstname", "users.lastname" ,"beneficiaries.firstname as f", "beneficiaries.lastname as l");
     }
 
     public function scopePer($query, $per)

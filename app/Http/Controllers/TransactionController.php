@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\PlatformTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    use PlatformTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +17,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $payed_transactions = Transaction::joinUsers()->filterBank('successful')->filterFanex('pending')->get(); //todo : for test try it with 'canceled' and 'rejected'
-//dd($payed_transactions);
-        return view('pages.transactions',compact('payed_transactions'));
+        $top_widget = array();
+        $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
+        $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
+
+        $payed_transactions = Transaction::filterBank('canceled')->filterFanex('rejected')->orderBy('id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+        dd($payed_transactions);
+
+        return view('pages.transactions', compact('payed_transactions','top_widget'));
+    }
+
+    public function search()
+    {
     }
 
     /**
@@ -32,7 +44,7 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,18 +55,22 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Transaction $transaction)
     {
-        //
+        $identifier = $transaction->toArray();
+        if ($request->ajax())
+            return view('partials.identifier-form', compact('identifier'));
+        return view('identifier', compact('identifier'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -65,19 +81,57 @@ class TransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Transaction $transaction)
     {
-        // todo : update fanex_status and upt_status according to request (reject or accept)
+
+        if ($request->accepted) {
+            $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
+
+            if ($upt_res->CorpSendRequestResult->TransferRequestStatus->RESPONSE == 'Success') {
+                $transaction->fanex_status = 'accepted';
+                $transaction->upt_ref = $upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT;
+
+                $result = $this->CorpSendRequestConfirm($upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT);
+
+                if ($result->CorpSendRequestConfirmResult->TransferConfirmStatus->RESPONSE == 'Success') {
+                    $transaction->upt_status = 'successful';
+                    $transaction->update();
+
+                } else {
+                    $transaction->upt_status = 'failed'; //or rejected?
+                    $transaction->fanex_status = 'pending';
+                    $transaction->update();
+//                  $this->CorpCancelRequest($upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT);
+//                  $this->CorpCancelConfirm($upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT); // todo: check it later
+                }
+            } else {
+                //if ($cancel_res)
+//                    $transaction->fanex_status = 'pending'; // it's already on pending condition
+                $transaction->upt_status = 'failed'; //?
+                $transaction->update();
+                // return ?
+            }
+
+        } elseif ($request->rejected) {
+            $transaction->fanex_status = 'rejected';
+            $result = $this->chargeUserWallet($transaction->user, $transaction->payment_amount);
+            //charge the user wallet
+            if (!$result->hasError)
+                $transaction->update();
+            else
+                dd(':D nashod'); // return ?
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
