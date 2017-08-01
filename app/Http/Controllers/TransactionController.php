@@ -17,9 +17,19 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $payed_transactions = Transaction::filterBank('successful')->filterFanex('pending')->get(); //todo : for test try it with 'canceled' and 'rejected'
+        $top_widget = array();
+        $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
+        $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
 
-        return view('pages.transactions', compact('payed_transactions'));
+        $payed_transactions = Transaction::filterBank('canceled')->filterFanex('rejected')->orderBy('id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+        dd($payed_transactions);
+
+        return view('pages.transactions', compact('payed_transactions','top_widget'));
+    }
+
+    public function search()
+    {
+
     }
 
     /**

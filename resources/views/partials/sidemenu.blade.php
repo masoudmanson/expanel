@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="{{ route('history') }}" class="nav-link ">
+                        <a href="{{ route('history.index') }}" class="nav-link ">
                             <span class="title">تاریخچه ی تراکنش ها</span>
                         </a>
                     </li>
