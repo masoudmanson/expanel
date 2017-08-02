@@ -23,9 +23,7 @@ class TransactionController extends Controller
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
 
-        $payed_transactions = Transaction::filterBank('canceled')->filterFanex('rejected')->orderBy('id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
-        dd($payed_transactions);
-
+        $payed_transactions = Transaction::joinUsers()->filterBank('canceled')->filterFanex('rejected')->orderBy('id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
         return view('pages.transactions', compact('payed_transactions','top_widget'));
     }
 
@@ -67,12 +65,14 @@ class TransactionController extends Controller
      * @param Transaction $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Transaction $transaction)
+    public function show(Request $request, $transaction)
     {
-        $identifier = $transaction->toArray();
+//        $transaction = $transaction->toArray();
+        $transaction = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->where('transactions.id', $transaction)->first();
         if ($request->ajax())
-            return view('partials.identifier-form', compact('identifier'));
-        return view('identifier', compact('identifier'));
+            return response()->json(view('partials.singleTrans', compact('transaction'))->render());
+//            return view('partials.modalTransShow', compact('transaction'));
+//        return view('identifier', compact('transaction'));
     }
 
     /**
@@ -95,7 +95,6 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-
         if ($request->accepted) {
             $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
 

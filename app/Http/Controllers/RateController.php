@@ -22,10 +22,10 @@ class RateController extends Controller
 
         $rates = array();
 
-        $rates['euro']['list'] = $exchanger->rates()->currency('1')->get();
+        $rates['euro']['list'] = $exchanger->rates()->currency('1')->orderBy('created_at')->paginate(10);
         $rates['euro']['max'] = $exchanger->rates()->currency('1')->max('rate');
         $rates['euro']['min'] = $exchanger->rates()->currency('1')->min('rate');
-        $rates['lira']['list'] = $exchanger->rates()->currency('2')->get();
+        $rates['lira']['list'] = $exchanger->rates()->currency('2')->orderBy('created_at')->paginate(10);
         $rates['lira']['max'] = $exchanger->rates()->currency('2')->max('rate');
         $rates['lira']['min'] = $exchanger->rates()->currency('2')->min('rate');
 

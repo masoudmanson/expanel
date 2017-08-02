@@ -13,9 +13,9 @@
     <!-- BEGIN CONTAINER -->
     <div class="page-container">
 
-    @include('partials.sidemenu', array('li' => 'dashboard'))
+        @include('partials.sidemenu', array('li' => 'dashboard'))
 
-    <!-- BEGIN CONTENT -->
+        <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
@@ -25,13 +25,14 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد تراکنش ها</h4>
+                            <h4 class="widget-thumb-heading">تعداد تراکنش های امروز</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-casablanca icon-graph"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="{{ number_format($top_widget['transactions_count']) }}">0</span>
+                                          data-value="{{ number_format($today['count']) }}">0</span>
+                                          {{--data-value="{{ number_format($top_widget['transactions_count']) }}">0</span>--}}
                                 </div>
                             </div>
                         </div>
@@ -41,13 +42,14 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">مبلغ مبادله شده</h4>
+                            <h4 class="widget-thumb-heading">جمع مبلغ مبادله شده امروز</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-haze fa fa-money"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>
+                                          data-value="{{ number_format($today['sum']) }}">0</span>
+                                          {{--data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>--}}
                                 </div>
                             </div>
                         </div>
@@ -123,7 +125,7 @@
                                                 <div id="sparkline_bar"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی ها
+                                                <div class="title" style="padding-bottom: 5px"> جمع پرداختی های امروز
                                                     <small>(ریال)</small>
                                                 </div>
                                                 <div class="number">{{ number_format($today['sum']) }}</div>
@@ -136,7 +138,7 @@
                                                 <div id="sparkline_bar2"></div>
                                             </div>
                                             <div class="stat-number">
-                                                <div class="title" style="padding-bottom: 5px"> تعداد تراکنش ها</div>
+                                                <div class="title" style="padding-bottom: 5px"> تعداد تراکنش های امروز</div>
                                                 <div class="number">{{ number_format($today['count']) }}</div>
                                             </div>
                                         </div>
@@ -180,29 +182,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        var serverTime = {{ time()*1000 }};
-        console.log(serverTime);
-        var localtime = +Date.now();
-        console.log(localtime);
-        var diff = serverTime - localtime;
-        console.log(diff);
-
-        function startTime() {
-            var today = new Date(+Date.now() + diff);
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            $('.server-time').text(h + ":" + m + ":" + s);
-            var t = setTimeout(startTime, 1000);
-        }
-        function checkTime(i) {
-            if (i < 10) {
-                i = "0" + i
-            }
-            return i;
-        }
-    </script>
 @endsection
