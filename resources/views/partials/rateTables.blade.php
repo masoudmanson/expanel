@@ -6,14 +6,6 @@
             <span class="caption-subject font-yellow-casablanca bold">لیست</span>
             <span class="caption-helper">نرخ های اخیر</span>
         </div>
-        <ul class="nav nav-tabs">
-            <li>
-                <a href="#table_tab2" data-toggle="tab"> لیر ترکیه ₺ </a>
-            </li>
-            <li class="active">
-                <a href="#table_tab1" data-toggle="tab"> یورو € </a>
-            </li>
-        </ul>
     </div>
     <div class="portlet-body">
         <div class="tab-content">
@@ -22,7 +14,6 @@
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <div class="stat-left">
                             <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
                                 <div id="sparkline_bar"></div>
                             </div>
                             <div class="stat-number">
@@ -36,7 +27,6 @@
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <div class="stat-right">
                             <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
                                 <div id="sparkline_bar2"></div>
                             </div>
                             <div class="stat-number">
@@ -70,6 +60,8 @@
                                 </tr>
                             @endforeach
                         </table>
+                        <br>
+                        {{ $rates['euro']['list']->links() }}
                     @else
                         <h4 class="font-grey-silver text-center">نرخی برای نمایش وجود ندارد</h4>
                     @endif
@@ -80,7 +72,6 @@
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <div class="stat-left">
                             <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
                                 <div id="sparkline_bar"></div>
                             </div>
                             <div class="stat-number">
@@ -94,7 +85,6 @@
                     <div class="col-md-6 col-sm-6 col-xs-6">
                         <div class="stat-right">
                             <div class="stat-chart">
-                                <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
                                 <div id="sparkline_bar2"></div>
                             </div>
                             <div class="stat-number">
@@ -128,6 +118,8 @@
                                 </tr>
                             @endforeach
                         </table>
+                        <br>
+                        {{ $rates['lira']['list']->links() }}
                     @else
                         <h4 class="font-grey-silver text-center">نرخی برای نمایش وجود ندارد</h4>
                     @endif

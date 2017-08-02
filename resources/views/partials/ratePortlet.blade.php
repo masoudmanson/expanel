@@ -7,10 +7,10 @@
         </div>
         <ul class="nav nav-tabs">
             <li>
-                <a href="#portlet_tab2" data-toggle="tab"> لیر ترکیه ₺ </a>
+                <a href="#portlet_tab2" data-target="#portlet_tab2, #table_tab2" class="rateTabsLink" data-toggle="tab"> لیر ترکیه ₺ </a>
             </li>
             <li class="active">
-                <a href="#portlet_tab1" data-toggle="tab"> یورو € </a>
+                <a href="#portlet_tab1" data-target="#portlet_tab1, #table_tab1" class="rateTabsLink" data-toggle="tab"> یورو € </a>
             </li>
         </ul>
     </div>

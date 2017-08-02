@@ -43,28 +43,5 @@
 
 @section('scripts')
     <script>
-        var serverTime = {{ time()*1000 }};
-        console.log(serverTime);
-        var localtime = +Date.now();
-        console.log(localtime);
-        var diff = serverTime - localtime;
-        console.log(diff);
-
-        function startTime() {
-            var today = new Date(+Date.now() + diff);
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            m = checkTime(m);
-            s = checkTime(s);
-            $('.server-time').text(h + ":" + m + ":" + s);
-            var t = setTimeout(startTime, 1000);
-        }
-        function checkTime(i) {
-            if (i < 10) {
-                i = "0" + i
-            }
-            return i;
-        }
     </script>
 @endsection

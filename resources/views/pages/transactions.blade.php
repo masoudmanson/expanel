@@ -19,7 +19,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <span> &nbsp;&nbsp;Loading... </span>
+                        <span> &nbsp;در حال احراز هویت، لطفا شکیبا باشید ... </span>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="544">0</span>
+                                          data-value="{{ number_format($top_widget['transactions_count']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="2,800,000">0</span>
+                                          data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">نرخ های اخیر</span>
+                                    <span class="caption-helper">تراکنش های در انتظار تائید</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -122,127 +122,42 @@
                                             <th> عملیات</th>
                                         </tr>
                                         </thead>
-                                        <tr>
-                                            <td class="font-blue-chambray">حمیدرضا آموزگار</td>
-                                            <td class="font-red-haze bold"> $5200</td>
-                                            <td> 3900</td>
-                                            <td class="font-blue-dark"> ترکیه</td>
-                                            <td class="bold font-dark"> 7553412y8526812K</td>
-                                            <td> 3 مرداد 96</td>
-                                            <td>
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                    <i class="icon-eye"></i> مشاهده
-                                                </a>
 
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm green-haze">
-                                                    <i class="icon-check"></i> تائید
-                                                </a>
+                                        @foreach($payed_transactions as $transaction)
+                                            <tr id="trans_{{ $transaction->id }}">
+                                                <td class="font-blue-chambray">{{ $transaction->firstname . ' ' . $transaction->lastname }}</td>
+                                                <td class="font-red-haze bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
+                                                <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
+                                                <td class="font-blue-dark">{{ $transaction->country }}</td>
+                                                <td class="bold font-dark">{{ $transaction->uri }}</td>
+                                                <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
+                                                <td>
+                                                    <a data-target="#transShowModal" data-toggle="modal"
+                                                       class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks" data-id="{{ $transaction->id }}">
+                                                        <i class="icon-eye"></i> مشاهده
+                                                    </a>
 
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm red-haze">
-                                                    <i class="icon-close"></i> رد کردن
-                                                </a>
+                                                    <a data-target="#transConfirmModal" data-toggle="modal" data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}" data-uri="{{ $transaction->uri }}"
+                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks" data-id="{{ $transaction->id }}">
+                                                        <i class="icon-check"></i> تائید
+                                                    </a>
 
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                    <i class="icon-user-follow"></i> احراز هویت
-                                                </a>
-                                            </td>
+                                                    <a data-target="#transRejectModal" data-toggle="modal" data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}" data-uri="{{ $transaction->uri }}"
+                                                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks" data-id="{{ $transaction->id }}">
+                                                        <i class="icon-close"></i> رد کردن
+                                                    </a>
 
-                                        </tr>
+                                                    <a href="#" data-target="#ajax" data-toggle="modal"
+                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta">
+                                                        <i class="icon-user-follow"></i> احراز هویت
+                                                    </a>
+                                                </td>
 
-                                        <tr>
-                                            <td class="font-blue-chambray">عماد قربانی نیا</td>
-                                            <td class="font-red-haze bold"> $3045</td>
-                                            <td> 3867</td>
-                                            <td class="font-blue-dark"> ترکیه</td>
-                                            <td class="bold font-dark"> 7553412y8526812K</td>
-                                            <td> 3 مرداد 96</td>
-                                            <td>
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                    <i class="icon-eye"></i> مشاهده
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm green-haze">
-                                                    <i class="icon-check"></i> تائید
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm red-haze">
-                                                    <i class="icon-close"></i> رد کردن
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                    <i class="icon-user-follow"></i> احراز هویت
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-blue-chambray">مسعود امجدی</td>
-                                            <td class="font-red-haze bold"> $2500</td>
-                                            <td> 3680</td>
-                                            <td class="font-blue-dark"> ترکیه</td>
-                                            <td class="bold font-dark"> 7553412y8526812K</td>
-                                            <td> 3 مرداد 96</td>
-                                            <td>
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                    <i class="icon-eye"></i> مشاهده
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm green-haze">
-                                                    <i class="icon-check"></i> تائید
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm red-haze">
-                                                    <i class="icon-close"></i> رد کردن
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                    <i class="icon-user-follow"></i> احراز هویت
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="font-blue-chambray">پوریا پهلوانی</td>
-                                            <td class="font-red-haze bold"> $1560</td>
-                                            <td> 3998</td>
-                                            <td class="font-blue-dark"> ترکیه</td>
-                                            <td class="bold font-dark"> 7553412y8526812K</td>
-                                            <td> 3 مرداد 96</td>
-                                            <td>
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                    <i class="icon-eye"></i> مشاهده
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm green-haze">
-                                                    <i class="icon-check"></i> تائید
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm red-haze">
-                                                    <i class="icon-close"></i> رد کردن
-                                                </a>
-
-                                                <a href="#" data-target="#ajax" data-toggle="modal"
-                                                   class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                    <i class="icon-user-follow"></i> احراز هویت
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            </tr>
+                                        @endforeach
                                     </table>
+                                    <br>
+                                    {{ $payed_transactions->links() }}
                                 </div>
                             </div>
                         </div>
