@@ -68,7 +68,7 @@ $(document).on('ready', function () {
                 method: 'PUT',
                 url: 'transactions/' + transId,
                 data: {
-                    'Confirmed': true,
+                    'confirmed': true,
                     '_token': csrfToken,
                     'X-CSRF-TOKEN': csrfToken
                 },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\PlatformTrait;
+use App\Traits\UptTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use Excel;
 class TransactionController extends Controller
 {
     use PlatformTrait;
+    use UptTrait;
 
     /**
      * Display a listing of the resource.
@@ -23,7 +25,7 @@ class TransactionController extends Controller
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
 
-        $payed_transactions = Transaction::joinUsers()->filterBank('canceled')->filterFanex('rejected')->orderBy('id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+        $payed_transactions = Transaction::joinUsers()->filterBank('canceled')->filterFanex('rejected')->orderBy('transactions.id','DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
         return view('pages.transactions', compact('payed_transactions','top_widget'));
     }
 
@@ -95,7 +97,8 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        if ($request->accepted) {
+//        dd($request);
+        if ($request->confirmed) {
             $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
 
             if ($upt_res->CorpSendRequestResult->TransferRequestStatus->RESPONSE == 'Success') {
@@ -114,14 +117,16 @@ class TransactionController extends Controller
                     $transaction->update();
 //                  $this->CorpCancelRequest($upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT);
 //                  $this->CorpCancelConfirm($upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT); // todo: check it later
+                    return json_encode(array('status' => false , 'msg' => 'تایید ارسال حواله با خطا روبرو شد')); //upt request has problem.
                 }
             } else {
                 //if ($cancel_res)
 //                    $transaction->fanex_status = 'pending'; // it's already on pending condition
                 $transaction->upt_status = 'failed'; //?
                 $transaction->update();
-                // return ?
+                return json_encode(array('status' => false , 'msg' => 'درخواست ارسال با خطا روبرو شد')); //upt request has problem.
             }
+            return json_encode(array('status' => true , 'msg' => 'انتقال موفقیت آمیز بود')); //The transfer was successfully settled.
 
         } elseif ($request->rejected) {
             $transaction->fanex_status = 'rejected';
@@ -176,7 +181,6 @@ class TransactionController extends Controller
 
         })->export('xls');
 
-        dd($excel);
     }
     //whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
 

@@ -7,6 +7,7 @@ use App\Backlog;
 use App\Beneficiary;
 use App\Transaction;
 use App\User;
+use App\Client as userClient;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,7 @@ trait UptTrait
         return $return;
     }
 
-    public function CorpSendRequest(Transaction $transaction , User $user , Beneficiary $beneficiary , Backlog $backlog)
+    public function CorpSendRequest(Transaction $transaction , userClient $user , Beneficiary $beneficiary , Backlog $backlog)
     {
         $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
 //        $client = new SoapClient($url, array("soap_version" => SOAP_1_2, "trace" => 1));
@@ -125,7 +126,7 @@ trait UptTrait
             'MONEY_TAKEN'=>'0',
 //            'MONEY_TAKEN_CURRENCY' => 'TRY', // todo ? I think it is EUR
 //            'AMOUNT' => $backlog->payment_amount, // todo ?
-            'AMOUNT' => 100, // todo ?
+            'AMOUNT' => 1, // todo ?
 //            'AMOUNT_CURRENCY' => $backlog->currency, // currency
             'AMOUNT_CURRENCY' => 'TRY', // currency
         ));
