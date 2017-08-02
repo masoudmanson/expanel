@@ -6,6 +6,7 @@ use App\Exchanger;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -38,10 +39,11 @@ class HomeController extends Controller
         $top_widget['euro_last_rate'] = $rate_euro->rate;
         $top_widget['lira_last_rate'] = $rate_lira->rate;
 
-        $per = (isset($request['per'])) ? $request['per'] : 'daily';
+        $per = (isset($request['per'])) ? $request['per'] : 'monthly';
         $today = array();
 
         $today['special'] = Transaction::joinUsers()->filterBank('successful')->per($per)->orderBy('premium_amount', 'DESC')->limit(10)->get();
+        dd($today['special']);
         $today['count'] = Transaction::filterBank('successful')->per($per)->count();
         $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 

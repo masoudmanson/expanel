@@ -130,6 +130,11 @@
                                             <td class="bold font-dark"> 7553412y8526812K</td>
                                             <td> 3 مرداد 96</td>
                                             <td>
+
+                                                <a href="{{route('admin.transactions.excel')}}"
+                                                   class="btn btn-circle btn-outline btn-sm yellow-gold">
+                                                    <i class="icon-eye"></i> اکسل
+                                                </a>
                                                 <a href="#" data-target="#ajax" data-toggle="modal"
                                                    class="btn btn-circle btn-outline btn-sm yellow-gold">
                                                     <i class="icon-eye"></i> مشاهده
