@@ -42,7 +42,7 @@ class HomeController extends Controller
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
         $today = array();
 
-        $today['special'] = Transaction::joinUsers()->filterBank('successful')->per($per)->orderBy('premium_amount', 'DESC')->limit(10)->get();
+        $today['special'] = Transaction::joinUsers()->filterBank('successful')->filterFanex('accepted')->per($per)->orderBy('premium_amount', 'DESC')->limit(10)->get();
         $today['count'] = Transaction::filterBank('successful')->per($per)->count();
         $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 
