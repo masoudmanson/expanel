@@ -43,7 +43,7 @@ Route::resource('/history' , 'HistoryController');
 
 Route::get('/search/{search}','TransactionController@search');
 
-Route::get('/test','TransactionController@excel');
+Route::get('/test','HomeController@special_transaction_excel');
 Route::get('/transactions/excel','TransactionController@excel')->name('admin.transactions.excel');
 
 

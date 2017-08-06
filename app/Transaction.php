@@ -10,6 +10,8 @@ class Transaction extends Model
 {
     protected $table = 'transactions';
 
+    protected $hidden = ['id','user_id','beneficiary_id','backlog_id','ttl','vat','payment_amount','created_at']; //todo : check with parham for available fields in exchanger pdf
+
     protected $dates = [
         'payment_date',
         'ttl'
@@ -73,12 +75,15 @@ class Transaction extends Model
     public function scopeJoinBeneficiaries($query)
     {
         return $query->join('beneficiaries', 'transactions.beneficiary_id', '=', 'beneficiaries.id')
-            ->select("transactions.*", "beneficiaries.firstname", "beneficiaries.lastname");
+            ->select("transactions.*", "beneficiaries.firstname", "beneficiaries.lastname","beneficiaries.account_number","bank_name","branch_address"
+                ,"iban_code","swift_code");
     }
 
     public function scopeSelectBoth($query)
     {
-        $query->select("transactions.*", "users.firstname", "users.lastname" ,"beneficiaries.firstname as f", "beneficiaries.lastname as l");
+        $query->select("transactions.*", "users.firstname as sender_fname", "users.lastname as sender_lname"
+            ,"beneficiaries.firstname as bnf_fname", "beneficiaries.lastname as bnf_lname","beneficiaries.account_number","bank_name","branch_address"
+            ,"iban_code","swift_code");
     }
 
     public function scopePer($query, $per)
@@ -102,4 +107,27 @@ class Transaction extends Model
                 break;
         }
     }
+
+//    public function scopeDailyFactor($query)
+//    {
+//        return $query
+//            ->join('boshra.video', 'user_buy.video_id', '=', 'video.id')
+//            ->join('billing.users', 'video.producer_id', '=', 'users.id')
+//            ->select(DB::raw(" SUM( user_buy.cost ) as sale_cost,users.id as producer_id,  users.first_name , users.last_name"))
+//            ->where(DB::raw('DATE_FORMAT(purchase_date, "%Y-%m-%d")'), '=', DB::raw('subdate(CURDATE(), 1)'))
+//            ->groupBy('producer_id');
+//
+//    }
+
+    public function scopeDatePicker($query, $fromDate, $toDate)
+    {
+
+        return $query->whereRaw(('payment_date BETWEEN :fromDate AND :toDate'
+        ), array(
+                'fromDate' => $fromDate,
+                'toDate' => $toDate,
+            )
+        );
+    }
+
 }

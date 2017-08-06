@@ -152,7 +152,6 @@ class TransactionController extends Controller
                 'transactions.payment_date')
             ->where("users.id" , '=' , 3)->get();
 
-//dd('salaaaaam');
         // Initialize the array which will be passed into the Excel
         // generator.
         $paymentsArray = [];
@@ -171,7 +170,7 @@ class TransactionController extends Controller
 
             // Set the spreadsheet title, creator, and description
             $excel->setTitle('Payments');
-            $excel->setCreator('Laravel')->setCompany('WJ Gilmore, LLC');
+            $excel->setCreator('Exchanger')->setCompany('FANEx');
             $excel->setDescription('payments file');
 
             // Build the spreadsheet, passing in the payments array
