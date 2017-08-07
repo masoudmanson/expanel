@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    پنل صرافی | لیست تراکنش های امروز
+    پنل صرافی | نمایش فاکتور
 @endsection
 
 @section('content')
@@ -14,16 +14,6 @@
     <div class="page-container">
 
         @include('partials.sidemenu', array('li' => 'transactions'))
-
-        <div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <span> &nbsp;در حال احراز هویت، لطفا شکیبا باشید ... </span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
@@ -100,38 +90,12 @@
                 <div class="row">
                     {{-- Today's Transactions List --}}
                     <div class="col-lg-12">
-                        {{-- Search in Transactions --}}
-                        <div class="portlet light ">
-                            <div class="portlet-title">
-                                <div class="caption caption-md">
-                                    <i class="icon-bar-chart font-yellow-casablanca"></i>
-                                    <span class="caption-subject font-yellow-casablanca bold">جستجو</span>
-                                    <span class="caption-helper">در لیست تراکنش ها</span>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <form role="form" action="">
-                                    <div class="row">
-                                        <div class="form-body col-xs-9 col-sm-10">
-                                            <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg">بیاب</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        {{-- End Search in transactions --}}
-
                         <div class="portlet light ">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">تراکنش های در انتظار تائید</span>
+                                    <span class="caption-helper">تراکنش های فاکتور شماره {{ $factor->id }}</span>
                                 </div>
                             </div>
                             <div class="portlet-body">

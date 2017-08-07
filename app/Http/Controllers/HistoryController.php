@@ -27,18 +27,26 @@ class HistoryController extends Controller
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
-
         $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
             ->filterBank('successful')
 //            ->per('daily')
 //            ->orderBy('premium_amount', 'DESC')
-            ->orderBy($order, $option)->paginate(5);
+            ->orderBy($order, $option)->paginate(10);
+
+        $top_widget = array();
+        $top_widget['transactions_count'] = $transactions->count();
+        $top_widget['transactions_sum'] = $transactions->sum();
+
+        $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
+        $top_widget['transactions_sum_received'] = Transaction::filterBank('successful')->sum('payment_amount');
+        $top_widget['transactions_sum_accepted'] = Transaction::filterBank('successful')->filterFanex('accepted')->sum('payment_amount');
+        $top_widget['transactions_sum_done'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
 
         if ($request->ajax())
             return response()->json(view('partials.history', compact('transactions', 'extraInfo'))->render());
 
-        dd($transactions);
-        return view('pages.history', compact('transactions', 'extraInfo'));
+//        dd($transactions);
+        return view('pages.history', compact('transactions', 'extraInfo', 'top_widget'));
 
     }
 

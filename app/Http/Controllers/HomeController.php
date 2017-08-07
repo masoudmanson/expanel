@@ -48,7 +48,7 @@ class HomeController extends Controller
         $today['count'] = Transaction::filterBank('successful')->per($per)->count();
         $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 
-        dd($today['special']->toArray());
+//        dd($today['special']->toArray());
 
         return view('home', compact('top_widget', 'today'));
     }

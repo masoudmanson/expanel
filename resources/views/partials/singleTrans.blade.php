@@ -14,7 +14,7 @@
                 </div>
                 <div class="list-item-content">
                     <h3>
-                        <p class="font-red-mint"><small class="font-grey-silver"> فرستنده: </small> {{ $transaction->firstname . ' ' . $transaction->lastname }}</p>
+                        <p class="font-red-mint"><small class="font-grey-silver"> فرستنده: </small> {{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</p>
                     </h3>
                 </div>
             </li>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="list-item-content">
                     <h3>
-                        <p class="font-red-mint"><small class="font-grey-silver"> گیرنده: </small> {{ $transaction->f . ' ' . $transaction->l }}</p>
+                        <p class="font-red-mint"><small class="font-grey-silver"> گیرنده: </small> {{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</p>
                     </h3>
                 </div>
             </li>
@@ -65,11 +65,33 @@
 
             <li class="mt-list-item">
                 <div class="list-icon-container">
-                    <i class="icon-calendar"></i>
+                    <i class="icon-check"></i>
                 </div>
                 <div class="list-item-content">
                     <h3>
-                        <p class="font-red-mint"><small class="font-grey-silver"> وضعیت تراکنش: </small> مسعود امجدی</p>
+                        <p class="font-red-mint"><small class="font-grey-silver"> وضعیت پرداخت بانکی: </small>@lang('index.'.$transaction->bank_status)</p>
+                    </h3>
+                </div>
+            </li>
+
+            <li class="mt-list-item">
+                <div class="list-icon-container">
+                    <i class="icon-check"></i>
+                </div>
+                <div class="list-item-content">
+                    <h3>
+                        <p class="font-red-mint"><small class="font-grey-silver"> وضعیت تراکنش سمت صرافی: </small>@lang('index.'.$transaction->fanex_status )</p>
+                    </h3>
+                </div>
+            </li>
+
+            <li class="mt-list-item">
+                <div class="list-icon-container">
+                    <i class="icon-check"></i>
+                </div>
+                <div class="list-item-content">
+                    <h3>
+                        <p class="font-red-mint"><small class="font-grey-silver"> وضعیت انتقال حواله: </small>@lang('index.'.$transaction->upt_status)</p>
                     </h3>
                 </div>
             </li>
