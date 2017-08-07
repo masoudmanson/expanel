@@ -19,15 +19,15 @@
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
-                <h1 class="page-title"> لیست تراکنش های امروز </h1>
+                <h1 class="page-title"> لیست تراکنش های فاکتور شماره 655 </h1>
 
                 <div class="row widget-row">
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد تراکنش های امروز</h4>
+                            <h4 class="widget-thumb-heading">تعداد تراکنش های این فاکتور</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-casablanca icon-graph"></i>
+                                <i class="widget-thumb-icon bg-yellow-casablanca icon-book-open"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
@@ -41,11 +41,11 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">مبلغ مبادله شده امروز</h4>
+                            <h4 class="widget-thumb-heading">مجموع مبلغ این فاکتور</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-haze fa fa-money"></i>
+                                <i class="widget-thumb-icon bg-yellow-haze icon-book-open"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">ریال</span>
+                                    <span class="widget-thumb-subtitle">ريال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>
                                 </div>
@@ -57,13 +57,12 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">بالاترین نرخ تبدیل ارز</h4>
+                            <h4 class="widget-thumb-heading">ساعت</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
+                                <i class="widget-thumb-icon bg-yellow-lemon icon-clock"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="4235">0</span>
+                                    <span class="widget-thumb-subtitle">الان</span>
+                                    <span class="widget-thumb-body-stat server-time"></span>
                                 </div>
                             </div>
                         </div>
@@ -73,13 +72,12 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">پایین ترین نرخ تبدیل ارز</h4>
+                            <h4 class="widget-thumb-heading">تاریخ</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue-hoki icon-shuffle"></i>
+                                <i class="widget-thumb-icon bg-blue-hoki icon-calendar"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="3955">0</span>
+                                    <span class="widget-thumb-subtitle">امروز</span>
+                                    <span class="widget-thumb-body-stat">{{ jdate('now')->format('%d %B %Y') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +93,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">تراکنش های فاکتور شماره {{ $factor->id }}</span>
+                                    <span class="caption-helper">تراکنش های فاکتور شماره 655</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -103,29 +101,31 @@
                                     <table class="table table-hover table-light">
                                         <thead>
                                         <tr>
-                                            <th> کاربر</th>
+                                            <th> فرستنده</th>
                                             <th> مبلغ</th>
-                                            <th> نرخ تبدیل</th>
+                                            <th>وضعیت</th>
                                             <th> مقصد</th>
+                                            <th> گیرنده</th>
                                             <th> شماره تراکنش</th>
                                             <th> تاریخ</th>
                                             <th> عملیات</th>
                                         </tr>
                                         </thead>
 
-                                        @foreach($payed_transactions as $transaction)
+                                        @foreach($transactions as $transaction)
                                             <tr id="trans_{{ $transaction->id }}">
-                                                <td class="font-blue-chambray">{{ $transaction->firstname . ' ' . $transaction->lastname }}</td>
-                                                <td class="font-red-haze bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
-                                                <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
+                                                <td class="font-blue-chambray">{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</td>
+                                                <td class="font-yellow-crusta bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
+                                                <td class="font-red-mint bold">@lang('index.'.$transaction->fanex_status)</td>
                                                 <td class="font-blue-dark">{{ $transaction->country }}</td>
+                                                <td class="font-blue-dark">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
                                                 <td class="bold font-dark">{{ $transaction->uri }}</td>
                                                 <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 <td>
                                                     <a data-target="#transShowModal" data-toggle="modal"
                                                        class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks"
                                                        data-id="{{ $transaction->id }}">
-                                                        <i class="icon-eye"></i> مشاهده
+                                                        <i class="icon-eye"></i> مشاهده تراکنش
                                                     </a>
 
                                                     <a data-target="#transConfirmModal" data-toggle="modal"
@@ -148,13 +148,14 @@
                                                        class="btn btn-circle btn-outline btn-sm yellow-crusta">
                                                         <i class="icon-user-follow"></i> احراز هویت
                                                     </a>
+
                                                 </td>
 
                                             </tr>
                                         @endforeach
                                     </table>
                                     <br>
-                                    {{ $payed_transactions->links() }}
+                                    {{ $transactions->links() }}
                                 </div>
                             </div>
                         </div>

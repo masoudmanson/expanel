@@ -133,16 +133,23 @@
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
                                     <span class="caption-helper">تراکنش های در انتظار تائید</span>
                                 </div>
+                                <div class="actions">
+                                    <a href="#" class="btn btn-circle green btn-outline btn-sm">
+                                        <i class="fa fa-file-excel-o"></i> Excel </a>
+                                    <a href="#" class="btn btn-circle red btn-outline btn-sm">
+                                        <i class="fa fa-file-pdf-o"></i> PDF </a>
+                                </div>
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable table-scrollable-borderless">
                                     <table class="table table-hover table-light">
                                         <thead>
                                         <tr>
-                                            <th> کاربر</th>
+                                            <th> فرستنده</th>
                                             <th> مبلغ</th>
-                                            <th> نرخ تبدیل</th>
+                                            <th>وضعیت</th>
                                             <th> مقصد</th>
+                                            <th> گیرنده</th>
                                             <th> شماره تراکنش</th>
                                             <th> تاریخ</th>
                                             <th> عملیات</th>
@@ -151,10 +158,11 @@
 
                                         @foreach($payed_transactions as $transaction)
                                             <tr id="trans_{{ $transaction->id }}">
-                                                <td class="font-blue-chambray">{{ $transaction->firstname . ' ' . $transaction->lastname }}</td>
-                                                <td class="font-red-haze bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
-                                                <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
+                                                <td class="font-blue-chambray">{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</td>
+                                                <td class="font-yellow-crusta bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
+                                                <td class="font-red-mint bold">@lang('index.'.$transaction->fanex_status)</td>
                                                 <td class="font-blue-dark">{{ $transaction->country }}</td>
+                                                <td class="font-blue-dark">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
                                                 <td class="bold font-dark">{{ $transaction->uri }}</td>
                                                 <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 <td>
@@ -184,6 +192,7 @@
                                                        class="btn btn-circle btn-outline btn-sm yellow-crusta">
                                                         <i class="icon-user-follow"></i> احراز هویت
                                                     </a>
+
                                                 </td>
 
                                             </tr>

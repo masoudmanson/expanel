@@ -32,7 +32,7 @@ $(document).on('ready', function() {
 
     $.ajax({
       method: 'get',
-      url: 'transactions/' + transId,
+      url: '/transactions/' + transId,
       data: {
         'accepted': true,
         '_token': csrfToken,
@@ -81,7 +81,7 @@ $(document).on('ready', function() {
       $('#transConfirmModal').find('#transConfirmSubmit').hide();
       $.ajax({
         method: 'PUT',
-        url: 'transactions/' + transId,
+        url: '/transactions/' + transId,
         data: {
           'confirmed': true,
           '_token': csrfToken,
@@ -130,7 +130,7 @@ $(document).on('ready', function() {
       $('#transRejectModal').find('#transRejectSubmit').hide();
       $.ajax({
         method: 'PUT',
-        url: 'transactions/' + transId,
+        url: '/transactions/' + transId,
         data: {
           'rejected': true,
           '_token': csrfToken,

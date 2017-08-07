@@ -27,16 +27,23 @@ class FactorController extends Controller
 
         $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
             ->filterBank('successful')
+            ->filterFanex('pending')
+            ->orderBy($order, $option)->get();
+
+        $transactions_done = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
+            ->filterBank('successful')
             ->filterFanex('accepted')
-//            ->per('daily')
-//            ->orderBy('premium_amount', 'DESC')
-            ->orderBy($order, $option)->paginate(5);
+            ->orderBy($order, $option)->paginate(10);
+
+
+        $top_widget['factors_unaccepted_count'] = 4;
+        $top_widget['factors_accepted_count'] = 10;
 
         if ($request->ajax())
-            return response()->json(view('partials.history', compact('transactions', 'extraInfo'))->render());
+            return response()->json(view('partials.factors', compact('transactions', 'transactions_done', 'extraInfo', 'top_widget'))->render());
 
-        dd($transactions);
-        return view('pages.history', compact('transactions', 'extraInfo'));
+//        dd($transactions);
+        return view('pages.factors', compact('transactions', 'transactions_done', 'extraInfo', 'top_widget'));
     }
 
     /**
@@ -68,7 +75,13 @@ class FactorController extends Controller
      */
     public function show($id)
     {
-        //
+        $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->orderBy('transactions.id','DESC')->paginate(10);
+
+        $top_widget = array();
+        $top_widget['transactions_count'] = 45;
+        $top_widget['transactions_sum'] = 452000000;
+
+        return view('pages.showTransaction', compact('transactions', 'top_widget'));
     }
 
     /**
