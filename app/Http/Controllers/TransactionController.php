@@ -100,7 +100,7 @@ class TransactionController extends Controller
 //        dd($request);
         if ($request->confirmed) {
             $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
-
+dd($upt_res);
             if ($upt_res->CorpSendRequestResult->TransferRequestStatus->RESPONSE == 'Success') {
                 $transaction->fanex_status = 'accepted';
                 $transaction->upt_ref = $upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT;

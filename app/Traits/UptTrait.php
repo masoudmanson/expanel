@@ -43,12 +43,13 @@ trait UptTrait
 
     public function CorpGetCountryData()
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://uptuat.aktifbank.com.tr/ISV/TU/WebServices/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
@@ -64,12 +65,13 @@ trait UptTrait
 
     public function CorpGetCurrencyRate($amount = 0, $from = 'EUR', $to = 'TRY')
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://uptuat.aktifbank.com.tr/ISV/TU/WebServices/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
@@ -90,16 +92,19 @@ trait UptTrait
 
     public function CorpSendRequest(Transaction $transaction , userClient $user , Beneficiary $beneficiary , Backlog $backlog)
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
-//        $client = new SoapClient($url, array("soap_version" => SOAP_1_2, "trace" => 1));
-        $client = new SoapClient($url);
+//        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://upt.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $client = new SoapClient($url, array("soap_version" => SOAP_1_2, "trace" => 1));
+//        $client = new SoapClient($url);
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+//            'Username' => "2818",
+//            'Password' => "1"
+            'Password' => "Fanex@123456!"
         );
 
-        $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param);
+        $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param,true);
 
         $client->__setSoapHeaders($header);
 
@@ -107,29 +112,53 @@ trait UptTrait
             'CORRESPONDENT_PARITY'=>'0',
             'CORRESPONDENT_EXPENSE'=>'0',
             'CORRESPONDENT_COMMISSION'=>'0', // these three parameter weren't on document and didn't used in postman even.but here, it seems necessary
-
+//            'SENDER_CITIZENSHIP_NO' => '14695448',
+//            'SENDER_ID_TYPE' => 'pasport',
+//            'SENDER_ID_NO'=>'3',
 
             'SENDER_COUNTRY_CODE' => 'IR', // todo:later it should be detect automatically
             'SENDER_NATIONALITY' => 'IR', // todo: " " " "
-            'SENDER_NAME' => Auth::user()->firstname,
-            'SENDER_SURNAME' => Auth::user()->lastname,
-//            'SENDER_NAME' => 'SEMaH CAN',
-//            'SENDER_SURNAME' =>'sAKAR',
+//            'SENDER_NAME' => Auth::user()->firstname,
+//            'SENDER_SURNAME' => Auth::user()->lastname,
+            'SENDER_NAME' => 'pooria',
+            'SENDER_SURNAME' => 'pahlevani',
 //            'BENEFICIARY_COUNTRY_CODE' => $backlog->country,// todo: "to"
             'BENEFICIARY_COUNTRY_CODE' => 'TR',// todo: "to"
             'BENEFICIARY_NAME' => $beneficiary->firstname, //todo : bnf firstname
             'BENEFICIARY_SURNAME' => $beneficiary->lastname, // todo: bnf lastname
-//            'BENEFICIARY_NAME' => 'Neslihan', //todo : bnf firstname
-//            'BENEFICIARY_SURNAME' => 'Elver', // todo: bnf lastname
-            'TRANSACTION_TYPE' => '001', // todo:which type we have to use?!
+//            'BENEFICIARY_NAME' => 'masoud', //todo : bnf firstname
+//            'BENEFICIARY_SURNAME' => 'test', // todo: bnf lastname
+            'BENEFICIARY_GSM_COUNTRY_CODE' => '0090',
+//            'BENEFICIARY_GSM_NO' => '5057181936',
+            'BENEFICIARY_GSM_NO' => '5314093654', //farzad sarseyfi mobile
+//            'BENEFICIARY_IBAN' => 'TR290006400000164310007808',
+            'BENEFICIARY_IBAN' => $beneficiary->iban_code,
+
+            'TRANSACTION_TYPE' => '002', // todo:which type we have to use?!
 //            'MONEY_TAKEN_CURRENCY' => 'EUR', // todo ? I think it is EUR
             'MONEY_TAKEN'=>'0',
 //            'MONEY_TAKEN_CURRENCY' => 'TRY', // todo ? I think it is EUR
 //            'AMOUNT' => $backlog->payment_amount, // todo ?
-            'AMOUNT' => 1, // todo ?
+            'AMOUNT' => $transaction->premium_amount, // todo ?
 //            'AMOUNT_CURRENCY' => $backlog->currency, // currency
-            'AMOUNT_CURRENCY' => 'TRY', // currency
+//            'AMOUNT_CURRENCY' => 'TRY', // currency
+            'AMOUNT_CURRENCY' => $transaction->currency, // currency
+
+            // new parameters :|
+
+//            "CORP_MONEY_ACCOUNTING_TAKEN_OUT"=>$transaction->premium_amount,
+//            "CORP_MONEY_ACCOUNTING_TAKEN_EXC_RATE_OUT"=> 1,
+//            "CORP_EXPENSE_ACCOUNTING_TAKEN_OUT"=> 0,
+//            "CORP_EXPENSE_ACCOUNTING_TAKEN_EXC_RATE_OUT"=>1,
+////            "CORP_EXPENSE_AMOUNT_OUT"=> (0.005 * $transaction->premium_amount) + 20,
+//            "CORP_EXPENSE_AMOUNT_OUT"=> 0,
+//            "CORP_MONEY_TAKEN_OUT"=> 0,
+//            "CORP_MONEY_TAKEN_EXC_RATE_OUT"=> 0,
+//            "CORP_AMOUNT_OUT"=> $transaction->premium_amount,
+//            "CORP_AMOUNT_EXC_RATE_OUT"=> 0,
         ));
+
+//        dd($body_params);
 
         $return = $client->CorpSendRequest($body_params);
 //        $return = $client->__SoapCall('CorpSendRequest', $body_params);
@@ -140,12 +169,13 @@ trait UptTrait
 
     public function CorpSendRequestConfirm($upt_ref)
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://upt.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
@@ -163,12 +193,14 @@ trait UptTrait
 
     public function CorpCancelRequest($upt_ref)
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://uptuat.aktifbank.com.tr/ISV/TU/WebServices/CorpService.asmx?wsdl';
+        $url = 'https://upt.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
@@ -187,12 +219,13 @@ trait UptTrait
     
     public function CorpCancelConfirm($upt_ref)
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://uptuat.aktifbank.com.tr/ISV/TU/WebServices/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
@@ -211,12 +244,13 @@ trait UptTrait
 
     public function UptGetTransferList($upt_ref)
     {
-        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?WSDL';
+        //        $url = 'https://uptuat3.aktifbank.com.tr/ISV/TU/WebServices/V1_2/CorpService.asmx?wsdl';
+        $url = 'https://uptuat.aktifbank.com.tr/ISV/TU/WebServices/CorpService.asmx?wsdl';
         $client = new SoapClient($url, array("soap_version" => SOAP_1_1, "trace" => 1));
 
         $user_param = array(
-            'Username' => "2818",
-            'Password' => "1"
+            'Username' => "9590",
+            'Password' => "Fanex@123456!"
         );
 
         $header = new SoapHeader('http://tempuri.org/', 'WsSystemUserInfo', $user_param, false);
