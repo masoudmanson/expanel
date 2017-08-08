@@ -17,6 +17,7 @@ $(document).on('ready', function() {
       $('#rateModal #currency_name').text(currency);
       $('#rateModal #rate_amount').text(number_format(amount) + 'ریال ');
       $('#rateModal').modal('show');
+      $('.modal:visible').each(reposition);
       $('#modalSubmit').on('click', function() {
         $('#rateForm' + id)[0]['rate'].value = amount;
         $('#rateForm' + id)[0].submit();
@@ -41,18 +42,21 @@ $(document).on('ready', function() {
     }).done(function(data) {
       if (data) {
         $('#transShowModal').find('#transShowBody').html(data);
+        $('.modal:visible').each(reposition);
       }
       else {
         $('#transShowModal').
             find('#transShowBody').
             html(
                 '<h2 class="font-red-mint text-center">دریافت تراکنش با مشکل مواجه شد!</h2>');
+        $('.modal:visible').each(reposition);
       }
     }).fail(function() {
       $('#transShowModal').
           find('#transShowBody').
           html(
               '<h2 class="font-red-mint text-center">دریافت تراکنش با مشکل مواجه شد!</h2>');
+      $('.modal:visible').each(reposition);
     });
   });
 
@@ -66,13 +70,12 @@ $(document).on('ready', function() {
     $('#transConfirmModal').modal('show');
     $('#transConfirmModal').
         find('#transConfirmBody').
-        html(
-            '<h3 class="text-center">شماره تراکنش : <span class="font-red-flamingo" id="transConfirmURI"></span></h3>' +
-            '<h4 class="text-center">توسط <span class="font-green-meadow" id="transConfirmUser"></span></h4>');
+        html('<h4 class="text-center">کاربر : <span class="font-green-meadow" id="transConfirmUser"></span></h4>');
     $('#transConfirmModal').find('#transConfirmSubmit').show();
 
-    $('#transConfirmModal').find('#transConfirmURI').text(transURI);
+    // $('#transConfirmModal').find('#transConfirmURI').text(transURI);
     $('#transConfirmModal').find('#transConfirmUser').text(transUser);
+    $('.modal:visible').each(reposition);
     $('#transConfirmSubmit').on('click', function() {
       $('#transConfirmModal').
           find('#transConfirmBody').
@@ -93,6 +96,7 @@ $(document).on('ready', function() {
             find('#transConfirmBody').
             html('<h2 class="font-green-meadow text-center">' + message.msg +
                 '</h2>');
+        $('.modal:visible').each(reposition);
         if (message.status) {
           $('#trans_' + transId).slideUp(200);
         }
@@ -102,6 +106,54 @@ $(document).on('ready', function() {
             find('#transConfirmBody').
             html('<h2 class="font-red-mint text-center">' + message.msg +
                 '</h2>');
+        $('.modal:visible').each(reposition);
+      });
+    });
+  });
+
+  $('.factorConfirmLinks').on('click', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var factorId = $(this).attr('data-id');
+    var transURI = $(this).attr('data-uri');
+
+    $('#factorConfirmModal').modal('show');
+    $('#factorConfirmModal').
+        find('#factorConfirmBody').
+        html(
+            '<h3 class="text-center">شماره فاکتور : <span class="font-red-flamingo" id="factorConfirmURI"></span></h3>');
+    $('#factorConfirmModal').find('#factorConfirmSubmit').show();
+
+    $('#factorConfirmModal').find('#factorConfirmURI').text(transURI);
+    $('#factorConfirmSubmit').on('click', function() {
+      $('#factorConfirmModal').
+          find('#factorConfirmBody').
+          html('<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
+      $('#factorConfirmModal').find('#factorConfirmSubmit').hide();
+      $('.modal:visible').each(reposition);
+      $.ajax({
+        method: 'PUT',
+        url: '/factors/' + factorId,
+        data: {
+          'confirmed': true,
+          '_token': csrfToken,
+          'X-CSRF-TOKEN': csrfToken,
+        },
+      }).done(function(data) {
+        var message = $.parseJSON(data);
+        $('#factorConfirmModal').
+            find('#factorConfirmBody').
+            html('<h2 class="font-green-meadow text-center">' + message.msg +'</h2>');
+        $('.modal:visible').each(reposition);
+        if (message.status) {
+          $('#factor_' + factorId).slideUp(200);
+        }
+      }).fail(function(data) {
+        var message = $.parseJSON(data);
+        $('#factorConfirmModal').
+            find('#factorConfirmBody').
+            html('<h2 class="font-red-mint text-center">' + message.msg +'</h2>');
+        $('.modal:visible').each(reposition);
       });
     });
   });
@@ -128,6 +180,7 @@ $(document).on('ready', function() {
           html(
               '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
       $('#transRejectModal').find('#transRejectSubmit').hide();
+      $('.modal:visible').each(reposition);
       $.ajax({
         method: 'PUT',
         url: '/transactions/' + transId,
@@ -142,6 +195,7 @@ $(document).on('ready', function() {
             find('#transRejectBody').
             html('<h2 class="font-green-meadow text-center">' + message.msg +
                 '</h2>');
+        $('.modal:visible').each(reposition);
         if (message.status) {
           $('#trans_' + transId).slideUp(200);
         }
@@ -151,6 +205,7 @@ $(document).on('ready', function() {
             find('#transRejectBody').
             html('<h2 class="font-red-mint text-center">' + message.msg +
                 '</h2>');
+        $('.modal:visible').each(reposition);
       });
     });
   });
@@ -174,9 +229,7 @@ function reposition() {
   var modal = $(this),
       dialog = modal.find('.modal-dialog');
   modal.css('display', 'block');
-
-  dialog.css('margin-top',
-      Math.max(0, ($(window).height() - dialog.height()) / 2));
+  dialog.css('margin-top',Math.max(0, ($(window).height() - dialog.height()) / 2));
 }
 
 var localtime = +Date.now();

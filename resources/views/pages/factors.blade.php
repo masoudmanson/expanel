@@ -118,7 +118,7 @@
                                         </thead>
 
                                         @foreach($transactions as $transaction)
-                                            <tr id="trans_{{ $transaction->id }}">
+                                            <tr id="factor_{{ $transaction->id }}">
                                                 <td>{{ $transaction->id }}</td>
                                                 <td class="bold font-dark">{{ $transaction->uri }}</td>
                                                 <td class="font-blue-chambray">{{ $transaction->user_id }}</td>
@@ -130,27 +130,11 @@
                                                         <i class="icon-eye"></i> مشاهده فاکتور
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-check"></i> تائید
-                                                    </a>
-
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
+                                                    <a class="btn btn-circle btn-outline btn-sm green-haze">
                                                         <i class="icon-check"></i> خروجی اکسل
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm red-flamingo transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
+                                                    <a class="btn btn-circle btn-outline btn-sm red-flamingo">
                                                         <i class="icon-check"></i> خروجی PDF
                                                     </a>
                                                 </td>
@@ -207,19 +191,11 @@
                                                         <i class="icon-eye"></i> مشاهده فاکتور
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
+                                                    <a class="btn btn-circle btn-outline btn-sm green-haze">
                                                         <i class="icon-check"></i> خروجی اکسل
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm red-flamingo transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
+                                                    <a class="btn btn-circle btn-outline btn-sm red-flamingo">
                                                         <i class="icon-check"></i> خروجی PDF
                                                     </a>
                                                 </td>

@@ -2,3 +2,7 @@
 .list-item-content p {
     margin: 0;
 }
+
+.btn.fullWidth {
+    width: 100% !important;
+}

@@ -128,25 +128,10 @@
                                                         <i class="icon-eye"></i> مشاهده تراکنش
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-check"></i> تائید
-                                                    </a>
-
-                                                    <a data-target="#transRejectModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-close"></i> رد کردن
-                                                    </a>
-
-                                                    <a href="#" data-target="#ajax" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                        <i class="icon-user-follow"></i> احراز هویت
+                                                    <a href="#" data-target="#transConfirmModal" data-toggle="modal"
+                                                       data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
+                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks">
+                                                        <i class="icon-user-follow"></i> احراز هویت و تائید تراکنش
                                                     </a>
 
                                                 </td>

@@ -45,6 +45,37 @@
                 </ul>
             </li>
 
+            <li id="users-li" class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user-follow"></i>
+                    <span class="title">کاربران</span>
+                    <span class="arrow"></span>
+                    <span class="selected"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="{{ route('users.index') }}" class="nav-link ">
+                            <span class="title">در انتظار تائید</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ route('indexExhouse') }}" class="nav-link ">
+                            <span class="title">صرافی پاسارگاد</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ route('indexFanap') }}" class="nav-link ">
+                            <span class="title"> فناپ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ route('indexFanap') }}" class="nav-link ">
+                            <span class="title">بانک پاسارگاد</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li id="settings-li" class="nav-item  ">
                 <a href="{{ route('settings') }}" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
