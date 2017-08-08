@@ -60,6 +60,7 @@
 @include('partials.modalTransConfirm')
 @include('partials.modalTransReject')
 @include('partials.modalTransShow')
+@include('partials.modalFactorConfirm')
 
 @yield('content')
 

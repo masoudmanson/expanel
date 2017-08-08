@@ -2,8 +2,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title font-green-haze">جزئیات تراکنش</h4>
+                <div class="caption caption-md col-xs-6">
+                    <i class="icon-shuffle font-yellow-casablanca"></i>
+                    <span class="caption-subject font-yellow-casablanca bold">جزئیات تراکنش</span>
+                    <span class="caption-helper"></span>
+                </div>
+                <div class="actions col-xs-6 text-align-reverse">
+                    <a href="#" class="btn btn-circle red btn-outline btn-sm">
+                        <i class="fa fa-file-pdf-o"></i> PDF </a>
+                </div>
             </div>
             <div class="modal-body">
                 <div id="transShowBody">

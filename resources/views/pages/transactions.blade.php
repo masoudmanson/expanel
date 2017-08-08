@@ -15,16 +15,6 @@
 
         @include('partials.sidemenu', array('li' => 'transactions'))
 
-        <div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <span> &nbsp;در حال احراز هویت، لطفا شکیبا باشید ... </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
@@ -118,7 +108,7 @@
                                             </div>
                                         </div>
                                         <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg">بیاب</button>
+                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
                                         </div>
                                     </div>
                                 </form>
@@ -172,25 +162,26 @@
                                                         <i class="icon-eye"></i> مشاهده
                                                     </a>
 
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-check"></i> تائید
-                                                    </a>
+                                                    {{--<a data-target="#transConfirmModal" data-toggle="modal"--}}
+                                                       {{--data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"--}}
+                                                       {{--data-uri="{{ $transaction->uri }}"--}}
+                                                       {{--class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"--}}
+                                                       {{--data-id="{{ $transaction->id }}">--}}
+                                                        {{--<i class="icon-check"></i> تائید--}}
+                                                    {{--</a>--}}
 
-                                                    <a data-target="#transRejectModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-close"></i> رد کردن
-                                                    </a>
+                                                    {{--<a data-target="#transRejectModal" data-toggle="modal"--}}
+                                                       {{--data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"--}}
+                                                       {{--data-uri="{{ $transaction->uri }}"--}}
+                                                       {{--class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"--}}
+                                                       {{--data-id="{{ $transaction->id }}">--}}
+                                                        {{--<i class="icon-close"></i> رد کردن--}}
+                                                    {{--</a>--}}
 
-                                                    <a href="#" data-target="#ajax" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta">
-                                                        <i class="icon-user-follow"></i> احراز هویت
+                                                    <a href="#" data-target="#transConfirmModal" data-toggle="modal"
+                                                       data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
+                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks">
+                                                        <i class="icon-user-follow"></i> احراز هویت و تائید تراکنش
                                                     </a>
 
                                                 </td>

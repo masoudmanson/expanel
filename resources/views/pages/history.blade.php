@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                         <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg">بیاب</button>
+                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
                                         </div>
                                     </div>
                                 </form>

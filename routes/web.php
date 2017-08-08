@@ -32,15 +32,14 @@ Auth::routes();
 
 Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
 
-//Route::get('/rates', 'PagesController@rate')->name('rates');
-//Route::get('/transactions', 'PagesController@transactions')->name('transactions');
-//Route::get('/history', 'PagesController@history')->name('history');
-//Route::get('/factors', 'FactorController@factors')->name('factors');
 Route::get('/settings', 'PagesController@settings')->name('settings');
 Route::resource('/rates' , 'RateController');
 Route::resource('/transactions' , 'TransactionController');
 Route::resource('/history' , 'HistoryController');
 Route::resource('/factors' , 'FactorController');
+Route::get('indexFanap', 'UsersController@indexFanap')->name('indexFanap');
+Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
+Route::resource('/users' , 'UsersController');
 
 Route::get('/search/{search}','TransactionController@search');
 
