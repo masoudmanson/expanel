@@ -7,11 +7,11 @@
  */
 
 namespace App\Traits;
-
+use Excel;
 
 trait ExportTrait
 {
-    public function pdf_export($transactions,$paymentsArray,$file_name,$creator,$company,$description='')
+    public function excel_export($transactions,$paymentsArray,$file_name,$creator,$company,$description='')
     {
         foreach ($transactions as $payment) {
             $paymentsArray[] = $payment->toArray();

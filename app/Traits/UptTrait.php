@@ -130,7 +130,8 @@ trait UptTrait
 //            'BENEFICIARY_SURNAME' => 'test', // todo: bnf lastname
             'BENEFICIARY_GSM_COUNTRY_CODE' => '0090',
 //            'BENEFICIARY_GSM_NO' => '5057181936',
-            'BENEFICIARY_GSM_NO' => '5314093654', //farzad sarseyfi mobile
+//            'BENEFICIARY_GSM_NO' => '5314093654', //farzad sarseyfi mobile
+            'BENEFICIARY_GSM_NO' => $beneficiary->tel, //farzad sarseyfi mobile
 //            'BENEFICIARY_IBAN' => 'TR290006400000164310007808',
             'BENEFICIARY_IBAN' => $beneficiary->iban_code,
 

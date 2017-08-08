@@ -41,10 +41,11 @@ Route::get('indexFanap', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::resource('/users' , 'UsersController');
 
-Route::get('/search/{search}','TransactionController@search');
+Route::get('/search/transactions','TransactionController@search')->name('transactions.search');
 
-Route::get('/test','HomeController@special_transaction_excel');
-Route::get('/transactions/excel','TransactionController@excel')->name('admin.transactions.excel');
+Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
+Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');
+Route::get('/excel/transactions','TransactionController@excel')->name('admin.transactions.excel');
 
 
 

@@ -100,11 +100,12 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
+                                {{--<form role="form" method="get" action="{{route('transactions.search')}}">--}}
                                 <form role="form" action="">
                                     <div class="row">
                                         <div class="form-body col-xs-9 col-sm-10">
                                             <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text">
+                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text" name="input">
                                             </div>
                                         </div>
                                         <div class="form-actions right col-xs-3 col-sm-2">
@@ -124,7 +125,7 @@
                                     <span class="caption-helper">تراکنش های در انتظار تائید</span>
                                 </div>
                                 <div class="actions">
-                                    <a href="#" class="btn btn-circle green btn-outline btn-sm">
+                                    <a href="{{route('admin.transactions.excel')}}" class="btn btn-circle green btn-outline btn-sm">
                                         <i class="fa fa-file-excel-o"></i> Excel </a>
                                     <a href="#" class="btn btn-circle red btn-outline btn-sm">
                                         <i class="fa fa-file-pdf-o"></i> PDF </a>
@@ -178,9 +179,11 @@
                                                         {{--<i class="icon-close"></i> رد کردن--}}
                                                     {{--</a>--}}
 
-                                                    <a href="#" data-target="#transConfirmModal" data-toggle="modal"
+                                                    <a data-target="#transConfirmModal" data-toggle="modal"
                                                        data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks">
+                                                       data-uri="{{ $transaction->uri }}"
+                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks"
+                                                       data-id="{{ $transaction->id }}">
                                                         <i class="icon-user-follow"></i> احراز هویت و تائید تراکنش
                                                     </a>
 

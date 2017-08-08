@@ -29,14 +29,35 @@ class TransactionController extends Controller
         return view('pages.transactions', compact('payed_transactions','top_widget'));
     }
 
-    public function search(Request $request , $data)
+    public function search(Request $request)
     {
-//        dd($data);
-        $regex = '/((name)|(phone)|(account))\s*\:\s*\w*\s*\w*\;/';
-//        preg_match($regex, $data, $matches);
-        preg_match_all($regex, $data, $matches, PREG_SET_ORDER, 0);
-        dd($matches);
-//        print_r($matches);
+        preg_match_all('/(?:(name|phone|account):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->input, $matches, PREG_SET_ORDER);
+
+        $result = array();
+        foreach ($matches as $match) {
+            $result[$match[1]] = $result[$match[1]] ? $result[$match[1]] . ' ' . $match[2] : $match[2];
+        }
+
+        var_dump($result);
+
+        foreach($result as $k => $v) {
+            switch(strtolower($k)) {
+                case 'name':
+                    if(preg_match("/^[a-zA-Z\s]+$/",$v))
+                        echo 'Name : <b>' . $v . '</b><br>';
+                    break;
+                case 'phone':
+                    if(ctype_digit($v))
+                        echo 'Phone Number : <b>' . $v . '</b><br>';
+                    break;
+                case 'account':
+                    if(ctype_digit($v))
+                        echo 'Account Number : <b>' . $v . '</b><br>';
+                    break;
+                case defult:
+                    break;
+            }
+        }
     }
 
     /**
@@ -100,7 +121,7 @@ class TransactionController extends Controller
 //        dd($request);
         if ($request->confirmed) {
             $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
-dd($upt_res);
+
             if ($upt_res->CorpSendRequestResult->TransferRequestStatus->RESPONSE == 'Success') {
                 $transaction->fanex_status = 'accepted';
                 $transaction->upt_ref = $upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT;
@@ -132,10 +153,12 @@ dd($upt_res);
             $transaction->fanex_status = 'rejected';
             $result = $this->chargeUserWallet($transaction->user, $transaction->payment_amount);
             //charge the user wallet
-            if (!$result->hasError)
+            if (!$result->hasError) {
                 $transaction->update();
+                return json_encode(array('status' => false , 'msg' => 'عملیات برگشت به حساب')); //The transfer was successfully settled.
+            }
             else
-                dd(':D nashod'); // return ?
+                return json_encode(array('status' => false , 'msg' => 'خطا در عملیات'));
         }
 
     }
@@ -144,11 +167,11 @@ dd($upt_res);
     {
         $payments = Transaction::join('users', 'transactions.user_id', '=', 'users.id')
             ->select(
-                'transactions.id',
+                'transactions.id as tid',
                 DB::raw("(users.firstname || ' ' || users.lastname) as name"),
-                'users.email',
+                'users.email as mail',
                 DB::raw("(transactions.premium_amount || ' ' || transactions.currency) as payment"),
-                'transactions.payment_amount',
+                'transactions.payment_amount as payable',
                 'transactions.payment_date')
             ->where("users.id" , '=' , 3)->get();
 
