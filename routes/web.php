@@ -41,7 +41,7 @@ Route::get('indexFanap', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::resource('/users' , 'UsersController');
 
-Route::get('/search/{search}','TransactionController@search');
+Route::get('/search/transactions','TransactionController@search')->name('transactions.search');
 
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
 Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');

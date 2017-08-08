@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ExportTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
+    use ExportTrait;
     /**
      * Display a listing of the resource.
      *
@@ -88,14 +90,11 @@ class HistoryController extends Controller
             ->filterBank('successful')
 //            ->per('daily')
 //            ->orderBy('premium_amount', 'DESC')
-            ->orderBy($order, $option);
-
-        dd($transactions);
-
+            ->orderBy($order, $option)->get();
         $paymentsArray = [];
 
         // Define the Excel spreadsheet headers
-        $paymentsArray[] = ['row_number','reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
+        $paymentsArray[] = ['reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
             'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
             ,'beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
         // Convert each member of the returned collection into an array,
