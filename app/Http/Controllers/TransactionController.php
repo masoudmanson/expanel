@@ -100,7 +100,7 @@ class TransactionController extends Controller
 //        dd($request);
         if ($request->confirmed) {
             $upt_res = $this->CorpSendRequest($transaction, $transaction->user, $transaction->beneficiary, $transaction->backlog);// todo : it must written after fanex admin
-dd($upt_res);
+
             if ($upt_res->CorpSendRequestResult->TransferRequestStatus->RESPONSE == 'Success') {
                 $transaction->fanex_status = 'accepted';
                 $transaction->upt_ref = $upt_res->CorpSendRequestResult->TU_REFNUMBER_OUT;
@@ -132,10 +132,12 @@ dd($upt_res);
             $transaction->fanex_status = 'rejected';
             $result = $this->chargeUserWallet($transaction->user, $transaction->payment_amount);
             //charge the user wallet
-            if (!$result->hasError)
+            if (!$result->hasError) {
                 $transaction->update();
+                return json_encode(array('status' => false , 'msg' => 'عملیات برگشت به حساب')); //The transfer was successfully settled.
+            }
             else
-                dd(':D nashod'); // return ?
+                return json_encode(array('status' => false , 'msg' => 'خطا در عملیات'));
         }
 
     }
