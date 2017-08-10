@@ -100,8 +100,8 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                {{--<form role="form" method="get" action="{{route('transactions.search')}}">--}}
-                                <form role="form" action="">
+                                <form role="form" method="get" action="{{route('transactions.search')}}">
+                                {{--<form role="form" action="">--}}
                                     <div class="row">
                                         <div class="form-body col-xs-9 col-sm-10">
                                             <div class="form-group">
