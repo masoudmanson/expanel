@@ -157,7 +157,7 @@
                                             </thead>
                                             @foreach($today['special'] as $special_tran)
                                                 <tr>
-                                                    <td class="font-blue-chambray">{{ $special_tran->firstname . ' ' . $special_tran->lastname }}</td>
+                                                    <td class="font-blue-chambray">{{ $special_tran->sender_fname . ' ' . $special_tran->sender_lname }}</td>
                                                     <td class="font-red-haze bold">{{ number_format($special_tran->premium_amount) . ' ' . $special_tran->currency }}</td>
                                                     <td>{{ number_format($special_tran->exchange_rate) }} ریال</td>
                                                     <td>{{ jdate($special_tran->payment_date)->format('%y %B %d , H:i:s') }}</td>
