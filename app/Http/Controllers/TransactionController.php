@@ -71,7 +71,7 @@ class TransactionController extends Controller
                             $exploded = explode(' ', $v);
                             $phone = array_shift($exploded);
                             if (ctype_digit($phone)) {
-                                $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
+                                $query->whereRaw("regexp_like(beneficiaries.tel, '$name', 'i')");
                                 if (count($exploded) > 0) {
                                     foreach ($exploded as $phone) {
                                         if (ctype_digit($phone)) {
@@ -92,7 +92,7 @@ class TransactionController extends Controller
                                     foreach ($exploded as $account) {
                                         if (ctype_digit($account)) {
                                             $query->where(function ($query) use ($account) {
-                                                $query->orWhereRaw("regexp_like(beneficiaries.tel, '$account', 'i')");
+                                                $query->orWhereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
                                             });
                                         }
                                     }

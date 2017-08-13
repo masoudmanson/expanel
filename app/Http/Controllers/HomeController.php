@@ -20,6 +20,8 @@ class HomeController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->middleware('checkToken');
+        $this->middleware('checkUser');
     }
 
     /**
@@ -38,8 +40,15 @@ class HomeController extends Controller
         $exchanger = Auth::user();
         $rate_euro = $exchanger->rates()->currency('1')->last();
         $rate_lira = $exchanger->rates()->currency('2')->last();
-        $top_widget['euro_last_rate'] = $rate_euro->rate;
-        $top_widget['lira_last_rate'] = $rate_lira->rate;
+
+        if(isset($rate_euro->rate))
+            $top_widget['euro_last_rate'] = $rate_euro->rate;
+        else
+            $top_widget['euro_last_rate'] = 0;
+        if(isset($rate_lira->rate))
+            $top_widget['lira_last_rate'] = $rate_lira->rate;
+        else
+            $top_widget['lira_last_rate'] = 0;
 
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
         $today = array();
