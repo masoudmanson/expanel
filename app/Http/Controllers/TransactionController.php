@@ -45,64 +45,65 @@ class TransactionController extends Controller
                 $result[$match[1]] = $match[2];
         }
 //        $sql = "select * from transactions where bank_status = 'successful'";
-
-        $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')
+        if($result) {
+            $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')
 //            ->filterFanex('pending')
-            ->where(function ($query) use ($result) {
-                foreach ($result as $k => $v) {
-                    switch (strtolower($k)) {
-                        case 'name':
-                            $exploded = explode(' ', $v);
-                            $name = array_shift($exploded);
-                            if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
-                                $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
-                                if (count($exploded) > 0) {
-                                    foreach ($exploded as $name) {
-                                        if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
-                                            $query->where(function ($query) use ($name) {
-                                                $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
-                                            });
+                ->where(function ($query) use ($result) {
+                    foreach ($result as $k => $v) {
+                        switch (strtolower($k)) {
+                            case 'name':
+                                $exploded = explode(' ', $v);
+                                $name = array_shift($exploded);
+                                if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
+                                    $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
+                                    if (count($exploded) > 0) {
+                                        foreach ($exploded as $name) {
+                                            if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
+                                                $query->where(function ($query) use ($name) {
+                                                    $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
+                                                });
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                        case 'phone':
-                            $exploded = explode(' ', $v);
-                            $phone = array_shift($exploded);
-                            if (ctype_digit($phone)) {
-                                $query->whereRaw("regexp_like(beneficiaries.tel, '$name', 'i')");
-                                if (count($exploded) > 0) {
-                                    foreach ($exploded as $phone) {
-                                        if (ctype_digit($phone)) {
-                                            $query->where(function ($query) use ($phone) {
-                                                $query->orWhereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
-                                            });
+                            case 'phone':
+                                $exploded = explode(' ', $v);
+                                $phone = array_shift($exploded);
+                                if (ctype_digit($phone)) {
+                                    $query->whereRaw("regexp_like(beneficiaries.tel, '$name', 'i')");
+                                    if (count($exploded) > 0) {
+                                        foreach ($exploded as $phone) {
+                                            if (ctype_digit($phone)) {
+                                                $query->where(function ($query) use ($phone) {
+                                                    $query->orWhereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
+                                                });
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            break;
-                        case 'account':
-                            $exploded = explode(' ', $v);
-                            $account = array_shift($exploded);
-                            if (ctype_digit($account)) {
-                                $query->whereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
-                                if (count($exploded) > 0) {
-                                    foreach ($exploded as $account) {
-                                        if (ctype_digit($account)) {
-                                            $query->where(function ($query) use ($account) {
-                                                $query->orWhereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
-                                            });
+                                break;
+                            case 'account':
+                                $exploded = explode(' ', $v);
+                                $account = array_shift($exploded);
+                                if (ctype_digit($account)) {
+                                    $query->whereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
+                                    if (count($exploded) > 0) {
+                                        foreach ($exploded as $account) {
+                                            if (ctype_digit($account)) {
+                                                $query->where(function ($query) use ($account) {
+                                                    $query->orWhereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
+                                                });
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            break;
-                        default:
-                            break;
+                                break;
+                            default:
+                                $query->where(false);
+                                break;
+                        }
                     }
-                }
 
 //                $query->where('transactions.uri', 'like', "%$keyword%")
 //                    ->orWhereRaw("regexp_like(beneficiaries.firstname, '$keyword', 'i')")
@@ -113,8 +114,12 @@ class TransactionController extends Controller
 //            })->orderby("transactions.id", "desc")->paginate(10);
 ////            ->orderBy('transactions.id', 'DESC')->paginate(10);
 
-            })->get();
-        dd($transactions);
+                })->get();
+        }
+        else {
+            $transactions = new Transaction();
+        }
+        dd($transactions->toJson());
     }
 
     /**

@@ -31,10 +31,25 @@ class RateController extends Controller
 
         $rate_euro = $exchanger->rates()->currency('1')->last();
         $rate_lira = $exchanger->rates()->currency('2')->last();
-        $top_widget['euro_last_rate'] = $rate_euro->rate;
-        $top_widget['lira_last_rate'] = $rate_lira->rate;
 
-        return view('pages.rate',compact('rates', 'top_widget'));
+        if(isset($rate_euro->rate)) {
+            $euro_last_set_time = jdate($rate_euro->updated_at)->ago();
+            $top_widget['euro_last_rate'] = $rate_euro->rate;
+        }
+        else {
+            $top_widget['euro_last_rate'] = 0;
+            $euro_last_set_time = 0;
+        }
+        if(isset($rate_lira->rate)) {
+            $lira_last_set_time = jdate($rate_lira->updated_at)->ago();
+            $top_widget['lira_last_rate'] = $rate_lira->rate;
+        }
+        else {
+            $top_widget['lira_last_rate'] = 0;
+            $lira_last_set_time = 0;
+        }
+
+        return view('pages.rate',compact('rates', 'top_widget','euro_last_set_time','lira_last_set_time'));
     }
 
     /**

@@ -41,14 +41,22 @@ class HomeController extends Controller
         $rate_euro = $exchanger->rates()->currency('1')->last();
         $rate_lira = $exchanger->rates()->currency('2')->last();
 
-        if(isset($rate_euro->rate))
+        if(isset($rate_euro->rate)) {
+            $euro_last_set_time = jdate($rate_euro->updated_at)->ago();
             $top_widget['euro_last_rate'] = $rate_euro->rate;
-        else
+        }
+        else {
             $top_widget['euro_last_rate'] = 0;
-        if(isset($rate_lira->rate))
+            $euro_last_set_time = 0;
+        }
+        if(isset($rate_lira->rate)) {
+            $lira_last_set_time = jdate($rate_lira->updated_at)->ago();
             $top_widget['lira_last_rate'] = $rate_lira->rate;
-        else
+        }
+        else {
             $top_widget['lira_last_rate'] = 0;
+            $lira_last_set_time = 0;
+        }
 
         $per = (isset($request['per'])) ? $request['per'] : 'daily';
         $today = array();
@@ -59,7 +67,7 @@ class HomeController extends Controller
 
 //        dd($today['special']->toArray());
 
-        return view('home', compact('top_widget', 'today'));
+        return view('home', compact('top_widget', 'today','euro_last_set_time','lira_last_set_time'));
     }
 
     public function special_transaction_excel(Request $request)
