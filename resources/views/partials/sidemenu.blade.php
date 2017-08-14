@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item  ">
                         <a href="{{ route('factors.index') }}" class="nav-link ">
-                            <span class="title">تراکنش های فاکتور شده</span>
+                            <span class="title">تراکنش های بسته بندی شده</span>
                         </a>
                     </li>
                     <li class="nav-item  ">

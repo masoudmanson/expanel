@@ -19,13 +19,13 @@
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
-                <h1 class="page-title"> لیست تراکنش های فاکتور شماره 655 </h1>
+                <h1 class="page-title"> لیست تراکنش های بسته شماره 655 </h1>
 
                 <div class="row widget-row">
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد تراکنش های این فاکتور</h4>
+                            <h4 class="widget-thumb-heading">تعداد تراکنش های این بسته تراکنشی</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-casablanca icon-book-open"></i>
                                 <div class="widget-thumb-body">
@@ -41,7 +41,7 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">مجموع مبلغ این فاکتور</h4>
+                            <h4 class="widget-thumb-heading">مجموع مبلغ این بسته تراکنشی</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-haze icon-book-open"></i>
                                 <div class="widget-thumb-body">
@@ -93,7 +93,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">تراکنش های فاکتور شماره 655</span>
+                                    <span class="caption-helper">تراکنش های بسته ی شماره 655</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -130,6 +130,8 @@
 
                                                     <a href="#" data-target="#transConfirmModal" data-toggle="modal"
                                                        data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
+                                                       data-userID="{{ $transaction->sender_identity_number or 'ندارد' }}"
+                                                       data-userMobile="{{ $transaction->sender_mobile or 'ندارد' }}"
                                                        class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks">
                                                         <i class="icon-user-follow"></i> احراز هویت و تائید تراکنش
                                                     </a>

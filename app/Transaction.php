@@ -69,7 +69,7 @@ class Transaction extends Model
     public function scopeJoinUsers($query)
     {
         return $query->join('users', 'transactions.user_id', '=', 'users.id')
-            ->select("transactions.*", "users.firstname", "users.lastname");
+            ->select("transactions.*", "users.firstname", "users.lastname", "users.identity_number", "users.mobile");
     }
 
     public function scopeJoinBeneficiaries($query)
@@ -81,7 +81,8 @@ class Transaction extends Model
 
     public function scopeSelectBoth($query)
     {
-        $query->select("transactions.*", "users.firstname as sender_fname", "users.lastname as sender_lname"
+        $query->select("transactions.*", "users.firstname as sender_fname", "users.lastname as sender_lname", "users.identity_number as sender_identity_number"
+            , "users.mobile as sender_mobile"
             ,"beneficiaries.firstname as bnf_fname", "beneficiaries.lastname as bnf_lname","beneficiaries.account_number","bank_name","branch_address"
             ,"iban_code","swift_code");
     }

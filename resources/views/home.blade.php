@@ -59,11 +59,11 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">نرخ تبدیل ارز</h4>
+                            <h4 class="widget-thumb-heading">تعداد کاربران تائید نشده</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
+                                    <span class="widget-thumb-subtitle">نفر</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($top_widget['euro_last_rate']) }}">0</span>
                                 </div>

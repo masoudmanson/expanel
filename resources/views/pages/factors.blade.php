@@ -19,17 +19,17 @@
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
-                <h1 class="page-title"> لیست فاکتورها </h1>
+                <h1 class="page-title"> لیست بسته های تراکنشی </h1>
 
                 <div class="row widget-row">
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد فاکتورهای تائید نشده</h4>
+                            <h4 class="widget-thumb-heading">تعداد بسته های تائید نشده</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-casablanca icon-book-open"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">فاکتور</span>
+                                    <span class="widget-thumb-subtitle">بسته تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($top_widget['factors_unaccepted_count']) }}">0</span>
                                 </div>
@@ -41,11 +41,11 @@
                     <div class="col-md-3">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">تعداد فاکتورهای تائید شده</h4>
+                            <h4 class="widget-thumb-heading">تعداد بسته های تائید شده</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-yellow-haze icon-book-open"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">فاکتور</span>
+                                    <span class="widget-thumb-subtitle">بسته تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($top_widget['factors_accepted_count']) }}">0</span>
                                 </div>
@@ -93,7 +93,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-green-haze"></i>
                                     <span class="caption-subject font-green-haze bold">لیست</span>
-                                    <span class="caption-helper">فاکتورهای در انتظار تائید</span>
+                                    <span class="caption-helper">بسته های در انتظار تائید</span>
                                 </div>
                                 <div class="actions">
                                     <a href="#" class="btn btn-circle green btn-outline btn-sm">
@@ -108,7 +108,7 @@
                                         <thead>
                                         <tr>
                                             <th> ردیف</th>
-                                            <th> شماره فاکتور</th>
+                                            <th> شماره بسته تراکنش</th>
                                             <th> تعداد تراکنش ها</th>
                                             <th> مجموع مبلغ</th>
                                             <th>وضعیت</th>
@@ -127,7 +127,7 @@
                                                 <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 <td>
                                                     <a href="factors/1" class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                        <i class="icon-eye"></i> مشاهده فاکتور
+                                                        <i class="icon-eye"></i> مشاهده بسته تراکنش
                                                     </a>
 
                                                     <a class="btn btn-circle btn-outline btn-sm green-haze">
@@ -154,7 +154,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">فاکتورهای تائید شده</span>
+                                    <span class="caption-helper">بسته های تائید شده</span>
                                 </div>
                                 <div class="actions">
                                     <a href="#" class="btn btn-circle green btn-outline btn-sm">
@@ -169,7 +169,7 @@
                                         <thead>
                                         <tr>
                                             <th> ردیف</th>
-                                            <th> شماره فاکتور</th>
+                                            <th> شماره بسته تراکنش</th>
                                             <th> تعداد تراکنش ها</th>
                                             <th> مجموع مبلغ</th>
                                             <th>وضعیت</th>
@@ -188,7 +188,7 @@
                                                 <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
                                                 <td>
                                                     <a href="factors/1" class="btn btn-circle btn-outline btn-sm yellow-gold">
-                                                        <i class="icon-eye"></i> مشاهده فاکتور
+                                                        <i class="icon-eye"></i> مشاهده بسته تراکنش
                                                     </a>
 
                                                     <a class="btn btn-circle btn-outline btn-sm green-haze">

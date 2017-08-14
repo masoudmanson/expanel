@@ -64,23 +64,26 @@ $(document).on('ready', function() {
     event.preventDefault();
     event.stopPropagation();
     var transId = $(this).attr('data-id');
-    var transURI = $(this).attr('data-uri');
+    var transUserID = $(this).attr('data-userId');
     var transUser = $(this).attr('data-user');
+    var transUserMobile = $(this).attr('data-userMobile');
 
     $('#transConfirmModal').modal('show');
     $('#transConfirmModal').
         find('#transConfirmBody').
-        html('<h4 class="text-center">کاربر : <span class="font-green-meadow" id="transConfirmUser"></span></h4>');
+        html('<h4 class="text-center">کاربر : <span class="font-green-meadow" id="transConfirmUser"></span></h4>'+
+              '<p class="text-center">کد ملی : <span class="font-green-meadow" id="transConfirmUserID"></span></p>'+
+              '<p class="text-center">شماره موبایل : <span class="font-green-meadow" id="transConfirmUserMobile"></span></p>');
     $('#transConfirmModal').find('#transConfirmSubmit').show();
 
-    // $('#transConfirmModal').find('#transConfirmURI').text(transURI);
     $('#transConfirmModal').find('#transConfirmUser').text(transUser);
+    $('#transConfirmModal').find('#transConfirmUserID').text(transUserID);
+    $('#transConfirmModal').find('#transConfirmUserMobile').text(transUserMobile);
     $('.modal:visible').each(reposition);
     $('#transConfirmSubmit').on('click', function() {
       $('#transConfirmModal').
           find('#transConfirmBody').
-          html(
-              '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
+          html('<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
       $('#transConfirmModal').find('#transConfirmSubmit').hide();
       $.ajax({
         method: 'PUT',
@@ -128,7 +131,8 @@ $(document).on('ready', function() {
     $('#factorConfirmSubmit').on('click', function() {
       $('#factorConfirmModal').
           find('#factorConfirmBody').
-          html('<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
+          html(
+              '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
       $('#factorConfirmModal').find('#factorConfirmSubmit').hide();
       $('.modal:visible').each(reposition);
       $.ajax({
@@ -143,7 +147,8 @@ $(document).on('ready', function() {
         var message = $.parseJSON(data);
         $('#factorConfirmModal').
             find('#factorConfirmBody').
-            html('<h2 class="font-green-meadow text-center">' + message.msg +'</h2>');
+            html('<h2 class="font-green-meadow text-center">' + message.msg +
+                '</h2>');
         $('.modal:visible').each(reposition);
         if (message.status) {
           $('#factor_' + factorId).slideUp(200);
@@ -152,7 +157,8 @@ $(document).on('ready', function() {
         var message = $.parseJSON(data);
         $('#factorConfirmModal').
             find('#factorConfirmBody').
-            html('<h2 class="font-red-mint text-center">' + message.msg +'</h2>');
+            html('<h2 class="font-red-mint text-center">' + message.msg +
+                '</h2>');
         $('.modal:visible').each(reposition);
       });
     });
@@ -220,16 +226,86 @@ $(document).on('ready', function() {
   });
 
   $('.modal').on('show.bs.modal', reposition);
+
   $(window).on('resize', function() {
     $('.modal:visible').each(reposition);
   });
+
+  $('.searchForm').keyup(function(event) {
+    var keyword = $(this).val();
+
+    if (event.which == 13 || event.keyCode == 13) {
+      // $('#mainFormLoader').fadeIn(200);
+      //
+      // $.ajax({
+      //   method: 'get',
+      //   url: '/search/transactions',
+      //   data: {
+      //     '_token': csrfToken,
+      //     'X-CSRF-TOKEN': csrfToken,
+      //   },
+      //   error: function(xhr, ajaxOptions, thrownError) {
+      //     console.log(thrownError);
+      //   },
+      // }).done(function(response) {
+      //   $('#mainFormLoader').fadeOut(200);
+      //   $('#ajax-transaction-list').html(response);
+      // }).fail(function() {
+      //   console.log('raft nashod');
+      //   $('#transShowModal').
+      //       find('#transShowBody').
+      //       html(
+      //           '<h2 class="font-red-mint text-center">دریافت تراکنش با مشکل مواجه شد!</h2>');
+      // });
+      getTransactions('/search/transactions?keyword='+keyword);
+    }
+
+  });
+
+  $(window).on('hashchange', function() {
+    if (window.location.hash) {
+      var page = window.location.hash.replace('#', '');
+      if (page == Number.NaN || page <= 0) {
+        return false;
+      }
+      else {
+        getTransactions(page);
+      }
+    }
+  });
+
+  $(document).on('click', '.pagination a', function(e) {
+    e.preventDefault();
+    getTransactions($(this).attr('href'));
+  });
+
 });
+
+function getTransactions(url) {
+  $.ajax({
+    method: 'get',
+    url: url,
+    data: {
+      '_token': csrfToken,
+      'X-CSRF-TOKEN': csrfToken
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      console.log(thrownError);
+    }
+  }).done(function (response) {
+    $('#mainFormLoader').fadeOut(200);
+    $('#ajax-transaction-list').html(response);
+  }).fail(function() {
+    console.log('Posts could not be loaded.');
+  });
+}
 
 function reposition() {
   var modal = $(this),
       dialog = modal.find('.modal-dialog');
   modal.css('display', 'block');
-  dialog.css('margin-top',Math.max(0, ($(window).height() - dialog.height()) / 2));
+  dialog.css('margin-top',
+      Math.max(0, ($(window).height() - dialog.height()) / 2));
 }
 
 var localtime = +Date.now();

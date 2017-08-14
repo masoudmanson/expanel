@@ -54,42 +54,8 @@
                         <!-- END WIDGET THUMB -->
                     </div>
 
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">بالاترین نرخ تبدیل ارز</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="4235">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
+                    <div class="col-md-6 col-xs-12">
 
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">پایین ترین نرخ تبدیل ارز</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue-hoki icon-shuffle"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">یورو به ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="3955">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-                </div>
-
-                <div class="row">
-                    {{-- Today's Transactions List --}}
-                    <div class="col-lg-12">
                         {{-- Search in Transactions --}}
                         <div class="portlet light ">
                             <div class="portlet-title">
@@ -100,22 +66,59 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form role="form" method="get" action="{{route('transactions.search')}}">
-                                {{--<form role="form" action="">--}}
-                                    <div class="row">
-                                        <div class="form-body col-xs-9 col-sm-10">
-                                            <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text" name="input">
-                                            </div>
-                                        </div>
-                                        <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                {{--<form role="form">--}}
+                                <div class="row">
+                                    <div class="form-body col-xs-9 col-sm-10">
+                                        <div class="form-group">
+                                            <input class="form-control input-lg searchForm" placeholder="جستجو کنید" type="text" name="input">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="form-actions right col-xs-3 col-sm-2">
+                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    </div>
+                                </div>
+                                {{--</form>--}}
                             </div>
                         </div>
                         {{-- End Search in transactions --}}
+                    </div>
+
+                    {{--<div class="col-md-3">--}}
+                        {{--<!-- BEGIN WIDGET THUMB -->--}}
+                        {{--<div class="widget-thumb widget-bg-color-white margin-bottom-20 ">--}}
+                            {{--<h4 class="widget-thumb-heading">بالاترین نرخ تبدیل ارز</h4>--}}
+                            {{--<div class="widget-thumb-wrap">--}}
+                                {{--<i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>--}}
+                                {{--<div class="widget-thumb-body">--}}
+                                    {{--<span class="widget-thumb-subtitle">یورو به ریال</span>--}}
+                                    {{--<span class="widget-thumb-body-stat" data-counter="counterup"--}}
+                                          {{--data-value="4235">0</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- END WIDGET THUMB -->--}}
+                    {{--</div>--}}
+
+                    {{--<div class="col-md-3">--}}
+                        {{--<!-- BEGIN WIDGET THUMB -->--}}
+                        {{--<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">--}}
+                            {{--<h4 class="widget-thumb-heading">پایین ترین نرخ تبدیل ارز</h4>--}}
+                            {{--<div class="widget-thumb-wrap">--}}
+                                {{--<i class="widget-thumb-icon bg-blue-hoki icon-shuffle"></i>--}}
+                                {{--<div class="widget-thumb-body">--}}
+                                    {{--<span class="widget-thumb-subtitle">یورو به ریال</span>--}}
+                                    {{--<span class="widget-thumb-body-stat" data-counter="counterup"--}}
+                                          {{--data-value="3955">0</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- END WIDGET THUMB -->--}}
+                    {{--</div>--}}
+                </div>
+
+                <div class="row">
+                    {{-- Today's Transactions List --}}
+                    <div class="col-lg-12">
 
                         <div class="portlet light ">
                             <div class="portlet-title">
@@ -133,67 +136,19 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr>
-                                            <th> فرستنده</th>
-                                            <th> مبلغ</th>
-                                            <th>وضعیت</th>
-                                            <th> مقصد</th>
-                                            <th> گیرنده</th>
-                                            <th> شماره تراکنش</th>
-                                            <th> تاریخ</th>
-                                            <th> عملیات</th>
-                                        </tr>
-                                        </thead>
 
-                                        @foreach($payed_transactions as $transaction)
-                                            <tr id="trans_{{ $transaction->id }}">
-                                                <td class="font-blue-chambray">{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</td>
-                                                <td class="font-yellow-crusta bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
-                                                <td class="font-red-mint bold">@lang('index.'.$transaction->fanex_status)</td>
-                                                <td class="font-blue-dark">{{ $transaction->country }}</td>
-                                                <td class="font-blue-dark">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
-                                                <td class="bold font-dark">{{ $transaction->uri }}</td>
-                                                <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
-                                                <td>
-                                                    <a data-target="#transShowModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-eye"></i> مشاهده
-                                                    </a>
+                                    <div id="mainFormLoader" style="display:none;">
+                                        <div class="errors" style="display: none"></div>
+                                        <div class="spinner2">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                    </div>
+                                    <div id="ajax-transaction-list">
+                                        @include('partials.search-transactions', ['transactions' => $payed_transactions])
+                                    </div>
 
-                                                    {{--<a data-target="#transConfirmModal" data-toggle="modal"--}}
-                                                       {{--data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"--}}
-                                                       {{--data-uri="{{ $transaction->uri }}"--}}
-                                                       {{--class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"--}}
-                                                       {{--data-id="{{ $transaction->id }}">--}}
-                                                        {{--<i class="icon-check"></i> تائید--}}
-                                                    {{--</a>--}}
-
-                                                    {{--<a data-target="#transRejectModal" data-toggle="modal"--}}
-                                                       {{--data-user="{{ $transaction->firstname . ' ' . $transaction->lastname }}"--}}
-                                                       {{--data-uri="{{ $transaction->uri }}"--}}
-                                                       {{--class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"--}}
-                                                       {{--data-id="{{ $transaction->id }}">--}}
-                                                        {{--<i class="icon-close"></i> رد کردن--}}
-                                                    {{--</a>--}}
-
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
-                                                       data-uri="{{ $transaction->uri }}"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-crusta transConfirmLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-user-follow"></i> احراز هویت و تائید تراکنش
-                                                    </a>
-
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                    <br>
-                                    {{ $payed_transactions->links() }}
                                 </div>
                             </div>
                         </div>

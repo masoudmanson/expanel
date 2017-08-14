@@ -3,8 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="caption caption-md col-xs-6">
-                    <i class="icon-shuffle font-yellow-casablanca"></i>
-                    <span class="caption-subject font-yellow-casablanca bold">جزئیات تراکنش</span>
+                    <i class="icon-shuffle font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold">جزئیات تراکنش</span>
                     <span class="caption-helper"></span>
                 </div>
                 <div class="actions col-xs-6 text-align-reverse">

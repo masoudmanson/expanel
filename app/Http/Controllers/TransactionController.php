@@ -31,7 +31,7 @@ class TransactionController extends Controller
 
     public function search(Request $request)
     {
-        preg_match_all('/(?:(name|phone|account):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->input, $matches, PREG_SET_ORDER);
+        preg_match_all('/(?:(name|phone|account):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->keyword, $matches, PREG_SET_ORDER);
 
         $result = array();
 //        dd($matches);
@@ -113,8 +113,16 @@ class TransactionController extends Controller
 //            })->orderby("transactions.id", "desc")->paginate(10);
 ////            ->orderBy('transactions.id', 'DESC')->paginate(10);
 
-            })->get();
-        dd($transactions);
+            })->paginate(10);
+
+        if ($request->ajax())
+            return response()->json(view('partials.search-transactions', compact('transactions'))->render());
+        else {
+            $top_widget = array();
+            $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
+            $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
+            return view('pages.transactions', compact('top_widget', 'transactions'));
+        }
     }
 
     /**
