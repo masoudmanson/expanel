@@ -38,15 +38,27 @@ trait PlatformTrait
     public function getCurrentPlatformUser($token)
     {
         $client = new Client();
-        $res = $client->get(config('urls.sso') . 'users/', [
+        $res = $client->get(config('urls.platform').'nzh/getUserProfile/', [
             'headers' => [
-//                '_token_' => $token,
-//                '_token_issuer_' => 1
-                'authorization' => 'Bearer ' . $token
+                '_token_' => $token,
+                '_token_issuer_' => 1
             ]
         ]);
         return $res;
     }
+
+//    public function getCurrentPlatformUser($token)
+//    {
+//        $client = new Client();
+//        $res = $client->get(config('urls.sso').'users/', [
+//            'headers' => [
+////                '_token_' => $token,
+////                '_token_issuer_' => 1
+//            'authorization' =>'Bearer '. $token
+//            ]
+//        ]);
+//        return $res;
+//    }
 
     public function getOtt()
     {

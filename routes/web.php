@@ -16,21 +16,27 @@
 
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/', function () {
-    return redirect('login');
-});
+//use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function() {
-//    Route::resource('/post', 'PostsController');
-//    Route::resource('/gallery', 'GalleryController');
-//    Route::resource('/about', 'AboutController');
-//    Route::resource('/cover', 'CoverController');
-//    Route::resource('/client', 'ClientController');
-});
+//Route::get('/', function () {
+//    return redirect('login');
+//});
+
+//Route::group(['middleware' => 'auth'], function() {
+////    Route::resource('/post', 'PostsController');
+////    Route::resource('/gallery', 'GalleryController');
+////    Route::resource('/about', 'AboutController');
+////    Route::resource('/cover', 'CoverController');
+////    Route::resource('/client', 'ClientController');
+//});
+//dd(resolve(App\Essentials\Adapter::class));
 
 Auth::routes();
 
-Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
+Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/home', 'HomeController@index')->name('dashboard');
+//Route::get('/home', ['as' => 'dashboard', 'uses' => 'HomeController@index'])->middleware('auth');
 
 Route::get('/settings', 'PagesController@settings')->name('settings');
 Route::resource('/rates' , 'RateController');
@@ -42,6 +48,7 @@ Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse')
 Route::resource('/users' , 'UsersController');
 
 Route::get('/search/transactions','TransactionController@search')->name('transactions.search');
+Route::get('/search/histories','History@search')->name('history.search');
 
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
 Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');

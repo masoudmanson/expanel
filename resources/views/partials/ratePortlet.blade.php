@@ -19,8 +19,9 @@
             <div class="tab-pane active" id="portlet_tab1">
                 <div class="row">
                     <div class="col-xs-6 exchange-cols">
-                        <p>زمان کنونی سرور: </p>
-                        <div class="font-grey-silver server-time">بارگزاری ... </div>
+                        <p>زمان اخرین تغییر: </p>
+                        {{--<div class="font-grey-silver server-time">بارگزاری ... </div>--}}
+                        <div class="font-grey-silver ">{{$euro_last_set_time}}</div>
                     </div>
 
                     <div class="col-xs-6  exchange-cols">
@@ -39,8 +40,9 @@
             <div class="tab-pane" id="portlet_tab2">
                 <div class="row">
                     <div class="col-xs-6 exchange-cols">
-                        <p>زمان کنونی سرور: </p>
-                        <div class="font-grey-silver server-time">بارگزاری ... </div>
+                        <p>زمان اخرین تغییر: </p>
+                        {{--<div class="font-grey-silver server-time">بارگزاری ... </div>--}}
+                        <div class="font-grey-silver ">{{$lira_last_set_time}}</div>
                     </div>
 
                     <div class="col-xs-6  exchange-cols">

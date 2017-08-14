@@ -26,10 +26,10 @@ class Exchanger extends Authenticatable
 
     protected $table = 'exchangers';
 
-//    public function scopeFindByUserId($query,$userId)
-//    {
-//        return $query->where('userId', $userId);
-//    }
+    public function scopeFindByUserId($query,$userId)
+    {
+        return $query->where('userId', $userId);
+    }
 
     public function rates()
     {
