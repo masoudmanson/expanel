@@ -18,7 +18,8 @@ trait TokenTrait
         $id = adapterAssignment()->getId();
         $secret = adapterAssignment()->getSecret();
 
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->post(config('urls.sso').'oauth2/token', [
             "form_params" => [
                 "grant_type" => 'authorization_code',
@@ -37,7 +38,8 @@ trait TokenTrait
         $id = adapterAssignment()->getId();
         $secret = adapterAssignment()->getSecret();
 
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->post(config('urls.sso').'oauth2/token/info', [
             'form_params' => [
                 'token' => $token,
@@ -79,7 +81,8 @@ trait TokenTrait
         $id = adapterAssignment()->getId();
         $secret = adapterAssignment()->getSecret();
 
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->post(config('urls.sso').'oauth2/token', [
             'form_params' => [
                 'grant_type'=>'refresh_token',
@@ -97,7 +100,8 @@ trait TokenTrait
         $id = adapterAssignment()->getId();
         $secret = adapterAssignment()->getSecret();
 
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->post(config('urls.sso').'oauth2/token/revoke', [
             'form_params' => [
                 'token_type_hint'=>'access_token',
