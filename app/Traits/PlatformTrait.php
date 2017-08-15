@@ -23,7 +23,8 @@ trait PlatformTrait
 
         $nick = $request->nickname;
 
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->request('GET', config('urls.platform') . 'aut/registerWithSSO/', [
             'query' => ['nickname' => $nick],
             'headers' => [
@@ -37,7 +38,8 @@ trait PlatformTrait
 
     public function getCurrentPlatformUser($token)
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->get(config('urls.platform').'nzh/getUserProfile/', [
             'headers' => [
                 '_token_' => $token,
@@ -63,7 +65,8 @@ trait PlatformTrait
     public function getOtt()
     {
         $token = config('services.sso.api');
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         //businessId should receive from getBusiness.however it's static in platform db.
         $res = $client->get(config('urls.platform') . 'nzh/ott/', [
             'headers' => [
@@ -76,7 +79,8 @@ trait PlatformTrait
 
     public function followBusiness($token)
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         //businessId should receive from getBusiness.however it's static in platform db.
         $res = $client->get(config('urls.platform') . 'nzh/follow/?businessId=42&follow=true', [
             'headers' => [
@@ -89,7 +93,8 @@ trait PlatformTrait
 
     public function getBusiness($token)
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         //business token must taken from sso
         $res = $client->get(config('urls.platform') . 'nzh/getUserBusiness/', [
             'headers' => [
@@ -103,7 +108,8 @@ trait PlatformTrait
     public function getBusinessCredit()
     {
         $token = config('services.sso.api');
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         //business token must taken from sso
         $res = $client->get(config('urls.platform') . 'nzh/biz/getCredit', [
             'headers' => [
@@ -119,7 +125,8 @@ trait PlatformTrait
 
     public function userInvoice(Request $request, Backlog $backlog)
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
 
         $token = config('services.sso.api');
 //dd($token);
@@ -167,7 +174,8 @@ trait PlatformTrait
 
     public function trackingInvoiceByBillNumber($billNumber) //the form parameters can be taken from arguments, according to needs
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $token = config('services.sso.api'); //biz static token
 
         $res = $client->post(config('urls.platform') . 'nzh/biz/getInvoiceList/', [
@@ -189,7 +197,8 @@ trait PlatformTrait
 
     public function cancelInvoice($invoice_id, $token = 'd35b0c351acd47cc87a76b1c4b07239a') //todo: get api_token from config or .env file
     {
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->get(config('urls.platform') . 'nzh/biz/cancelInvoice/', [
             'query' =>
                 [
@@ -206,7 +215,8 @@ trait PlatformTrait
     public function chargeUserWallet($user, $charge_amount)
     {
         $token = config('services.sso.api');
-        $client = new Client();
+//        $client = new Client();
+        $client = new Client(['verify' => false]);
         //business token must taken from sso
         $res = $client->get(config('urls.platform') . 'nzh/biz/transferToFollower', [
             'headers' => [
