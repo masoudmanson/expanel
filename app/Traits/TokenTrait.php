@@ -14,11 +14,9 @@ trait TokenTrait
     public function getToken(Request $request)
     {
         $code = $request['code'];
-
         $id = adapterAssignment()->getId();
         $secret = adapterAssignment()->getSecret();
-
-        $client = new Client();
+        $client = new Client(['verify' => false]);
         $res = $client->post(config('urls.sso').'oauth2/token', [
             "form_params" => [
                 "grant_type" => 'authorization_code',
@@ -28,7 +26,6 @@ trait TokenTrait
                 "client_secret" => $secret,
             ]
         ]);
-
         return $res;
     }
 
