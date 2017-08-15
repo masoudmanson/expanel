@@ -55,12 +55,14 @@ class TransactionController extends Controller
                                 $exploded = explode(' ', $v);
                                 $name = array_shift($exploded);
                                 if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
-                                    $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
+                                    $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
+                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
                                     if (count($exploded) > 0) {
                                         foreach ($exploded as $name) {
                                             if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
                                                 $query->where(function ($query) use ($name) {
-                                                    $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')");
+                                                    $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
+                                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
                                                 });
                                             }
                                         }
@@ -100,7 +102,7 @@ class TransactionController extends Controller
                                 }
                                 break;
                             default:
-                                $query->where(false);
+                                $query->where('id',0);
                                 break;
                         }
                     }
@@ -118,7 +120,7 @@ class TransactionController extends Controller
 
         }
         else {
-            $transactions = new Transaction();
+            $transactions = Transaction::where('id',0)->paginate(10); // :D
         }
 
         if ($request->ajax())
