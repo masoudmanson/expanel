@@ -8,11 +8,11 @@ class Rate extends Model
 {
     protected $table = 'rates';
 
-    protected $fillable = ['exchanger_id', 'currency_id' , 'rate', 'ip'];
+    protected $fillable = ['exchanger_user_id', 'currency_id' , 'rate', 'ip'];
 
     public function exchanger()
     {
-        return $this->belongsTo('App\Exchanger','exchanger_id');
+        return $this->belongsTo('App\Exchanger','exchanger_user_id');
     }
 
     public function currencies()

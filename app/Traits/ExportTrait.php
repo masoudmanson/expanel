@@ -18,7 +18,7 @@ trait ExportTrait
         }
 
         // Generate and return the spreadsheet
-        $excel = Excel::create('payments', function($excel) use ($paymentsArray,$file_name,$creator,$company,$description) {
+        $excel = Excel::create($file_name, function($excel) use ($paymentsArray,$file_name,$creator,$company,$description) {
 
             // Set the spreadsheet title, creator, and description
             $excel->setTitle($file_name);

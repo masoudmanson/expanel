@@ -96,7 +96,7 @@ class HistoryController extends Controller
         // Define the Excel spreadsheet headers
         $paymentsArray[] = ['reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
             'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
-            ,'beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
+            ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
         // Convert each member of the returned collection into an array,
         // and append it to the payments array.
         $this->excel_export($transactions,$paymentsArray,'special_transactions','Exchanger','FANEx');

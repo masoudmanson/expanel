@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ExportTrait;
 use App\Traits\PlatformTrait;
 use App\Traits\UptTrait;
 use App\Transaction;
@@ -13,6 +14,7 @@ class TransactionController extends Controller
 {
     use PlatformTrait;
     use UptTrait;
+    use ExportTrait;
 
     /**
      * Display a listing of the resource.
@@ -25,7 +27,7 @@ class TransactionController extends Controller
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
 
-        $payed_transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->orderBy('transactions.id', 'DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+        $payed_transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->per('daily')->orderBy('transactions.id', 'DESC')->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
         return view('pages.transactions', compact('payed_transactions', 'top_widget'));
     }
 
@@ -73,7 +75,7 @@ class TransactionController extends Controller
                                 $exploded = explode(' ', $v);
                                 $phone = array_shift($exploded);
                                 if (ctype_digit($phone)) {
-                                    $query->whereRaw("regexp_like(beneficiaries.tel, '$name', 'i')");
+                                    $query->whereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
                                     if (count($exploded) > 0) {
                                         foreach ($exploded as $phone) {
                                             if (ctype_digit($phone)) {
@@ -235,45 +237,35 @@ class TransactionController extends Controller
 
     }
 
-    public function excel(Request $request)
+    public function excel()
     {
-        $payments = Transaction::join('users', 'transactions.user_id', '=', 'users.id')
-            ->select(
-                'transactions.id as tid',
-                DB::raw("(users.firstname || ' ' || users.lastname) as name"),
-                'users.email as mail',
-                DB::raw("(transactions.premium_amount || ' ' || transactions.currency) as payment"),
-                'transactions.payment_amount as payable',
-                'transactions.payment_date')
-            ->where("users.id", '=', 3)->get();
-
         // Initialize the array which will be passed into the Excel
         // generator.
+//        if ($request['order'] != null) {
+//            $order = $request['order'];
+//            $option = $request ['option'];
+//        } else {
+        $order = 'transactions.payment_date';
+        $option = 'DESC';
+//        }
+
+        $extraInfo['order'] = $order;
+        $extraInfo['option'] = $option;
+
+        $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')
+            ->filterFanex('pending')
+            ->per('daily')
+            ->orderBy($order, $option)
+            ->get();
         $paymentsArray = [];
 
         // Define the Excel spreadsheet headers
-        $paymentsArray[] = ['id', 'customer', 'email', 'payment', 'payable', 'created_at'];
-
+        $paymentsArray[] = ['reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
+            'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
+            ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
         // Convert each member of the returned collection into an array,
         // and append it to the payments array.
-        foreach ($payments as $payment) {
-            $paymentsArray[] = $payment->toArray();
-        }
-
-        // Generate and return the spreadsheet
-        $excel = Excel::create('payments', function ($excel) use ($paymentsArray) {
-
-            // Set the spreadsheet title, creator, and description
-            $excel->setTitle('Payments');
-            $excel->setCreator('Exchanger')->setCompany('FANEx');
-            $excel->setDescription('payments file');
-
-            // Build the spreadsheet, passing in the payments array
-            $excel->sheet('sheet1', function ($sheet) use ($paymentsArray) {
-                $sheet->fromArray($paymentsArray, null, 'A1', false, false);
-            });
-
-        })->export('xls');
+        $this->excel_export($transactions,$paymentsArray,'today_pending_transaction','Exchanger','FANEx');
 
     }
 
