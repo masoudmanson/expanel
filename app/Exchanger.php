@@ -24,7 +24,7 @@ class Exchanger extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $table = 'exchangers';
+    protected $table = 'exchanger_users';
 
     public function scopeFindByUserId($query,$userId)
     {
@@ -33,7 +33,11 @@ class Exchanger extends Authenticatable
 
     public function rates()
     {
-        return $this->hasMany('App\Rate','exchanger_id')->orderBy('id', 'DESC');
+        return $this->hasMany('App\Rate','exchanger_user_id')->orderBy('id', 'DESC');
+    }
+
+    public function currencyExchange() {
+        return $this->belongsTo('App\CurrencyExchange');
     }
 
 //    public function currencies()
