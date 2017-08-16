@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CurrencyExchange;
 use App\Exchanger;
 use App\Traits\ExportTrait;
 use App\Transaction;
@@ -37,9 +38,10 @@ class HomeController extends Controller
         $top_widget['users_count'] = Transaction::filterBank('successful')->distinct('user_id')->count('user_id');
         //todo : /nzh/biz/getFollowers , count
 
-        $exchanger = Auth::user();
-        $rate_euro = $exchanger->rates()->currency('1')->last();
-        $rate_lira = $exchanger->rates()->currency('2')->last();
+        $currency_exchange = Auth::user()->currencyExchange;
+
+        $rate_euro = $currency_exchange->rates()->currency('1')->last();
+        $rate_lira = $currency_exchange->rates()->currency('2')->last();
 
         if(isset($rate_euro->rate)) {
             $euro_last_set_time = jdate($rate_euro->updated_at)->ago();
