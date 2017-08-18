@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CurrencyExchange extends Model
 {
     protected $fillable = [
-        'exchanger_name', 'username', 'email', 'password',
+        'exchanger_name',
     ];
 
     /**
@@ -24,5 +24,11 @@ class CurrencyExchange extends Model
     public function exchanger()
     {
         return $this->hasMany('App\Exchanger')->orderBy('id', 'DESC');
+    }
+
+    public function rates()
+    {
+        return $this->hasManyThrough('App\Rate', 'App\Exchanger',
+            'exchanger_id', 'exchanger_user_id', 'exchangers.id');
     }
 }

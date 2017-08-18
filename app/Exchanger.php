@@ -37,7 +37,7 @@ class Exchanger extends Authenticatable
     }
 
     public function currencyExchange() {
-        return $this->belongsTo('App\CurrencyExchange');
+        return $this->belongsTo('App\CurrencyExchange','exchanger_id');
     }
 
 //    public function currencies()

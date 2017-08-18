@@ -14,6 +14,10 @@ class Rate extends Model
     {
         return $this->belongsTo('App\Exchanger','exchanger_user_id');
     }
+    public function currencyExchange()
+    {
+        return $this->belongsTo('App\CurrencyExchange','exchanger_id');
+    }
 
     public function currencies()
     {
@@ -22,12 +26,12 @@ class Rate extends Model
 
     public function scopeCurrency($query, $currency)
     {
-        return $query->where('currency_id', $currency);
+        return $query->where('rates.currency_id', $currency);
     }
 
     public function scopeLast($query)
     {
-        return $query->orderBy('id', 'DESC')->first();
+        return $query->orderBy('rates.id', 'DESC')->first();
     }
 
 }

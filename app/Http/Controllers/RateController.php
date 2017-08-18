@@ -18,19 +18,19 @@ class RateController extends Controller
      */
     public function index(Request $request)
     {
-        $exchanger = Auth::user();
+        $currency_exchange = Auth::user()->currencyExchange;
 
         $rates = array();
 
-        $rates['euro']['list'] = $exchanger->rates()->currency('1')->orderBy('created_at')->paginate(10);
-        $rates['euro']['max'] = $exchanger->rates()->currency('1')->max('rate');
-        $rates['euro']['min'] = $exchanger->rates()->currency('1')->min('rate');
-        $rates['lira']['list'] = $exchanger->rates()->currency('2')->orderBy('created_at')->paginate(10);
-        $rates['lira']['max'] = $exchanger->rates()->currency('2')->max('rate');
-        $rates['lira']['min'] = $exchanger->rates()->currency('2')->min('rate');
+        $rates['euro']['list'] = $currency_exchange->rates()->orderBy('created_at')->paginate(10);
+        $rates['euro']['max'] = $currency_exchange->rates()->currency('1')->get()->max('rate');
+        $rates['euro']['min'] = $currency_exchange->rates()->currency('1')->get()->min('rate');
+        $rates['lira']['list'] = $currency_exchange->rates()->currency('2')->get()->orderBy('rates.created_at')->paginate(10);
+        $rates['lira']['max'] = $currency_exchange->rates()->currency('2')->get()->max('rate');
+        $rates['lira']['min'] = $currency_exchange->rates()->currency('2')->get()->min('rate');
 
-        $rate_euro = $exchanger->rates()->currency('1')->last();
-        $rate_lira = $exchanger->rates()->currency('2')->last();
+        $rate_euro = $currency_exchange->rates()->currency('1')->get()->last();
+        $rate_lira = $currency_exchange->rates()->currency('2')->get()->last();
 
         if(isset($rate_euro->rate)) {
             $euro_last_set_time = jdate($rate_euro->updated_at)->ago();
