@@ -32,11 +32,11 @@
                             <span class="title">تراکنش های امروز</span>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="{{ route('factors.index') }}" class="nav-link ">
-                            <span class="title">تراکنش های بسته بندی شده</span>
-                        </a>
-                    </li>
+                    {{--<li class="nav-item  ">--}}
+                        {{--<a href="{{ route('factors.index') }}" class="nav-link ">--}}
+                            {{--<span class="title">تراکنش های بسته بندی شده</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     <li class="nav-item  ">
                         <a href="{{ route('history.index') }}" class="nav-link ">
                             <span class="title">تاریخچه ی تراکنش ها</span>
