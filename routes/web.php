@@ -43,11 +43,11 @@ Route::resource('/rates' , 'RateController');
 Route::resource('/transactions' , 'TransactionController');
 Route::resource('/history' , 'HistoryController');
 Route::resource('/factors' , 'FactorController');
-Route::get('users/{page}', 'UsersController2@index');
-//    ->name('indexFanap');
 
-//Route::get('indexFanap', 'UsersController@indexFanap')->name('indexFanap');
-//Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
+//Route::get('users/{page}', 'UsersController2@index')->name('indexFanap');
+Route::get('users/fanapUsers', 'UsersController@indexFanap')->name('indexFanap');
+Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExhouse');
+
 Route::resource('/users' , 'UsersController');
 
 Route::get('/search/transactions','TransactionController@search')->name('transactions.search');

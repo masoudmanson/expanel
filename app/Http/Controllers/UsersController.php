@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Authorized;
+use App\Client;
+use App\Identifier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -16,14 +20,31 @@ class UsersController extends Controller
         return view('pages.users');
     }
 
-    public function indexFanap()
+    public function indexFanap(Request $request)
     {
-        return view('pages.usersList');
+        $identifier_id = Identifier::where('name','fanapium')->first()->id;
+        $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , true)->get();
+        $users_count = Client::where('identifier_id',$identifier_id)->count();
+        dd($users);
+        if ($request->ajax())
+            return response()->json(view('partials.singleTrans', compact('users','users_count'))->render());
+
+        return view('pages.fanapUsers',compact('users'));
+
+        return view('pages.fanapUsers');
     }
 
-    public function indexExhouse()
+    public function indexExhouse(Request $request)
     {
-        return view('pages.exhouseList');
+        $identifier_id = Auth::user()->currencyExchange->identifier->id;
+
+        $users = Authorized::where('identifier_id',$identifier_id)->get();
+        $users_count = Authorized::where('identifier_id',$identifier_id)->count();
+        dd($users);
+        if ($request->ajax())
+            return response()->json(view('partials.singleTrans', compact('users','users_count'))->render());
+
+        return view('pages.exhouseUsers',compact('users'));
     }
 
     /**
