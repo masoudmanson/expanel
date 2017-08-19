@@ -16,29 +16,33 @@
         @foreach($users as $user)
             <tr id="">
                 <td>{{ $user->id }}</td>
-                <td class="font-blue-chambray">{{ $user->firstname }}</td>
-                <td class="font-blue-chambray">{{ $user->lastname }}</td>
-                <td class="font-yellow-crusta bold">{{ $user->identity_number }}</td>
-                <td class="bold">{{ $user->mobile }}</td>
+                <td class="font-blue-chambray">{{ $user->firstname_latin }}</td>
+                <td class="font-blue-chambray">{{ $user->lastname_latin }}</td>
+                <td class="font-yellow-crusta bold">{{ $user->identity_number or 'ندارد' }}</td>
+                <td class="bold">{{ $user->mobile or 'ندارد' }}</td>
                 <td>{{ jdate($user->created_at)->format('%y %B %d , H:i:s') }}</td>
                 <td class="font-red-mint bold">احراز نشده</td>
                 <td>
                     <a data-target="#transConfirmModal" data-toggle="modal"
                        class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                       data-id="76">
-                        <i class="icon-check"></i> تائید کاربر
+                       data-url="/users/authorization/"
+                       data-user="{{ $user->firstname_latin . ' ' . $user->lastname_latin }}"
+                       data-userID="{{ $user->identity_number or 'ندارد' }}"
+                       data-userMobile="{{ $user->mobile or 'ندارد' }}"
+                       data-id="{{ $user->id }}">
+                        <i class="icon-user-follow"></i> تائید کاربر
                     </a>
 
-                    <a data-target="#transRejectModal" data-toggle="modal"
-                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"
-                       data-id="345">
-                        <i class="icon-close"></i> رد کردن کاربر
-                    </a>
+                    {{--<a data-target="#transRejectModal" data-toggle="modal"--}}
+                       {{--class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"--}}
+                       {{--data-id="345">--}}
+                        {{--<i class="icon-close"></i> رد کردن کاربر--}}
+                    {{--</a>--}}
 
-                    <a href="#" disabled="disabled"
-                       class="btn btn-circle btn-outline btn-sm grey">
-                        <i class="icon-user-follow"></i> احراز هویت
-                    </a>
+                    {{--<a href="#" disabled="disabled"--}}
+                       {{--class="btn btn-circle btn-outline btn-sm grey">--}}
+                        {{--<i class="icon-user-follow"></i> احراز هویت--}}
+                    {{--</a>--}}
                 </td>
             </tr>
         @endforeach

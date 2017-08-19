@@ -18,13 +18,13 @@ class UsersController extends Controller
     public function indexOther(Request $request)
     {
         $identifier_id = Identifier::where('name','other')->first()->id;
-        $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->get();
-        $users_count = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->count();
-        dd($users_count);
-        if ($request->ajax())
-            return response()->json(view('partials.otherUsers', compact('users','users_count'))->render());
+        $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->paginate(10);
 
-        return view('pages.otherUsers',compact('users'));
+        $users_count = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->count();
+        if ($request->ajax())
+            return response()->json(view('partials.otherUsersTable', compact('users'))->render());
+
+        return view('pages.otherUsers',compact('users', 'users_count'));
 
     }
 
@@ -139,15 +139,17 @@ class UsersController extends Controller
     {
         $keyword = $request->keyword;
 
-        $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
+        $identifier_id = Identifier::where('name','other')->first()->id;
 
         if ($keyword == '') {
-            $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->paginate(10);
+            $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->paginate(10);
         } else {
-            $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)
+            $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)
                 ->where(function ($query) use ($keyword) {
-                    $query->orWhereRaw("regexp_like(authorized.firstname , '$keyword', 'i')")
-                        ->orWhereRaw("regexp_like(authorized.lastname, '$keyword', 'i')")
+                    $query->orWhereRaw("regexp_like(users.firstname , '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(users.lastname, '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(users.firstname_latin , '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(users.lastname_latin, '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(identity_number, '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(mobile, '$keyword', 'i')");
                 })->orderby("id", "desc")->paginate(10);

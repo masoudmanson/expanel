@@ -49,6 +49,7 @@
                 </a>
 
                 <a data-target="#transConfirmModal" data-toggle="modal"
+                   data-url="/transactions/"
                    data-user="{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}"
                    data-userID="{{ $transaction->sender_identity_number or 'ندارد' }}"
                    data-userMobile="{{ $transaction->sender_mobile or 'ندارد' }}"

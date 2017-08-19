@@ -59,6 +59,13 @@ $(document).on('ready', function() {
         }
     });
 
+    $('.searchOtherForm').keyup(function(event) {
+        var keyword = $(this).val();
+        if (event.which == 13 || event.keyCode == 13) {
+            getTransactions('/search/users/other?keyword=' + keyword);
+        }
+    });
+
     $('.specialAnchor').on('click', function() {
         $('.specialAnchor').removeClass('active');
         $(this).addClass('active');
@@ -125,6 +132,7 @@ $(document).on('ready', function() {
 $(document).on('click', '.transConfirmLinks', function(event) {
     event.preventDefault();
     event.stopPropagation();
+    var url = $(this).attr('data-url');
     var transId = $(this).attr('data-id');
     var transUserID = $(this).attr('data-userId');
     var transUser = $(this).attr('data-user');
@@ -153,7 +161,7 @@ $(document).on('click', '.transConfirmLinks', function(event) {
         $('#transConfirmModal').find('#transConfirmSubmit').hide();
         $.ajax({
             method: 'PUT',
-            url: '/transactions/' + transId,
+            url: url + transId,
             data: {
                 'confirmed': true,
                 '_token': csrfToken,

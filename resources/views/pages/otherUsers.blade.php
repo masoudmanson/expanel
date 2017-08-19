@@ -31,7 +31,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">نفر</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="65">0</span>
+                                          data-value="{{ $users_count }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -50,18 +50,18 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form role="form" action="">
-                                    <div class="row">
-                                        <div class="form-body col-xs-9 col-sm-10">
-                                            <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+
+                                <div class="row">
+                                    <div class="form-body col-xs-9 col-sm-10">
+                                        <div class="form-group">
+                                            <input class="form-control input-lg searchOtherForm" placeholder="جستجو کنید" type="text" name="input">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="form-actions right col-xs-3 col-sm-2">
+                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         {{-- End Search in transactions --}}
@@ -90,7 +90,7 @@
                                 <div class="table-scrollable table-scrollable-borderless">
 
                                     <div class="col-xs-12 col-sm-12" id="ajax-transaction-list">
-                                        @include('partials.othersUsersTable', ['users' => $users])
+                                        @include('partials.otherUsersTable', ['users' => $users])
                                     </div>
 
                                 </div>

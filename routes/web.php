@@ -44,17 +44,17 @@ Route::resource('/transactions' , 'TransactionController');
 Route::resource('/history' , 'HistoryController');
 Route::resource('/factors' , 'FactorController');
 
-//Route::get('users/{page}', 'UsersController2@index')->name('indexFanap');
 Route::get('users/fanapUsers', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::get('users/otherUsers', 'UsersController@indexOther')->name('indexOther');
 
 Route::resource('/users' , 'UsersController');
 
-Route::get('/search/transactions','TransactionController@search')->name('transactions.search');
-Route::get('/search/histories','HistoryController@search')->name('history.search');
-Route::get('/search/users/exhouse','UsersController@search')->name('users.search');
-Route::get('/search/users/fanap','UsersController@searchFanap')->name('users.search');
+Route::get('/search/transactions','TransactionController@search');
+Route::get('/search/histories','HistoryController@search');
+Route::get('/search/users/exhouse','UsersController@search');
+Route::get('/search/users/fanap','UsersController@searchFanap');
+Route::get('/search/users/other','UsersController@searchOther');
 
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
 Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');
