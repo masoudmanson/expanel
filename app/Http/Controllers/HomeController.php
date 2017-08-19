@@ -74,7 +74,6 @@ class HomeController extends Controller
         $today['count'] = Transaction::filterBank('successful')->per($per)->count();
         $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 
-//        dd($today['special']->toArray());
         if ($request->ajax())
             return response()->json(view('partials.specialTrans', compact('today'))->render());
 

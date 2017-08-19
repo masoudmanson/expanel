@@ -9,7 +9,7 @@
     </div>
     <div class="portlet-body">
         <div class="table-scrollable table-scrollable-borderless">
-            {{--@if(count($rates['euro']['list']) > 0)--}}
+            @if(count($users) > 0)
                 <table class="table table-hover table-light">
                     <thead>
                     <tr>
@@ -17,35 +17,24 @@
                         <th> نام خانوادگی </th>
                         <th> کد ملی</th>
                         <th> شماره موبایل</th>
-                        <th>وضعیت</th>
                         <th> تاریخ عضویت</th>
                     </tr>
                     </thead>
-                    {{--@foreach($rates['euro']['list'] as $rate)--}}
+                    @foreach($users as $user)
                     <tr>
-                        <td class="font-blue-chambray">مسعود</td>
-                        <td class="font-blue-chambray">امجدی</td>
-                        <td class="font-red-haze bold">1640113886</td>
-                        <td>09148401824</td>
-                        <td class="font-red-haze bold">تائید شده</td>
-                        <td>{{ jdate('now')->format('%d %B %y') }}</td>
+                        <td class="font-blue-chambray">{{ $user->firstname }}</td>
+                        <td class="font-blue-chambray">{{ $user->lastname }}</td>
+                        <td class="font-red-haze bold">{{ $user->identity_number }}</td>
+                        <td>{{ $user->mobile }}</td>
+                        <td>{{ jdate($user->created_at)->format('%d %B %y') }}</td>
                     </tr>
-
-                    <tr>
-                        <td class="font-blue-chambray">عماد</td>
-                        <td class="font-blue-chambray">قربانی نیا</td>
-                        <td class="font-red-haze bold">0013564478</td>
-                        <td>09999908033</td>
-                        <td class="font-red-haze bold">تائید شده</td>
-                        <td>{{ jdate('now')->format('%d %B %y') }}</td>
-                    </tr>
-                    {{--@endforeach--}}
+                    @endforeach
                 </table>
                 <br>
-                {{--{{ $rates['euro']['list']->links() }}--}}
-            {{--@else--}}
-                {{--<h4 class="font-grey-silver text-center">کاربری برای نمایش وجود ندارد</h4>--}}
-            {{--@endif--}}
+                {{ $users->links() }}
+            @else
+                <h4 class="font-grey-silver text-center">کاربری برای نمایش وجود ندارد</h4>
+            @endif
         </div>
     </div>
 </div>

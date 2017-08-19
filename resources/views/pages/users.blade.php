@@ -88,80 +88,11 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr>
-                                            <th> ردیف</th>
-                                            <th> نام</th>
-                                            <th> نام خانوادگی</th>
-                                            <th>شماره ملی</th>
-                                            <th> شماره موبایل</th>
-                                            <th> تاریخ</th>
-                                            <th>وضعیت</th>
-                                            <th> عملیات</th>
-                                        </tr>
-                                        </thead>
 
-                                        {{--@foreach($payed_transactions as $transaction)--}}
-                                            <tr id="">
-                                                <td>1</td>
-                                                <td class="font-blue-chambray">مسعود</td>
-                                                <td class="font-blue-chambray">امجدی</td>
-                                                <td class="font-yellow-crusta bold">1640113886</td>
-                                                <td class="bold">09148401824</td>
-                                                <td>{{ jdate('now')->format('%y %B %d , H:i:s') }}</td>
-                                                <td class="font-red-mint bold">احراز نشده</td>
-                                                <td>
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="76">
-                                                        <i class="icon-check"></i> تائید کاربر
-                                                    </a>
+                                    <div class="col-xs-12 col-sm-12" id="ajax-transaction-list">
+                                        @include('partials.othersUsersTable', ['users' => $users])
+                                    </div>
 
-                                                    <a data-target="#transRejectModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"
-                                                       data-id="345">
-                                                        <i class="icon-close"></i> رد کردن کاربر
-                                                    </a>
-
-                                                    <a href="#" disabled="disabled"
-                                                       class="btn btn-circle btn-outline btn-sm grey">
-                                                        <i class="icon-user-follow"></i> احراز هویت
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                            <tr id="">
-                                                <td>1</td>
-                                                <td class="font-blue-chambray">محمد</td>
-                                                <td class="font-blue-chambray">پرهام</td>
-                                                <td class="font-yellow-crusta bold">3652547854</td>
-                                                <td class="bold">09125556548</td>
-                                                <td>{{ jdate('now')->format('%y %B %d , H:i:s') }}</td>
-                                                <td class="font-red-mint bold">احراز نشده</td>
-                                                <td>
-                                                    <a data-target="#transConfirmModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze transConfirmLinks"
-                                                       data-id="76">
-                                                        <i class="icon-check"></i> تائید کاربر
-                                                    </a>
-
-                                                    <a data-target="#transRejectModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"
-                                                       data-id="345">
-                                                        <i class="icon-close"></i> رد کردن کاربر
-                                                    </a>
-
-                                                    <a href="#" disabled="disabled"
-                                                       class="btn btn-circle btn-outline btn-sm grey">
-                                                        <i class="icon-user-follow"></i> احراز هویت
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {{--@endforeach--}}
-                                    </table>
-                                    <br>
-                                    {{--{{ $payed_transactions->links() }}--}}
                                 </div>
                             </div>
                         </div>

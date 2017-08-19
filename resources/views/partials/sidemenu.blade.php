@@ -56,7 +56,7 @@
                 <ul class="sub-menu">
                     <li class="nav-item  ">
                         {{--<a href="{{ route('indexExhouse') }}" class="nav-link ">--}}
-                        <a href="users/exhouseUsers" class="nav-link ">
+                        <a href="/users/exhouseUsers" class="nav-link ">
                             <span class="title">صرافی پاسارگاد</span>
                         </a>
                     </li>

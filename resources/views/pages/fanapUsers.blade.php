@@ -31,7 +31,7 @@
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle">نفر</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="105">0</span>
+                                          data-value="{{ $users_count }}">0</span>
                                 </div>
                             </div>
                         </div>
@@ -50,18 +50,19 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form role="form" action="">
-                                    <div class="row">
-                                        <div class="form-body col-xs-9 col-sm-10">
-                                            <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+
+
+                                <div class="row">
+                                    <div class="form-body col-xs-9 col-sm-10">
+                                        <div class="form-group">
+                                            <input class="form-control input-lg searchFanapForm" placeholder="جستجو کنید" type="text" name="input">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="form-actions right col-xs-3 col-sm-2">
+                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         {{-- End Search in transactions --}}
@@ -89,56 +90,10 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr>
-                                            <th> ردیف</th>
-                                            <th> نام</th>
-                                            <th> نام خانوادگی</th>
-                                            <th>شماره ملی</th>
-                                            <th> شماره موبایل</th>
-                                            <th> تاریخ</th>
-                                            <th>وضعیت</th>
-                                            <th> عملیات</th>
-                                        </tr>
-                                        </thead>
 
-                                        {{--@foreach($payed_transactions as $transaction)--}}
-                                            <tr id="">
-                                                <td>1</td>
-                                                <td class="font-blue-chambray">عماد</td>
-                                                <td class="font-blue-chambray">قربانی نیا</td>
-                                                <td class="font-yellow-crusta bold">0012546587</td>
-                                                <td class="bold">09999903880</td>
-                                                <td>{{ jdate('now')->format('%y %B %d , H:i:s') }}</td>
-                                                <td class="font-red-mint bold">احراز شده</td>
-                                                <td>
-                                                    <a href="#"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze">
-                                                        <i class="icon-user-follow"></i>مشاهده ی اطلاعات
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                            <tr id="">
-                                                <td>1</td>
-                                                <td class="font-blue-chambray">پوریا</td>
-                                                <td class="font-blue-chambray">پهلوانی</td>
-                                                <td class="font-yellow-crusta bold">00125487458</td>
-                                                <td class="bold">091255659874</td>
-                                                <td>{{ jdate('now')->format('%y %B %d , H:i:s') }}</td>
-                                                <td class="font-red-mint bold">احراز شده</td>
-                                                <td>
-                                                    <a href="#"
-                                                       class="btn btn-circle btn-outline btn-sm green-haze">
-                                                        <i class="icon-user-follow"></i>مشاهده ی اطلاعات
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {{--@endforeach--}}
-                                    </table>
-                                    <br>
-                                    {{--{{ $payed_transactions->links() }}--}}
+                                    <div class="col-xs-12 col-sm-12" id="ajax-transaction-list">
+                                        @include('partials.fanapUsersTable', ['users' => $users])
+                                    </div>
                                 </div>
                             </div>
                         </div>

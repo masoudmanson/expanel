@@ -28,7 +28,7 @@
                     </div>
 
                     {{-- Top Transactions List --}}
-                    <div class="col-lg-6 col-xs-12 col-sm-12">
+                    <div class="col-lg-6 col-xs-12 col-sm-12" id="ajax-transaction-list">
                         @include('partials.rateTables')
                     </div>
 

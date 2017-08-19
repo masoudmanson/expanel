@@ -100,18 +100,18 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form role="form" action="">
-                                    <div class="row">
-                                        <div class="form-body col-xs-9 col-sm-10">
-                                            <div class="form-group">
-                                                <input class="form-control input-lg" placeholder="جستجو کنید" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-actions right col-xs-3 col-sm-2">
-                                            <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                {{--<form role="form" action="">--}}
+                                <div class="row">
+                                    <div class="form-body col-xs-9 col-sm-10">
+                                        <div class="form-group">
+                                            <input class="form-control input-lg searchHistoryForm" placeholder="جستجو کنید" type="text" name="input">
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="form-actions right col-xs-3 col-sm-2">
+                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    </div>
+                                </div>
+                                {{--</form>--}}
                             </div>
                         </div>
                         {{-- End Search in transactions --}}

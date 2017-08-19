@@ -49,6 +49,9 @@ class RateController extends Controller
             $lira_last_set_time = 0;
         }
 
+        if ($request->ajax())
+            return response()->json(view('partials.rateTables', compact('rates', 'top_widget','euro_last_set_time','lira_last_set_time'))->render());
+
         return view('pages.rate',compact('rates', 'top_widget','euro_last_set_time','lira_last_set_time'));
     }
 

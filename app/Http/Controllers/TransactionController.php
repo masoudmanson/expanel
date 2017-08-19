@@ -39,112 +39,127 @@ class TransactionController extends Controller
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
         $payed_transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->per('daily')->orderBy($order, $option)->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
         if ($request->ajax())
-            return response()->json(view('partials.search-transactions', compact('payed_transactions','extraInfo'))->render());
+            return response()->json(view('partials.search-transactions', compact('payed_transactions', 'extraInfo'))->render());
 
         return view('pages.transactions', compact('payed_transactions', 'top_widget', 'extraInfo'));
     }
 
     public function search(Request $request)
     {
-        preg_match_all('/(?:(name|phone|account):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->keyword, $matches, PREG_SET_ORDER);
-
-        $result = array();
-//        dd($matches);
-        foreach ($matches as $match) {
-//            dd($match[1]);
-//            $result[$match[1]] = ($result[$match[1]]) ? $result[$match[1]] . ' ' . $match[2] : $match[2];
-
-            if (isset($result[$match[1]])) {
-                $result[$match[1]] = $result[$match[1]] . ' ' . $match[2];
-            } else
-                $result[$match[1]] = $match[2];
+        if ($request['order'] != null) {
+            $order = $request['order'];
+            $option = $request ['option'];
+        } else {
+            $order = 'transactions.id';
+            $option = 'DESC';
         }
-//        $sql = "select * from transactions where bank_status = 'successful'";
-        if($result) {
-            $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')
-//            ->filterFanex('pending')
-                ->where(function ($query) use ($result) {
-                    foreach ($result as $k => $v) {
-                        switch (strtolower($k)) {
-                            case 'name':
-                                $exploded = explode(' ', $v);
-                                $name = array_shift($exploded);
-                                if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
-                                    $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
-                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
-                                    if (count($exploded) > 0) {
-                                        foreach ($exploded as $name) {
-                                            if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
-                                                $query->where(function ($query) use ($name) {
-                                                    $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
-                                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
 
-                            case 'phone':
-                                $exploded = explode(' ', $v);
-                                $phone = array_shift($exploded);
-                                if (ctype_digit($phone)) {
-                                    $query->whereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
-                                    if (count($exploded) > 0) {
-                                        foreach ($exploded as $phone) {
-                                            if (ctype_digit($phone)) {
-                                                $query->where(function ($query) use ($phone) {
-                                                    $query->orWhereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case 'account':
-                                $exploded = explode(' ', $v);
-                                $account = array_shift($exploded);
-                                if (ctype_digit($account)) {
-                                    $query->whereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
-                                    if (count($exploded) > 0) {
-                                        foreach ($exploded as $account) {
-                                            if (ctype_digit($account)) {
-                                                $query->where(function ($query) use ($account) {
-                                                    $query->orWhereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            default:
-                                $query->where('id',0);
-                                break;
-                        }
-                    }
+        $extraInfo['order'] = $order;
+        $extraInfo['option'] = $option;
 
-//                $query->where('transactions.uri', 'like', "%$keyword%")
-//                    ->orWhereRaw("regexp_like(beneficiaries.firstname, '$keyword', 'i')")
-//                    ->orWhereRaw("regexp_like(beneficiaries.lastname, '$keyword', 'i')");
-////                        ->orWhere('transactions.premium_amount', 'like', "%$keyword%")
-////                        ->orWhere('beneficiaries.firstname', 'like', "%$keyword%")
-////                        ->orWhere('beneficiaries.lastname', 'like', "%$keyword%");
-//            })->orderby("transactions.id", "desc")->paginate(10);
-////            ->orderBy('transactions.id', 'DESC')->paginate(10);
+//        preg_match_all('/(?:(name|phone|account):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->keyword, $matches, PREG_SET_ORDER);
+        $keyword = $request->keyword;
+//        $result = array();
+//        foreach ($matches as $match) {
+//            if (isset($result[$match[1]])) {
+//                $result[$match[1]] = $result[$match[1]] . ' ' . $match[2];
+//            } else
+//                $result[$match[1]] = $match[2];
+//        }
+//
+//        if ($result) {
+//            $transactions = Transaction::joinUsers()
+//                ->joinBeneficiaries()
+//                ->selectBoth()
+//                ->filterBank('successful')
+//                ->filterFanex('pending')
+//                ->per('daily')
+//                ->where(function ($query) use ($result) {
+//                    foreach ($result as $k => $v) {
+//                        switch (strtolower($k)) {
+//                            case 'name':
+//                                $exploded = explode(' ', $v);
+//                                $name = array_shift($exploded);
+//                                $query->whereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
+//                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
+//                                if (count($exploded) > 0) {
+//                                    foreach ($exploded as $name) {
+//                                        if (preg_match("/^[a-zA-Z\s]+$/", $name)) {
+//                                            $query->where(function ($query) use ($name) {
+//                                                $query->orWhereRaw("regexp_like(beneficiaries.firstname, '$name', 'i')")
+//                                                    ->orWhereRaw("regexp_like(users.firstname, '$name', 'i')");
+//                                            });
+//                                        }
+//                                    }
+//                                }
+//
+//                            case 'phone':
+//                                $exploded = explode(' ', $v);
+//                                $phone = array_shift($exploded);
+//                                if (ctype_digit($phone)) {
+//                                    $query->whereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
+//                                    if (count($exploded) > 0) {
+//                                        foreach ($exploded as $phone) {
+//                                            if (ctype_digit($phone)) {
+//                                                $query->where(function ($query) use ($phone) {
+//                                                    $query->orWhereRaw("regexp_like(beneficiaries.tel, '$phone', 'i')");
+//                                                });
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                break;
+//
+//                            case 'account':
+//                                $exploded = explode(' ', $v);
+//                                $account = array_shift($exploded);
+//                                if (ctype_digit($account)) {
+//                                    $query->whereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
+//                                    if (count($exploded) > 0) {
+//                                        foreach ($exploded as $account) {
+//                                            if (ctype_digit($account)) {
+//                                                $query->where(function ($query) use ($account) {
+//                                                    $query->orWhereRaw("regexp_like(beneficiaries.account_number, '$account', 'i')");
+//                                                });
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                break;
+//                            default:
+//                                $query->where('id', 0);
+//                                break;
+//                        }
+//                    }
+//
+//                })->paginate(10);
+//
+//        } else {
+            $transactions = Transaction::joinUsers()
+                ->joinBeneficiaries()
+                ->selectBoth()
+                ->filterBank('successful')
+                ->filterFanex('pending')
+                ->per('daily')
+                ->where(function ($query) use ($keyword) {
+                    $query->where('transactions.uri', 'like', "%$keyword%")
+                        ->orWhereRaw("regexp_like(users.firstname, '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(users.lastname, '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(beneficiaries.firstname, '$keyword', 'i')")
+                        ->orWhereRaw("regexp_like(beneficiaries.lastname, '$keyword', 'i')")
+                        ->orWhere('transactions.premium_amount', 'like', "%$keyword%");
+                })->orderby("transactions.id", "desc")->paginate(10);
+//        }
 
-            })->paginate(10);
-
-        }
-        else {
-            $transactions = Transaction::where('id',0)->paginate(10); // :D
-        }
+        $payed_transactions = $transactions;
 
         if ($request->ajax())
-            return response()->json(view('partials.search-transactions', compact('transactions'))->render());
+            return response()->json(view('partials.search-transactions', compact('payed_transactions', 'extraInfo'))->render());
         else {
             $top_widget = array();
             $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
             $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
-            return view('pages.transactions', compact('top_widget', 'transactions'));
+            return view('pages.transactions', compact('top_widget', 'payed_transactions', 'extraInfo'));
         }
     }
 
@@ -178,12 +193,9 @@ class TransactionController extends Controller
      */
     public function show(Request $request, $transaction)
     {
-//        $transaction = $transaction->toArray();
         $transaction = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->where('transactions.id', $transaction)->first();
         if ($request->ajax())
             return response()->json(view('partials.singleTrans', compact('transaction'))->render());
-//            return view('partials.modalTransShow', compact('transaction'));
-//        return view('identifier', compact('transaction'));
     }
 
     /**
@@ -273,16 +285,14 @@ class TransactionController extends Controller
         $paymentsArray = [];
 
         // Define the Excel spreadsheet headers
-        $paymentsArray[] = ['reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
-            'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
-            ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
+        $paymentsArray[] = ['reference_number', 'bank_status', 'fanex_status', 'upt_status', 'currency', 'rate',
+            'premium_amount', 'payment_type', 'payment_date', 'country', 'upt_reference', 'updated_at', 'sender_firstname', 'sender_lastname'
+            , 'identity_number', 'tel_number', 'beneficiary_firstname', 'beneficiary_lastname', 'account_number', 'bank_name', 'branch_address', 'iban', 'swift'];
         // Convert each member of the returned collection into an array,
         // and append it to the payments array.
-        $this->excel_export($transactions,$paymentsArray,'today_pending_transaction','Exchanger','FANEx');
+        $this->excel_export($transactions, $paymentsArray, 'today_pending_transaction', 'Exchanger', 'FANEx');
 
     }
-
-    //whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
 
     /**
      * Remove the specified resource from storage.
