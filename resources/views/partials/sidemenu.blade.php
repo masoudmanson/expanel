@@ -29,8 +29,9 @@
                 <ul class="sub-menu">
                     <li class="nav-item  ">
                         <a href="{{ route('transactions.index') }}" class="nav-link ">
-                            <span class="title">تراکنش های امروز</span>
+                            <span class="title">تراکنش های در انتظار تائید امروز</span>
                         </a>
+
                     </li>
                     {{--<li class="nav-item  ">--}}
                         {{--<a href="{{ route('factors.index') }}" class="nav-link ">--}}

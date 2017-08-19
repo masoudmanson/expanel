@@ -59,6 +59,8 @@ Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'UsersCo
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'UsersController2@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'UsersController2@downloadExcelFile'));
 
+Route::post('ex-add-user',array('as'=>'ex-add-user','uses'=>'UsersController2@add_auth_user'));
+
 
 // ** just for ex-house dev.
 Route::get('/clear-cache', function() {
