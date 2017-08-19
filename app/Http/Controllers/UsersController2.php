@@ -65,7 +65,7 @@ class UsersController2 extends Controller
         })->download($type);
     }
 
-    public function add_auth_user($request)
+    public function add_auth_user(Request $request)
     {
         $request['identifier_id'] = Auth::user()->currencyExchange->identifier->id;
 
