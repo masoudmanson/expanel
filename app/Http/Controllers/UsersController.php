@@ -15,9 +15,17 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexOther(Request $request)
     {
-        return view('pages.users');
+        $identifier_id = Identifier::where('name','other')->first()->id;
+        $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->get();
+        $users_count = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->count();
+        dd($users_count);
+        if ($request->ajax())
+            return response()->json(view('partials.otherUsers', compact('users','users_count'))->render());
+
+        return view('pages.otherUsers',compact('users'));
+
     }
 
     public function indexFanap(Request $request)
@@ -31,7 +39,6 @@ class UsersController extends Controller
 
         return view('pages.fanapUsers',compact('users'));
 
-        return view('pages.fanapUsers');
     }
 
     public function indexExhouse(Request $request)
