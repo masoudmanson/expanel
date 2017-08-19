@@ -47,7 +47,7 @@ Route::resource('/factors' , 'FactorController');
 Route::get('users/fanapUsers', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::get('users/otherUsers', 'UsersController@indexOther')->name('indexOther');
-Route::put('users/authorization', 'UsersController@authorizeUser');
+Route::put('users/authorization/{client}', 'UsersController@authorizeUser');
 
 Route::resource('/users' , 'UsersController');
 

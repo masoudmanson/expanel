@@ -165,7 +165,7 @@ class UsersController extends Controller
         $client->is_authorized = true ;
         $client->save();
 
-        return redirect()->route('indexOther');
+        return json_encode(array('status' => true, 'msg' => 'با موفقیت تائید شد.'));
     }
 
     /**
