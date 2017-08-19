@@ -262,6 +262,26 @@ $(document).on('ready', function() {
 
   });
 
+  $('.specialAnchor').on('click', function(){
+    $('.specialAnchor').removeClass('active');
+    $(this).addClass('active');
+
+    var per = $(this).attr('data-per');
+      $.ajax({
+          method: 'get',
+          url: '/home',
+          data: {
+              'per': per,
+              '_token': csrfToken,
+              'X-CSRF-TOKEN': csrfToken,
+          },
+      }).done(function(data) {
+          $('#perWrapper').html(data);
+      }).fail(function(data) {
+          $('#perWrapper').html('<h2 class="text-danger text-center">متاسفانه مشکلی در درخواست رخ داد. لطفا دوباره تلاش نمائید!</h2>');
+      });
+  });
+
   $(window).on('hashchange', function() {
     if (window.location.hash) {
       var page = window.location.hash.replace('#', '');
