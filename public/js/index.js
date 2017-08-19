@@ -325,6 +325,32 @@ $(document).on('ready', function() {
     // toastr.success('Have fun storming the castle!', 'Miracle Max Says');
     // toastr.error('I do not think that word means what you think it means.', 'Inconceivable!');
 
+
+});
+
+$(document).on('click', '.orderBy', function() {
+    orderType = $(this).attr('data-order');
+    var url =  $(this).attr('data-url');
+    if($(this).attr('data-option') == 'ASC')
+        orderOption = 'DESC';
+    else
+        orderOption = 'ASC';
+
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: {
+            "order" : orderType,
+            "option" : orderOption,
+            '_token': csrfToken,
+            'X-CSRF-TOKEN': csrfToken
+        },
+        dataType: 'json'
+    }).done(function (result) {
+        $('#ajax-transaction-list').html(result);
+    }).fail(function () {
+        alert('مشکلی در درخواست ها رخ داد، لطفا دوباره تلاش نمایید.');
+    });
 });
 
 function getTransactions(url) {

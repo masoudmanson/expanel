@@ -132,42 +132,19 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="table-scrollable table-scrollable-borderless">
-                                    <table class="table table-hover table-light">
-                                        <thead>
-                                        <tr>
-                                            <th> فرستنده</th>
-                                            <th> مبلغ</th>
-                                            <th> نرخ تبدیل</th>
-                                            <th> مقصد</th>
-                                            <th> گیرنده</th>
-                                            <th> شماره تراکنش</th>
-                                            <th> تاریخ</th>
-                                            <th> عملیات</th>
-                                        </tr>
-                                        </thead>
+                                    <div id="mainFormLoader" style="display:none;">
+                                        <div class="errors" style="display: none"></div>
+                                        <div class="spinner2">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                    </div>
 
-                                        @foreach($transactions as $transaction)
-                                            <tr id="trans_{{ $transaction->id }}">
-                                                <td class="font-blue-chambray">{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</td>
-                                                <td class="font-red-haze bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
-                                                <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
-                                                <td class="font-blue-dark">{{ $transaction->country }}</td>
-                                                <td class="font-blue-chambray">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
-                                                <td class="bold font-dark">{{ $transaction->uri }}</td>
-                                                <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
-                                                <td>
-                                                    <a data-target="#transShowModal" data-toggle="modal"
-                                                       class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks"
-                                                       data-id="{{ $transaction->id }}">
-                                                        <i class="icon-eye"></i> مشاهده
-                                                    </a>
-                                                </td>
+                                    <div id="ajax-transaction-list">
+                                        @include('partials.history-table', ['transactions' => $transactions, 'extraInfo' => $extraInfo])
+                                    </div>
 
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                    <br>
-                                    {{ $transactions->links() }}
                                 </div>
                             </div>
                         </div>
