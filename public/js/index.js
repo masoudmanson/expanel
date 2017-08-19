@@ -266,19 +266,25 @@ $(document).on('ready', function() {
     $('.specialAnchor').removeClass('active');
     $(this).addClass('active');
 
-    var per = $(this).attr('data-per');
+    var per = $(this).find('.toggle').attr('data-per');
+      App.blockUI({
+          target: '#perWrapperContainer',
+          animate: !0,
+      });
+
       $.ajax({
           method: 'get',
-          url: '/home',
+          url: '/home?per='+per,
           data: {
-              'per': per,
               '_token': csrfToken,
               'X-CSRF-TOKEN': csrfToken,
           },
       }).done(function(data) {
           $('#perWrapper').html(data);
+          App.unblockUI('#perWrapperContainer');
       }).fail(function(data) {
           $('#perWrapper').html('<h2 class="text-danger text-center">متاسفانه مشکلی در درخواست رخ داد. لطفا دوباره تلاش نمائید!</h2>');
+          App.unblockUI('#perWrapperContainer');
       });
   });
 

@@ -97,7 +97,7 @@
 
                     {{-- Top Transactions List --}}
                     <div class="col-lg-6 col-xs-12 col-sm-12">
-                        <div class="portlet light ">
+                        <div class="portlet light" id="perWrapperContainer">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
