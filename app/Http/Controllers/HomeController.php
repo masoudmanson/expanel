@@ -75,6 +75,8 @@ class HomeController extends Controller
         $today['sum'] = Transaction::filterBank('successful')->per($per)->sum('payment_amount');
 
 //        dd($today['special']->toArray());
+        if ($request->ajax())
+            return response()->json(view('partials.specialTrans', compact('today'))->render());
 
         return view('home', compact('top_widget', 'today','euro_last_set_time','lira_last_set_time'));
     }
