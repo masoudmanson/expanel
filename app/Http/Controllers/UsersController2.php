@@ -15,7 +15,7 @@ use PHPExcel_Settings;
 
 class UsersController2 extends Controller
 {
-    public function index($request,$page)
+    public function index(Request $request , $page)
     {
         //$page = $request->page;
         if (view()->exists('pages.'.$page)) {
