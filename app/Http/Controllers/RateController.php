@@ -29,8 +29,8 @@ class RateController extends Controller
         $rates['lira']['max'] = $currency_exchange->rates()->currency('2')->get()->max('rate');
         $rates['lira']['min'] = $currency_exchange->rates()->currency('2')->get()->min('rate');
 
-        $rate_euro = $currency_exchange->rates()->currency('1')->get()->last();
-        $rate_lira = $currency_exchange->rates()->currency('2')->get()->last();
+        $rate_euro = $currency_exchange->rates()->currency('1')->last();
+        $rate_lira = $currency_exchange->rates()->currency('2')->last();
 
         if(isset($rate_euro->rate)) {
             $euro_last_set_time = jdate($rate_euro->updated_at)->ago();

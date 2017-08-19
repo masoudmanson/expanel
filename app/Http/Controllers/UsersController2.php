@@ -73,4 +73,14 @@ class UsersController2 extends Controller
 
         return redirect()->back();
     }
+
+    public function show_authorized_users(Request $request)
+    {
+        $identifier_id = Auth::user()->currencyExchange->identifier->id;
+
+        $users = Authorized::where('identifier_id',$identifier_id)->get();
+        dd($users);
+        if ($request->ajax())
+            return response()->json(view('partials.singleTrans', compact('transaction'))->render());
+    }
 }

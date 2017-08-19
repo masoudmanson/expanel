@@ -43,9 +43,11 @@ Route::resource('/rates' , 'RateController');
 Route::resource('/transactions' , 'TransactionController');
 Route::resource('/history' , 'HistoryController');
 Route::resource('/factors' , 'FactorController');
-Route::get('users/{page}', 'UsersController2@index')->name('indexFanap');
+Route::get('users/{page}', 'UsersController2@index');
+//    ->name('indexFanap');
+
 //Route::get('indexFanap', 'UsersController@indexFanap')->name('indexFanap');
-Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
+//Route::get('indexExhouse', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::resource('/users' , 'UsersController');
 
 Route::get('/search/transactions','TransactionController@search')->name('transactions.search');
@@ -61,6 +63,7 @@ Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'UsersCont
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'UsersController2@downloadExcelFile'));
 
 Route::post('ex-add-user',array('as'=>'ex-add-user','uses'=>'UsersController2@add_auth_user'));
+Route::get('ex-auth-users',array('as'=>'ex-auth-users','uses'=>'UsersController2@show_authorized_users'));
 
 
 // ** just for ex-house dev.

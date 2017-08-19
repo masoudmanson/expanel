@@ -55,7 +55,8 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ route('indexExhouse') }}" class="nav-link ">
+                        {{--<a href="{{ route('indexExhouse') }}" class="nav-link ">--}}
+                        <a href="users/exhouseUsers" class="nav-link ">
                             <span class="title">صرافی پاسارگاد</span>
                         </a>
                     </li>
@@ -68,7 +69,8 @@
                     <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link ">
                         {{--<a href="{{ route('indexFanap') }}" class="nav-link ">--}}
-                            <span class="title font-grey-mint"> فناپ</span>
+                        {{--<a href="users/fanapUsers" class="nav-link ">--}}
+                            <span class="title font-grey-mint" disabled="disabled"> فناپ</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
