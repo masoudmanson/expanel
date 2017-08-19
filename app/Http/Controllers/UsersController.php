@@ -52,7 +52,6 @@ class UsersController extends Controller
         return view('pages.exhouseUsers', compact('users', 'users_count'));
     }
 
-
     public function search(Request $request)
     {
         $keyword = $request->keyword;
@@ -159,6 +158,15 @@ class UsersController extends Controller
             return response()->json(view('partials.otherUsersTable', compact('users'))->render());
     }
 
+
+    public function authorizeUser(Client $client)
+    {
+        $client->identifier_id = Auth::user()->currencyExchange->identifier->id;
+        $client->is_authorized = true ;
+        $client->save();
+
+        return redirect()->route('indexOther');
+    }
 
     /**
      * Show the form for creating a new resource.
