@@ -7,25 +7,23 @@
         </div>
     </div>
     <div class="portlet-body">
-        <form role="form" action="{{ route('import-csv-excel') }}" method="post">
-            {{ csrf_field() }}
+        {!! Form::open(array('route' => 'import-csv-excel','method'=>'POST','files'=>'true')) !!}
             <div class="form-body">
                 <div class="form-group">
-                    <label for="excel">فایل Excel:</label>
-                    <input id="excel" type="file">
+                    {!! Form::label('sample_file','فایل Excel:',['class'=>'col-md-3']) !!}
+                    {!! Form::file('sample_file', array('class' => 'form-control')) !!}
+                    {!! $errors->first('sample_file', '<p class="alert alert-danger">:message</p>') !!}
                     <br>
                     <p class="help-block">لطفا فایل اکسل اطلاعات کاربران تائید شده ی صرافی را از فرم زیر وارد کنید تا کاربران به صورت اتوماتیک به سیستم افزوده شوند.</p>
                     <p class="help-block-error font-red-mint">در نظر داشته باشید که فرمت اکسل ورودی باید به صورت فایل نمونه باشد. به اسم ستون ها دقت نمائید. (
-                        <a href="">دانلود فایل نمونه</a> )</p>
+                        <a href="{{ asset('images/users.xls') }}">دانلود فایل نمونه</a> )</p>
                 </div>
             </div>
-
             <div class="form-actions right">
-                <button type="submit" class="btn green-haze">افزودن</button>
-                <button type="reset" class="btn default">انصراف</button>
+                {!! Form::submit('افزودن',['class'=>'btn green-haze']) !!}
+                {!! Form::reset('انصراف',['class'=>'btn default']) !!}
             </div>
-            <br>
-        </form>
+        {!! Form::close() !!}
     </div>
 </div>
 

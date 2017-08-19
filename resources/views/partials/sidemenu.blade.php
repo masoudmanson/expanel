@@ -61,16 +61,15 @@
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link " disabled="disabled">
-                        {{--<a href="{{ route('users.index') }}" class="nav-link ">--}}
-                            <span class="title font-grey-mint"  disabled="disabled">در انتظار تائید</span>
+                        {{--<a href="javascript:;" class="nav-link " disabled="disabled">--}}
+                        <a href="{{ route('users.index') }}" class="nav-link ">
+                            <span class="title"  disabled="disabled">در انتظار تائید</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
                         {{--<a href="{{ route('indexFanap') }}" class="nav-link ">--}}
-                        {{--<a href="users/fanapUsers" class="nav-link ">--}}
-                            <span class="title font-grey-mint" disabled="disabled"> فناپ</span>
+                        <a href="/users/fanapUsers" class="nav-link ">
+                            <span class="title" disabled="disabled"> فناپ</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
