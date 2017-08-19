@@ -8,12 +8,13 @@ class Authorized extends Model
 {
     protected $table = 'authorized';
 
-    protected $hidden = ['identifier_id'];
+//    protected $hidden = ['identifier_id'];
 
     protected $fillable = [
         'firstname',
         'lastname',
         'identity_number',
-        'mobile'
+        'mobile',
+        'identifier_id'
     ];
 }
