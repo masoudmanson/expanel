@@ -55,20 +55,20 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        {{--<a href="{{ route('indexExhouse') }}" class="nav-link ">--}}
-                        <a href="/users/exhouseUsers" class="nav-link ">
+                        <a href="{{ route('indexExhouse') }}" class="nav-link ">
+                        {{--<a href="users/exhouseUsers" class="nav-link ">--}}
                             <span class="title">صرافی پاسارگاد</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
                         {{--<a href="javascript:;" class="nav-link " disabled="disabled">--}}
-                        <a href="{{ route('users.index') }}" class="nav-link ">
+                        <a href="{{ route('indexOther') }}" class="nav-link ">
                             <span class="title"  disabled="disabled">در انتظار تائید</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        {{--<a href="{{ route('indexFanap') }}" class="nav-link ">--}}
-                        <a href="/users/fanapUsers" class="nav-link ">
+                        <a href="{{ route('indexFanap') }}" class="nav-link ">
+                        {{--<a href="/users/fanapUsers" class="nav-link ">--}}
                             <span class="title" disabled="disabled"> فناپ</span>
                         </a>
                     </li>

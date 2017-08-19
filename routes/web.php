@@ -47,6 +47,7 @@ Route::resource('/factors' , 'FactorController');
 //Route::get('users/{page}', 'UsersController2@index')->name('indexFanap');
 Route::get('users/fanapUsers', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExhouse');
+Route::get('users/otherUsers', 'UsersController@indexOther')->name('indexOther');
 
 Route::resource('/users' , 'UsersController');
 
