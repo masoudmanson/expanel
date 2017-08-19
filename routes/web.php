@@ -55,9 +55,9 @@ Route::get('/excel/history','HistoryController@excel')->name('admin.history.exce
 Route::get('/excel/transactions','TransactionController@excel')->name('admin.transactions.excel');
 
 
-Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'));
-Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
-Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
+Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'UsersController2@importExportExcelORCSV'));
+Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'UsersController2@importFileIntoDB'));
+Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'UsersController2@downloadExcelFile'));
 
 
 // ** just for ex-house dev.

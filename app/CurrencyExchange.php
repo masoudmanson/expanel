@@ -26,9 +26,14 @@ class CurrencyExchange extends Model
         return $this->hasMany('App\Exchanger')->orderBy('id', 'DESC');
     }
 
+    public function identifier()
+    {
+        return $this->hasOne('App\Identifier','exchanger_id');
+    }
+
     public function rates()
     {
         return $this->hasManyThrough('App\Rate', 'App\Exchanger',
-            'exchanger_id', 'exchanger_user_id', 'exchangers.id');
+            'exchanger_id', 'exchanger_user_id', 'id');
     }
 }
