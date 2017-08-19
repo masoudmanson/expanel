@@ -54,6 +54,15 @@ class UsersController extends Controller
         return view('pages.exhouseUsers',compact('users'));
     }
 
+    public function authorizeUser(Client $client)
+    {
+        $client->identifier_id = Auth::user()->currencyExchange->identifier->id;
+        $client->is_authorized = true ;
+        $client->save();
+
+        return redirect()->route('indexOther');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

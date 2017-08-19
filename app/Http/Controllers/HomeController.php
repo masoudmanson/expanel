@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     use ExportTrait;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
