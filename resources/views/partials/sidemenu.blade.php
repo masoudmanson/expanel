@@ -32,11 +32,11 @@
                             <span class="title">تراکنش های امروز</span>
                         </a>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="{{ route('factors.index') }}" class="nav-link ">
-                            <span class="title">تراکنش های بسته بندی شده</span>
-                        </a>
-                    </li>
+                    {{--<li class="nav-item  ">--}}
+                        {{--<a href="{{ route('factors.index') }}" class="nav-link ">--}}
+                            {{--<span class="title">تراکنش های بسته بندی شده</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     <li class="nav-item  ">
                         <a href="{{ route('history.index') }}" class="nav-link ">
                             <span class="title">تاریخچه ی تراکنش ها</span>
@@ -54,31 +54,35 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ route('users.index') }}" class="nav-link ">
-                            <span class="title">در انتظار تائید</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
                         <a href="{{ route('indexExhouse') }}" class="nav-link ">
                             <span class="title">صرافی پاسارگاد</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="{{ route('indexFanap') }}" class="nav-link ">
-                            <span class="title"> فناپ</span>
+                        <a href="javascript:;" class="nav-link " disabled="disabled">
+                        {{--<a href="{{ route('users.index') }}" class="nav-link ">--}}
+                            <span class="title font-grey-mint"  disabled="disabled">در انتظار تائید</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="{{ route('indexFanap') }}" class="nav-link ">
-                            <span class="title">بانک پاسارگاد</span>
+                        <a href="javascript:;" class="nav-link ">
+                        {{--<a href="{{ route('indexFanap') }}" class="nav-link ">--}}
+                            <span class="title font-grey-mint"> فناپ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+{{--                        <a href="{{ route('indexFanap') }}" class="nav-link ">--}}
+                        <a href="javascript:;" class="nav-link ">
+                            <span class="title font-grey-mint">بانک پاسارگاد</span>
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li id="settings-li" class="nav-item  ">
-                <a href="{{ route('settings') }}" class="nav-link nav-toggle">
-                    <i class="icon-settings"></i>
+            <li id="settings-li" class="nav-item">
+                {{--<a href="{{ route('settings') }}" class="nav-link nav-toggle">--}}
+                <a href="javascript:;" class="nav-link font-grey-mint nav-toggle">
+                    <i class="icon-settings font-grey-mint"></i>
                     <span class="title">تنظیمات</span>
                     <span class="selected"></span>
                 </a>
