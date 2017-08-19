@@ -7,6 +7,13 @@
     width: 100% !important;
 }
 
+.orderBy {
+    cursor: pointer;
+}
+
+.orderBy:hover {
+    color: #f23;
+}
 
 #mainFormLoader {
     position: absolute;

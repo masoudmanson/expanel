@@ -146,7 +146,7 @@
                                         </div>
                                     </div>
                                     <div id="ajax-transaction-list">
-                                        @include('partials.search-transactions', ['transactions' => $payed_transactions])
+                                        @include('partials.search-transactions', ['payed_transactions' => $payed_transactions, 'extraInfo' => $extraInfo])
                                     </div>
 
                                 </div>
@@ -164,4 +164,8 @@
 @endsection
 
 @section('scripts')
+    <script>
+        var orderType = 'id';
+        var orderOption = 'DESC';
+    </script>
 @endsection
