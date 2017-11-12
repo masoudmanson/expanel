@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div id="transShowBody">
+                <div id="transShowBody" class="modalData">
 
                 </div>
             </div>

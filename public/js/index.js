@@ -131,7 +131,6 @@ $(document).on('ready', function() {
     // to die!'); toastr.success('Have fun storming the castle!', 'Miracle Max
     // Says'); toastr.error('I do not think that word means what you think it
     // means.', 'Inconceivable!');
-
 });
 
 $(document).on('click', '.transConfirmLinks', function(event) {
@@ -301,87 +300,30 @@ $(document).on('click', '.transRejectLinks', function(event) {
     });
 });
 
-$(document).on('click', '.rateTabsLink', function(event) {
-    // var url = new URL(window.location.href);
-    // console.log(window.location);
-    // var page = url.searchParams.get('page');
-    // if (page > 1) {
-    //     window.location.href = window.location.origin + url.pathname +
-    //         '?page=1' +
-    //         $(this).attr('href');
-    // }
-});
-
 $(document).on('click', '.transShowLinks', function(event) {
     event.preventDefault();
     event.stopPropagation();
-    var transId = $(this).attr('data-id');
-    $('#transShowModal').modal('show');
 
-    $.ajax({
-        method: 'get',
-        url: '/transactions/' + transId,
-        data: {
-            'accepted': true,
-            '_token': csrfToken,
-            'X-CSRF-TOKEN': csrfToken,
-        },
-    }).done(function(data) {
-        if (data) {
-            $('#transShowModal').find('#transShowBody').html(data);
-            $('.modal:visible').each(reposition);
-        }
-        else {
-            $('#transShowModal').
-                find('#transShowBody').
-                html(
-                    '<h2 class="font-red-mint text-center">دریافت تراکنش با مشکل مواجه شد!</h2>');
-            $('.modal:visible').each(reposition);
-        }
-    }).fail(function() {
-        $('#transShowModal').
-            find('#transShowBody').
-            html(
-                '<h2 class="font-red-mint text-center">دریافت تراکنش با مشکل مواجه شد!</h2>');
-        $('.modal:visible').each(reposition);
-    });
+    var modal = $(this).attr('data-modal');
+    var url = $(this).attr('data-url');
+    var id = $(this).attr('data-id');
+
+    ajaxModal(modal, url, id);
 });
 
 $(document).on('click', '.fanapUsersLinks', function(event) {
     event.preventDefault();
     event.stopPropagation();
-    var transId = $(this).attr('data-id');
-    $('#fanapUserModal').modal('show');
 
-    $.ajax({
-        method: 'get',
-        url: '/fanap/' + transId,
-        data: {
-            '_token': csrfToken,
-            'X-CSRF-TOKEN': csrfToken,
-        },
-    }).done(function(data) {
-        if (data) {
-            $('#fanapUserModal').find('#fanapUserBody').html(data);
-            $('.modal:visible').each(reposition);
-        }
-        else {
-            $('#fanapUserModal').
-                find('#fanapUserBody').
-                html(
-                    '<h2 class="font-red-mint text-center">دریافت اطلاعات کاربر با مشکل مواجه شد!</h2>');
-            $('.modal:visible').each(reposition);
-        }
-    }).fail(function() {
-        $('#fanapUserModal').
-            find('#fanapUserBody').
-            html(
-                '<h2 class="font-red-mint text-center">دریافت اطلاعات کاربر با مشکل مواجه شد!</h2>');
-        $('.modal:visible').each(reposition);
-    });
+    var modal = $(this).attr('data-modal');
+    var url = $(this).attr('data-url');
+    var id = $(this).attr('data-id');
+
+    ajaxModal(modal, url, id);
 });
 
 $(document).on('click', '.pagination a', function(e) {
+    // uncomment to load data by ajax
     // e.preventDefault();
     // ajaxPageLoad($(this).attr('href'));
 });
@@ -412,6 +354,40 @@ $(document).on('click', '.orderBy', function() {
         alert('مشکلی در درخواست ها رخ داد، لطفا دوباره تلاش نمایید.');
     });
 });
+
+function ajaxModal(modal, url, id){
+    App.blockUI({
+        target: '#' + modal + ' .modal-dialog',
+        animate: !0,
+    });
+    $('#transShowModal').modal('show');
+
+    $.ajax({
+        method: 'get',
+        url: url + id,
+        data: {
+            'accepted': true,
+            '_token': csrfToken,
+            'X-CSRF-TOKEN': csrfToken,
+        },
+    }).done(function(data) {
+        if (data) {
+            $('#' + modal).find('#transShowBody').html(data);
+            $('.modal:visible').each(reposition);
+        }
+        else {
+            $('#' + modal).find('.modalData').
+                html('<h2 class="font-red-mint text-center">دریافت اطلاعات با مشکل مواجه شد!</h2>');
+            $('.modal:visible').each(reposition);
+        }
+        App.unblockUI('#' + modal + ' .modal-dialog');
+    }).fail(function() {
+        $('#' + modal).find('.modalData').
+            html('<h2 class="font-red-mint text-center">دریافت اطلاعات با مشکل مواجه شد!</h2>');
+        $('.modal:visible').each(reposition);
+        App.unblockUI('#' + modal + ' .modal-dialog');
+    });
+}
 
 function ajaxPageLoad(url) {
     orderType = $(this).attr('data-order');
@@ -448,27 +424,6 @@ function reposition() {
     modal.css('display', 'block');
     dialog.css('margin-top',
         Math.max(0, ($(window).height() - dialog.height()) / 2));
-}
-
-var localtime = +Date.now();
-var diff = serverTime - localtime;
-
-function startTime() {
-    var today = new Date(+Date.now() + diff);
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    $('.server-time').text(h + ':' + m + ':' + s);
-    var t = setTimeout(startTime, 1000);
-}
-
-function checkTime(i) {
-    if (i < 10) {
-        i = '0' + i;
-    }
-    return i;
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {

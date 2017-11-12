@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div id="fanapUserBody">
+                <div class="modalData">
 
                 </div>
             </div>

@@ -23,7 +23,9 @@
                 <td>
                     <a data-target="#fanapUserModal" data-toggle="modal"
                        class="btn btn-circle btn-outline btn-sm green-haze fanapUsersLinks"
-                       data-id="{{ $user->id }}">
+                       data-id="{{ $user->id }}"
+                       data-modal="fanapUserModal"
+                       data-url="/transactions/">
                         <i class="icon-user-follow"></i>مشاهده ی اطلاعات
                     </a>
                 </td>

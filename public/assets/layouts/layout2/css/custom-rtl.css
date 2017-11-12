@@ -15,6 +15,15 @@
     color: #f23;
 }
 
+.blockOverlay {
+    background-color: rgb(255, 255, 255) !important;
+    opacity: 0.8 !important;
+}
+
+.blockUI .page-spinner-bar > div, .block-spinner-bar > div {
+    background: #FF9C07 !important;
+}
+
 #mainFormLoader {
     position: absolute;
     width: 100%;

@@ -99,7 +99,9 @@
             <td>
                 <a data-target="#transShowModal" data-toggle="modal"
                    class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks"
-                   data-id="{{ $transaction->id }}">
+                   data-id="{{ $transaction->id }}"
+                   data-modal="transShowModal"
+                   data-url="/transactions/">
                     <i class="icon-eye"></i> مشاهده
                 </a>
             </td>
