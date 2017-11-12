@@ -20,7 +20,7 @@
             <!-- BEGIN PAGE ACTIONS -->
             <div class="page-actions">
                 <div class="btn-group">
-                    <button id="add_new_btn" class="btn btn-circle btn-outline">
+                    <button id="add_new_btn" class="btn btn-circle btn-outline" style="cursor: default">
                         <span>صرافی پاسارگاد</span>
                     </button>
                 </div>
@@ -38,10 +38,10 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-                            <li>
-                                <a href="#">
-                                    <i class="icon-user"></i> پروفایل </a>
-                            </li>
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<i class="icon-user"></i> پروفایل </a>--}}
+                            {{--</li>--}}
                             <li>
                                 @if(!Auth::guest())
                                     <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

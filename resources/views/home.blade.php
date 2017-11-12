@@ -107,13 +107,13 @@
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                                         <label class="specialAnchor btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm active">
-                                            <input type="radio" name="options" class="toggle" data-per="daily" id="option1">روزانه
+                                            <input type="radio" name="options" class="toggle" data-per="daily" data-perName="روزانه" id="option1">روزانه
                                         </label>
                                         <label class="specialAnchor btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" data-per="weekly" id="option2">هفتگی
+                                            <input type="radio" name="options" class="toggle" data-per="weekly" data-perName="هفتگی" id="option2">هفتگی
                                         </label>
                                         <label class="specialAnchor btn btn-transparent blue-oleo btn-no-border btn-outline btn-circle btn-sm">
-                                            <input type="radio" name="options" class="toggle" data-per="monthly" id="option2">ماهانه
+                                            <input type="radio" name="options" class="toggle" data-per="monthly" data-perName="ماهانه" id="option2">ماهانه
                                         </label>
                                     </div>
                                 </div>

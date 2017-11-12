@@ -77,7 +77,7 @@ class HomeController extends Controller
         if ($request->ajax())
             return response()->json(view('partials.specialTrans', compact('today'))->render());
 
-        return view('home', compact('top_widget', 'today','euro_last_set_time','lira_last_set_time'));
+        return view('home', compact('top_widget', 'today', 'euro_last_set_time', 'lira_last_set_time'));
     }
 
     public function special_transaction_excel(Request $request)

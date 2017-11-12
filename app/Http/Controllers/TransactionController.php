@@ -37,7 +37,15 @@ class TransactionController extends Controller
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->per('daily')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->per('daily')->sum('payment_amount');
-        $payed_transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->per('daily')->orderBy($order, $option)->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+//        $payed_transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()->filterBank('successful')->filterFanex('pending')->per('daily')->orderBy($order, $option)->paginate(10); //todo : for test try it with 'canceled' and 'rejected'
+        $payed_transactions = Transaction::joinUsers()
+            ->joinBeneficiaries()
+            ->selectBoth()
+            ->filterBank('successful')
+            ->filterFanex('pending')
+            ->per('daily')
+            ->orderBy($sort)
+            ->paginate(10);
         if ($request->ajax())
             return response()->json(view('partials.search-transactions', compact('payed_transactions', 'extraInfo'))->render());
 

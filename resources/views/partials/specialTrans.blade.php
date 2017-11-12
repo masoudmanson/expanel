@@ -5,7 +5,7 @@
                 <div id="sparkline_bar"></div>
             </div>
             <div class="stat-number">
-                <div class="title" style="padding-bottom: 5px"> جمع پرداختی های امروز
+                <div class="title" style="padding-bottom: 5px"> جمع پرداختی های <span class="perName">امروز</span>
                     <small>(ریال)</small>
                 </div>
                 <div class="number">{{ number_format($today['sum']) }}</div>
@@ -18,7 +18,7 @@
                 <div id="sparkline_bar2"></div>
             </div>
             <div class="stat-number">
-                <div class="title" style="padding-bottom: 5px"> تعداد تراکنش های امروز</div>
+                <div class="title" style="padding-bottom: 5px"> تعداد تراکنش های <span class="perName">امروز</span> </div>
                 <div class="number">{{ number_format($today['count']) }}</div>
             </div>
         </div>

@@ -17,10 +17,11 @@ class HistoryController extends Controller
      */
     public function index(Request $request)
     {
+        $order = trim($request->input('order'));
+        $order = in_array($order, ['transactions.id', 'transactions.payment_amount', 'transactions.exchange_rate', 'transactions.payment_date']) ? $order : 'payment_date';
 
-        if ($request['order'] != null) {
-            $order = $request['order'];
-            $option = $request ['option'];
+        if ($order != null) {
+            $option = trim($request->input('option'));
         } else {
             $order = 'transactions.payment_date';
             $option = 'DESC';
