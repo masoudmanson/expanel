@@ -10,6 +10,7 @@ return [
         'password' => env('DB_PASSWORD', 'fanex'),
         'charset' => env('DB_CHARSET', 'AL32UTF8'),
         'prefix' => env('DB_PREFIX', ''),
+        'strict' => false,
         'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
     ],
 ];

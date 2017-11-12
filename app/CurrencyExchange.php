@@ -28,12 +28,35 @@ class CurrencyExchange extends Model
 
     public function identifier()
     {
-        return $this->hasOne('App\Identifier','exchanger_id');
+        return $this->hasOne('App\Identifier', 'exchanger_id');
     }
 
-    public function rates()
+    public function scopeCurrency($query, $currency)
     {
-        return $this->hasManyThrough('App\Rate', 'App\Exchanger',
-            'exchanger_id', 'exchanger_user_id', 'id');
+        $curr = Currency::getByType($currency);
+        return $query->where('rates.currency_id', $curr->id);
     }
+
+    public function scopeLast($query)
+    {
+        return $query->orderBy('rates.id', 'DESC')->first();
+    }
+
+    public function scopeRates($query)
+    {
+        $exchanger = $this->id;
+        return $query->join('exchanger_users', 'exchanger_users.exchanger_id', '=', "exchangers.id")
+            ->where('exchangers.id', $exchanger)
+            ->join('rates', 'rates.exchanger_user_id', '=', 'exchanger_users.id')
+            ->select("rates.*");
+    }
+
+//    public function rates()
+//    {
+//        return $this->hasManyThrough(
+//            'App\Rate',
+//            'App\Exchanger',
+//            'exchanger_id',
+//            'exchanger_user_id');
+//    }
 }
