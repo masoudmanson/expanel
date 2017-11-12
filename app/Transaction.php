@@ -92,7 +92,8 @@ class Transaction extends Model
         switch ($per) {
             case 'daily':
 //                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'));
-                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
+//                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
+                return $query->whereRaw("TRUNC(sysdate) = TRUNC(payment_date)");
                 break;
 
             case 'weekly':

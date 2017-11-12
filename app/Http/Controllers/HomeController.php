@@ -9,6 +9,7 @@ use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Morilog\Jalali\jDate;
 
 class HomeController extends Controller
 {
@@ -40,8 +41,8 @@ class HomeController extends Controller
 
         $currency_exchange = Auth::user()->currencyExchange;
 
-        $rate_euro = $currency_exchange->rates()->currency('1')->last();
-        $rate_lira = $currency_exchange->rates()->currency('2')->last();
+        $rate_euro = $currency_exchange->rates()->currency('EUR')->last();
+        $rate_lira = $currency_exchange->rates()->currency('TRY')->last();
 
         if(isset($rate_euro->rate)) {
             $euro_last_set_time = jdate($rate_euro->updated_at)->ago();

@@ -13,4 +13,9 @@ class Currency extends Model
         return $this->hasMany('App\Rate','currency_id');
 //            ->orderBy('id', 'DESC');
     }
+
+    public function scopeGetByType($query, $type)
+    {
+        return $query->where('type',$type)->first();
+    }
 }

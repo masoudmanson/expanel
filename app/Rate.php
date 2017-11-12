@@ -26,7 +26,8 @@ class Rate extends Model
 
     public function scopeCurrency($query, $currency)
     {
-        return $query->where('rates.currency_id', $currency);
+        $curr = Currency::getByType($currency);
+        return $query->where('rates.currency_id', $curr->id);
     }
 
     public function scopeLast($query)

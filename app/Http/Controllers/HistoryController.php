@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 class HistoryController extends Controller
 {
     use ExportTrait;
+
+    /**
+     * Create a new controller instance.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('checkToken');
+        $this->middleware('checkUser');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +36,6 @@ class HistoryController extends Controller
             $order = 'transactions.payment_date';
             $option = 'DESC';
         }
-
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
@@ -206,39 +216,5 @@ class HistoryController extends Controller
         // Convert each member of the returned collection into an array,
         // and append it to the payments array.
         $this->excel_export($transactions,$paymentsArray,'special_transactions','Exchanger','FANEx');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

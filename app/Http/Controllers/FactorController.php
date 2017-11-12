@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 class FactorController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('checkToken');
+        $this->middleware('checkUser');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

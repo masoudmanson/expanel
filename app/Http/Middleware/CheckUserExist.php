@@ -36,7 +36,7 @@ class CheckUserExist
         $user = Exchanger::firstOrNew(array('userId' => $id));
         $user->userId = $id;
         $user->save();
-        //todo : this is only for test, to find out in csrf-token problem is related to user seasion or not.
+        //todo : this is only for test, to find out if csrf-token problem is related to user session or not.
         if (Auth::check())
             return $next($request);
 
