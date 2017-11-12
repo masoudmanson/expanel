@@ -34,39 +34,41 @@ $(document).on('ready', function() {
     $('.searchForm').keyup(function(event) {
         var keyword = $(this).val();
         if (event.which == 13 || event.keyCode == 13) {
-            getTransactions('/search/transactions?keyword=' + keyword);
+            ajaxPageLoad('/search/transactions?keyword=' + keyword);
         }
     });
 
     $('.searchHistoryForm').keyup(function(event) {
         var keyword = $(this).val();
         if (event.which == 13 || event.keyCode == 13) {
-            getTransactions('/search/histories?keyword=' + keyword);
+            ajaxPageLoad('/search/histories?keyword=' + keyword);
         }
     });
 
     $('.searchExhouseForm').keyup(function(event) {
         var keyword = $(this).val();
         if (event.which == 13 || event.keyCode == 13) {
-            getTransactions('/search/users/exhouse?keyword=' + keyword);
+            ajaxPageLoad('/search/users/exhouse?keyword=' + keyword);
         }
     });
 
     $('.searchFanapForm').keyup(function(event) {
         var keyword = $(this).val();
         if (event.which == 13 || event.keyCode == 13) {
-            getTransactions('/search/users/fanap?keyword=' + keyword);
+            ajaxPageLoad('/search/users/fanap?keyword=' + keyword);
         }
     });
 
     $('.searchOtherForm').keyup(function(event) {
         var keyword = $(this).val();
         if (event.which == 13 || event.keyCode == 13) {
-            getTransactions('/search/users/other?keyword=' + keyword);
+            ajaxPageLoad('/search/users/other?keyword=' + keyword);
         }
     });
 
     $('.specialAnchor').on('click', function() {
+        var perName = $(this).find('.toggle').attr('data-perName');
+
         $('.specialAnchor').removeClass('active');
         $(this).addClass('active');
 
@@ -83,13 +85,16 @@ $(document).on('ready', function() {
                 '_token': csrfToken,
                 'X-CSRF-TOKEN': csrfToken,
             },
-        }).done(function(data) {
-            $('#perWrapper').html(data);
-            App.unblockUI('#perWrapperContainer');
+            success: function(data) {
+                $('#perWrapper').html(data);
+                $('.perName').text(perName);
+                App.unblockUI('#perWrapperContainer');
+            },
+            error: function(){
+                console.log('Error');
+            }
         }).fail(function(data) {
-            $('#perWrapper').
-                html(
-                    '<h2 class="text-danger text-center">متاسفانه مشکلی در درخواست رخ داد. لطفا دوباره تلاش نمائید!</h2>');
+            $('#perWrapper').html('<h2 class="text-danger text-center">متاسفانه مشکلی در درخواست رخ داد. لطفا دوباره تلاش نمائید!</h2>');
             App.unblockUI('#perWrapperContainer');
         });
     });
@@ -101,7 +106,7 @@ $(document).on('ready', function() {
                 return false;
             }
             else {
-                getTransactions(page);
+                ajaxPageLoad(page);
             }
         }
     });
@@ -297,13 +302,14 @@ $(document).on('click', '.transRejectLinks', function(event) {
 });
 
 $(document).on('click', '.rateTabsLink', function(event) {
-    var url = new URL(window.location.href);
-    var page = url.searchParams.get('page');
-    if (page > 1) {
-        window.location.href = window.location.origin + url.pathname +
-            '?page=1' +
-            $(this).attr('href');
-    }
+    // var url = new URL(window.location.href);
+    // console.log(window.location);
+    // var page = url.searchParams.get('page');
+    // if (page > 1) {
+    //     window.location.href = window.location.origin + url.pathname +
+    //         '?page=1' +
+    //         $(this).attr('href');
+    // }
 });
 
 $(document).on('click', '.transShowLinks', function(event) {
@@ -341,9 +347,43 @@ $(document).on('click', '.transShowLinks', function(event) {
     });
 });
 
+$(document).on('click', '.fanapUsersLinks', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var transId = $(this).attr('data-id');
+    $('#fanapUserModal').modal('show');
+
+    $.ajax({
+        method: 'get',
+        url: '/fanap/' + transId,
+        data: {
+            '_token': csrfToken,
+            'X-CSRF-TOKEN': csrfToken,
+        },
+    }).done(function(data) {
+        if (data) {
+            $('#fanapUserModal').find('#fanapUserBody').html(data);
+            $('.modal:visible').each(reposition);
+        }
+        else {
+            $('#fanapUserModal').
+                find('#fanapUserBody').
+                html(
+                    '<h2 class="font-red-mint text-center">دریافت اطلاعات کاربر با مشکل مواجه شد!</h2>');
+            $('.modal:visible').each(reposition);
+        }
+    }).fail(function() {
+        $('#fanapUserModal').
+            find('#fanapUserBody').
+            html(
+                '<h2 class="font-red-mint text-center">دریافت اطلاعات کاربر با مشکل مواجه شد!</h2>');
+        $('.modal:visible').each(reposition);
+    });
+});
+
 $(document).on('click', '.pagination a', function(e) {
-    e.preventDefault();
-    getTransactions($(this).attr('href'));
+    // e.preventDefault();
+    // ajaxPageLoad($(this).attr('href'));
 });
 
 $(document).on('click', '.orderBy', function() {
@@ -373,11 +413,21 @@ $(document).on('click', '.orderBy', function() {
     });
 });
 
-function getTransactions(url) {
+function ajaxPageLoad(url) {
+    orderType = $(this).attr('data-order');
+    if ($(this).attr('data-option') == 'ASC') {
+        orderOption = 'DESC';
+    }
+    else {
+        orderOption = 'ASC';
+    }
+
     $.ajax({
         method: 'get',
         url: url,
         data: {
+            'order': orderType,
+            'option': orderOption,
             '_token': csrfToken,
             'X-CSRF-TOKEN': csrfToken,
         },

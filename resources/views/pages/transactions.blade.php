@@ -82,38 +82,6 @@
                         </div>
                         {{-- End Search in transactions --}}
                     </div>
-
-                    {{--<div class="col-md-3">--}}
-                        {{--<!-- BEGIN WIDGET THUMB -->--}}
-                        {{--<div class="widget-thumb widget-bg-color-white margin-bottom-20 ">--}}
-                            {{--<h4 class="widget-thumb-heading">بالاترین نرخ تبدیل ارز</h4>--}}
-                            {{--<div class="widget-thumb-wrap">--}}
-                                {{--<i class="widget-thumb-icon bg-yellow-lemon icon-shuffle"></i>--}}
-                                {{--<div class="widget-thumb-body">--}}
-                                    {{--<span class="widget-thumb-subtitle">یورو به ریال</span>--}}
-                                    {{--<span class="widget-thumb-body-stat" data-counter="counterup"--}}
-                                          {{--data-value="4235">0</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<!-- END WIDGET THUMB -->--}}
-                    {{--</div>--}}
-
-                    {{--<div class="col-md-3">--}}
-                        {{--<!-- BEGIN WIDGET THUMB -->--}}
-                        {{--<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">--}}
-                            {{--<h4 class="widget-thumb-heading">پایین ترین نرخ تبدیل ارز</h4>--}}
-                            {{--<div class="widget-thumb-wrap">--}}
-                                {{--<i class="widget-thumb-icon bg-blue-hoki icon-shuffle"></i>--}}
-                                {{--<div class="widget-thumb-body">--}}
-                                    {{--<span class="widget-thumb-subtitle">یورو به ریال</span>--}}
-                                    {{--<span class="widget-thumb-body-stat" data-counter="counterup"--}}
-                                          {{--data-value="3955">0</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<!-- END WIDGET THUMB -->--}}
-                    {{--</div>--}}
                 </div>
 
                 <div class="row">

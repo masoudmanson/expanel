@@ -20,7 +20,6 @@
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content" style="min-height: 700px;">
                 <h1 class="page-title"> نرخ تبدیل ارز </h1>
-
                 <div class="row">
                     {{-- Exchage Rate Setting Form --}}
                     <div class="col-lg-6 col-xs-12 col-sm-12">

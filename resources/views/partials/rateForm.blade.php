@@ -1,9 +1,9 @@
-<form role="form" action="/rates" method="post" id="rateForm{{ $type }}" data-id="{{ $type }}" class="rateForm">{{-- onsubmit="return rateFormValidation(this, {{ $type }})">--}}
+<form role="form" action="/rates" method="post" id="rateForm{{ $model }}" data-id="{{ $model }}" class="rateForm">{{-- onsubmit="return rateFormValidation(this, {{ $model }})">--}}
     {{ csrf_field() }}
     <div class="form-body">
         <div class="form-group">
             <input type="text" name="rate" class="form-control input-lg rateFormRate">
-            <input type="hidden" name="currency_id" value="{{ $type }}">
+            <input type="hidden" name="currency_id" value="{{ $model }}">
         </div>
     </div>
 

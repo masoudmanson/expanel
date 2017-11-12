@@ -2,23 +2,61 @@
     <thead>
     <tr>
         @if($extraInfo['order'] == 'transactions.id')
-            <th data-option="{{ $extraInfo['option'] }}" data-url="/history" data-order="transactions.id" class="orderBy"><i class="font-red-haze fa fa-{{ ($extraInfo['option'] == 'ASC') ? 'sort-amount-asc' : 'sort-amount-desc' }}"></i> شناسه </th>
+            @if($extraInfo['option'] == 'ASC')
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-asc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.id', 'option' => 'DESC']) }}">شناسه</a>
+                </th>
+            @else
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-desc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.id', 'option' => 'ASC']) }}">شناسه</a>
+                </th>
+            @endif
         @else
-            <th data-option="ASC" data-url="/history" data-order="transactions.id" class="orderBy"> شناسه <small class="font-red"></small></th>
+            <th>
+                <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.id', 'option' => 'ASC']) }}">شناسه</a>
+            </th>
         @endif
 
         <th> فرستنده</th>
 
-        @if($extraInfo['order'] == 'premium_amount')
-            <th data-option="{{ $extraInfo['option'] }}" data-url="/history" data-order="premium_amount" class="orderBy"><i class="font-red-haze fa fa-{{ ($extraInfo['option'] == 'ASC') ? 'sort-amount-asc' : 'sort-amount-desc' }}"></i> مبلغ </th>
+        <th>مبلغ ارز</th>
+
+        @if($extraInfo['order'] == 'transactions.payment_amount')
+            @if($extraInfo['option'] == 'ASC')
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-asc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_amount', 'option' => 'DESC']) }}">مبلغ پرداختی</a>
+                </th>
+            @else
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-desc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_amount', 'option' => 'ASC']) }}">مبلغ پرداختی</a>
+                </th>
+            @endif
         @else
-            <th data-option="ASC" data-url="/history" data-order="premium_amount" class="orderBy"> مبلغ <small class="font-red"></small></th>
+            <th>
+                <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_amount', 'option' => 'ASC']) }}">مبلغ پرداختی</a>
+            </th>
         @endif
 
         @if($extraInfo['order'] == 'transactions.exchange_rate')
-            <th data-option="{{ $extraInfo['option'] }}" data-url="/history" data-order="transactions.exchange_rate" class="orderBy"><i class="font-red-haze fa fa-{{ ($extraInfo['option'] == 'ASC') ? 'sort-amount-asc' : 'sort-amount-desc' }}"></i> نرخ تبدیل </th>
+            @if($extraInfo['option'] == 'ASC')
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-asc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.exchange_rate', 'option' => 'DESC']) }}">نرخ تبدیل</a>
+                </th>
+            @else
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-desc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.exchange_rate', 'option' => 'ASC']) }}">نرخ تبدیل</a>
+                </th>
+            @endif
         @else
-            <th data-option="ASC" data-url="/history" data-order="transactions.exchange_rate" class="orderBy"> نرخ تبدیل <small class="font-red"></small></th>
+            <th>
+                <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.exchange_rate', 'option' => 'ASC']) }}">نرخ تبدیل</a>
+            </th>
         @endif
 
         <th> مقصد</th>
@@ -26,9 +64,21 @@
         <th> شماره تراکنش</th>
 
         @if($extraInfo['order'] == 'transactions.payment_date')
-            <th data-option="{{ $extraInfo['option'] }}" data-url="/history" data-order="transactions.payment_date" class="orderBy"><i class="font-red-haze fa fa-{{ ($extraInfo['option'] == 'ASC') ? 'sort-amount-asc' : 'sort-amount-desc' }}"></i> تاریخ </th>
+            @if($extraInfo['option'] == 'ASC')
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-asc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_date', 'option' => 'DESC']) }}">تاریخ</a>
+                </th>
+            @else
+                <th>
+                    <i class="font-red-haze fa fa-sort-amount-desc"></i>
+                    <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_date', 'option' => 'ASC']) }}">تاریخ</a>
+                </th>
+            @endif
         @else
-            <th data-option="ASC" data-url="/history" data-order="transactions.payment_date" class="orderBy"> تاریخ <small class="font-red"></small></th>
+            <th>
+                <a href="{{ Request::fullUrlWithQuery(['order' => 'transactions.payment_date', 'option' => 'ASC']) }}">تاریخ</a>
+            </th>
         @endif
 
         <th> عملیات</th>
@@ -39,7 +89,8 @@
         <tr id="trans_{{ $transaction->id }}">
             <td class="font-blue-chambray">{{ $transaction->id }}</td>
             <td class="font-blue-chambray">{{ $transaction->sender_fname . ' ' . $transaction->sender_lname }}</td>
-            <td class="font-red-haze bold">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
+            <td class="font-green-haze">{{ number_format($transaction->premium_amount, 2) . ' ' . $transaction->currency }}</td>
+            <td class="font-red-haze bold">{{ number_format($transaction->payment_amount, 2) }} ريال</td>
             <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
             <td class="font-blue-dark">{{ $transaction->country }}</td>
             <td class="font-blue-chambray">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
@@ -57,4 +108,5 @@
     @endforeach
 </table>
 <br>
-{{ $transactions->links() }}
+{{--{{ $transactions->links() }}--}}
+{{ $transactions->appends(Request::query())->render() }}

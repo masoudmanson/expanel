@@ -126,8 +126,8 @@
                                 <div class="actions">
                                     <a href="{{route('admin.history.excel')}}" class="btn btn-circle green btn-outline btn-sm">
                                         <i class="fa fa-file-excel-o"></i> Excel </a>
-                                    <a href="#" class="btn btn-circle red btn-outline btn-sm">
-                                        <i class="fa fa-file-pdf-o"></i> PDF </a>
+                                    {{--<a href="#" class="btn btn-circle red btn-outline btn-sm">--}}
+                                        {{--<i class="fa fa-file-pdf-o"></i> PDF </a>--}}
                                 </div>
                             </div>
                             <div class="portlet-body">

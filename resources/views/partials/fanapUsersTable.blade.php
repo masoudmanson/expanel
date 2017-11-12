@@ -21,8 +21,9 @@
                 <td class="bold">{{ $user->mobile }}</td>
                 <td>{{ jdate($user->created_at)->format('%y %B %d , H:i:s') }}</td>
                 <td>
-                    <a href="#"
-                       class="btn btn-circle btn-outline btn-sm green-haze">
+                    <a data-target="#fanapUserModal" data-toggle="modal"
+                       class="btn btn-circle btn-outline btn-sm green-haze fanapUsersLinks"
+                       data-id="{{ $user->id }}">
                         <i class="icon-user-follow"></i>مشاهده ی اطلاعات
                     </a>
                 </td>
