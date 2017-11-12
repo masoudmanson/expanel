@@ -7,12 +7,10 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="@if($type == 'lira') active @endif">
-                {{--<a href="#portlet_tab2" data-target="#portlet_tab2, #table_tab2" class="rateTabsLink" data-toggle="tab"> لیر ترکیه ₺ </a>--}}
-                <a href="{{ Request::fullUrlWithQuery(['type' => 'lira']) }}" data-target="#portlet_tab2, #table_tab2" class="rateTabsLink"> لیر ترکیه ₺ </a>
+                <a href="{{ Request::fullUrlWithQuery(['type' => 'lira', 'page' => 1]) }}" data-target="#portlet_tab2, #table_tab2" class="rateTabsLink"> لیر ترکیه ₺ </a>
             </li>
             <li class="@if($type == 'euro') active @endif">
-                {{--<a href="#portlet_tab1" data-target="#portlet_tab1, #table_tab1" class="rateTabsLink" data-toggle="tab"> یورو € </a>--}}
-                <a href="{{ Request::fullUrlWithQuery(['type' => 'euro']) }}" data-target="#portlet_tab1, #table_tab1" class="rateTabsLink"> یورو € </a>
+                <a href="{{ Request::fullUrlWithQuery(['type' => 'euro', 'page' => 1]) }}" data-target="#portlet_tab1, #table_tab1" class="rateTabsLink"> یورو € </a>
             </li>
         </ul>
     </div>

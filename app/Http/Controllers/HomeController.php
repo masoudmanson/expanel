@@ -32,6 +32,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $type = $request->input('type');
+        if(empty($type))
+            $type = 'euro';
+
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
@@ -77,7 +81,7 @@ class HomeController extends Controller
         if ($request->ajax())
             return response()->json(view('partials.specialTrans', compact('today'))->render());
 
-        return view('home', compact('top_widget', 'today', 'euro_last_set_time', 'lira_last_set_time'));
+        return view('home', compact('type','top_widget', 'today', 'euro_last_set_time', 'lira_last_set_time'));
     }
 
     public function special_transaction_excel(Request $request)
