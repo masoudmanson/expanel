@@ -65,7 +65,6 @@ class HistoryController extends Controller
 
     }
 
-
     public function search(Request $request)
     {
         if ($request['order'] != null) {
@@ -173,7 +172,6 @@ class HistoryController extends Controller
             return response()->json(view('partials.history-table', compact('transactions', 'extraInfo'))->render());
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -192,7 +190,6 @@ class HistoryController extends Controller
             return view('partials.ajax.factor',compact('transaction','client', 'beneficiary'));
 
         return view('users.factor',compact('transaction','client','beneficiary'));
-
     }
 
     public function excel()

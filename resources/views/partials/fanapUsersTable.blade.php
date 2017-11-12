@@ -2,7 +2,7 @@
     <table class="table table-hover table-light">
         <thead>
         <tr>
-            <th> ردیف</th>
+            <th> شناسه فناپ</th>
             <th> نام</th>
             <th> نام خانوادگی</th>
             <th>شماره ملی</th>
@@ -13,19 +13,19 @@
         </thead>
 
         @foreach($users as $user)
-            <tr id="">
-                <td>1</td>
-                <td class="font-blue-chambray">{{ $user->firstname }}</td>
-                <td class="font-blue-chambray">{{ $user->lastname }}</td>
-                <td class="font-yellow-crusta bold">{{ $user->identity_number }}</td>
-                <td class="bold">{{ $user->mobile }}</td>
+            <tr id="{{ $user->id }}">
+                <td>{{ $user->id }}</td>
+                <td class="font-blue-chambray">{{ ($user->firstname)?$user->firstname:"ندارد" }}</td>
+                <td class="font-blue-chambray">{{ ($user->lastname)?$user->lastname:"ندارد" }}</td>
+                <td class="@if(($user->identity_number)) font-yellow-crusta bold @endif">{{ ($user->identity_number)?$user->identity_number:"ندارد" }}</td>
+                <td class="@if(($user->mobile)) bold @endif">{{ ($user->mobile)?$user->mobile:"ندارد" }}</td>
                 <td>{{ jdate($user->created_at)->format('%y %B %d , H:i:s') }}</td>
                 <td>
                     <a data-target="#fanapUserModal" data-toggle="modal"
-                       class="btn btn-circle btn-outline btn-sm green-haze fanapUsersLinks"
+                       class="btn btn-circle btn-outline btn-sm green-haze ajaxModalLinks"
                        data-id="{{ $user->id }}"
                        data-modal="fanapUserModal"
-                       data-url="/transactions/">
+                       data-url="/users/fanapUsers/">
                         <i class="icon-user-follow"></i>مشاهده ی اطلاعات
                     </a>
                 </td>

@@ -134,7 +134,7 @@ class UsersController extends Controller
     {
         $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
         if ($client->identifier_id == $identifier_id) {
-            return response()->json(view('partials.otherUsersTable', compact('client'))->render());
+            return response()->json(view('partials.singleUser', compact('client'))->render());
         }
     }
 

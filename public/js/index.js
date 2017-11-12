@@ -17,7 +17,7 @@ $(document).on('ready', function() {
             $('#rateModal #currency_name').text(currency);
             $('#rateModal #rate_amount').text(number_format(amount) + 'ریال ');
             $('#rateModal').modal('show');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
             $('#modalSubmit').on('click', function() {
                 $('#rateForm' + id)[0]['rate'].value = amount;
                 $('#rateForm' + id)[0].submit();
@@ -25,10 +25,10 @@ $(document).on('ready', function() {
         }
     });
 
-    $('.modal').on('show.bs.modal', reposition);
+    $('.modal').on('show.bs.modal', modalReposition);
 
     $(window).on('resize', function() {
-        $('.modal:visible').each(reposition);
+        $('.modal:visible').each(modalReposition);
     });
 
     $('.searchForm').keyup(function(event) {
@@ -156,7 +156,7 @@ $(document).on('click', '.transConfirmLinks', function(event) {
     $('#transConfirmModal').
         find('#transConfirmUserMobile').
         text(transUserMobile);
-    $('.modal:visible').each(reposition);
+    $('.modal:visible').each(modalReposition);
     $('#transConfirmSubmit').on('click', function() {
         $('#transConfirmModal').
             find('#transConfirmBody').
@@ -178,7 +178,7 @@ $(document).on('click', '.transConfirmLinks', function(event) {
                 html('<h2 class="font-green-meadow text-center">' +
                     message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
             if (message.status) {
                 $('#trans_' + transId).slideUp(200);
             }
@@ -189,7 +189,7 @@ $(document).on('click', '.transConfirmLinks', function(event) {
                 html(
                     '<h2 class="font-red-mint text-center">' + message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
         });
     });
 });
@@ -214,7 +214,7 @@ $(document).on('click', '.factorConfirmLinks', function(event) {
             html(
                 '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
         $('#factorConfirmModal').find('#factorConfirmSubmit').hide();
-        $('.modal:visible').each(reposition);
+        $('.modal:visible').each(modalReposition);
         $.ajax({
             method: 'PUT',
             url: '/factors/' + factorId,
@@ -230,7 +230,7 @@ $(document).on('click', '.factorConfirmLinks', function(event) {
                 html('<h2 class="font-green-meadow text-center">' +
                     message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
             if (message.status) {
                 $('#factor_' + factorId).slideUp(200);
             }
@@ -241,7 +241,7 @@ $(document).on('click', '.factorConfirmLinks', function(event) {
                 html(
                     '<h2 class="font-red-mint text-center">' + message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
         });
     });
 });
@@ -268,7 +268,7 @@ $(document).on('click', '.transRejectLinks', function(event) {
             html(
                 '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
         $('#transRejectModal').find('#transRejectSubmit').hide();
-        $('.modal:visible').each(reposition);
+        $('.modal:visible').each(modalReposition);
         $.ajax({
             method: 'PUT',
             url: '/transactions/' + transId,
@@ -284,7 +284,7 @@ $(document).on('click', '.transRejectLinks', function(event) {
                 html('<h2 class="font-green-meadow text-center">' +
                     message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
             if (message.status) {
                 $('#trans_' + transId).slideUp(200);
             }
@@ -295,23 +295,12 @@ $(document).on('click', '.transRejectLinks', function(event) {
                 html(
                     '<h2 class="font-red-mint text-center">' + message.msg +
                     '</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
         });
     });
 });
 
-$(document).on('click', '.transShowLinks', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    var modal = $(this).attr('data-modal');
-    var url = $(this).attr('data-url');
-    var id = $(this).attr('data-id');
-
-    ajaxModal(modal, url, id);
-});
-
-$(document).on('click', '.fanapUsersLinks', function(event) {
+$(document).on('click', '.ajaxModalLinks', function(event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -360,31 +349,30 @@ function ajaxModal(modal, url, id){
         target: '#' + modal + ' .modal-dialog',
         animate: !0,
     });
-    $('#transShowModal').modal('show');
+    $('#' + modal).modal('show');
 
     $.ajax({
         method: 'get',
         url: url + id,
         data: {
-            'accepted': true,
             '_token': csrfToken,
             'X-CSRF-TOKEN': csrfToken,
-        },
+        }
     }).done(function(data) {
         if (data) {
-            $('#' + modal).find('#transShowBody').html(data);
-            $('.modal:visible').each(reposition);
+            $('#' + modal).find('.modalData').html(data);
+            $('.modal:visible').each(modalReposition);
         }
         else {
             $('#' + modal).find('.modalData').
                 html('<h2 class="font-red-mint text-center">دریافت اطلاعات با مشکل مواجه شد!</h2>');
-            $('.modal:visible').each(reposition);
+            $('.modal:visible').each(modalReposition);
         }
         App.unblockUI('#' + modal + ' .modal-dialog');
     }).fail(function() {
         $('#' + modal).find('.modalData').
             html('<h2 class="font-red-mint text-center">دریافت اطلاعات با مشکل مواجه شد!</h2>');
-        $('.modal:visible').each(reposition);
+        $('.modal:visible').each(modalReposition);
         App.unblockUI('#' + modal + ' .modal-dialog');
     });
 }
@@ -418,7 +406,7 @@ function ajaxPageLoad(url) {
     });
 }
 
-function reposition() {
+function modalReposition() {
     var modal = $(this),
         dialog = modal.find('.modal-dialog');
     modal.css('display', 'block');

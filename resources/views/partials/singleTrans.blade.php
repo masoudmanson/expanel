@@ -1,4 +1,3 @@
-{{--{{ dd($transaction) }}--}}
 <div class="mt-element-list">
     <div class="mt-list-head list-simple font-white bg-green-sharp">
         <div class="list-head-title-container">
