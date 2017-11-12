@@ -95,7 +95,7 @@
             <td class="font-blue-dark">{{ $transaction->country }}</td>
             <td class="font-blue-chambray">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
             <td class="bold font-dark">{{ $transaction->uri }}</td>
-            <td>{{ jdate($transaction->payment_date)->format('%y %B %d , H:i:s') }}</td>
+            <td>{{($transaction->payment_date)?jdate($transaction->payment_date)->format('%y %B %d , H:i:s'):'پرداخت نشده است' }}</td>
             <td>
                 <a data-target="#transShowModal" data-toggle="modal"
                    class="btn btn-circle btn-outline btn-sm yellow-gold transShowLinks"
