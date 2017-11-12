@@ -30,6 +30,7 @@ Route::resource('/factors' , 'FactorController');
 Route::get('users/fanapUsers', 'UsersController@indexFanap')->name('indexFanap');
 Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExhouse');
 Route::get('users/otherUsers', 'UsersController@indexOther')->name('indexOther');
+Route::get('users/fanapUsers/{client}', 'UsersController@showFanapUser');
 Route::put('users/authorization/{client}', 'UsersController@authorizeUser');
 
 Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'UsersController@importExportExcelORCSV'));

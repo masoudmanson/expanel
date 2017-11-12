@@ -28,14 +28,14 @@ class UsersController extends Controller
      */
     public function indexOther(Request $request)
     {
-        $identifier_id = Identifier::where('name','other')->first()->id;
-        $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->paginate(10);
+        $identifier_id = Identifier::where('name', 'other')->first()->id;
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->paginate(10);
 
-        $users_count = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->count();
+        $users_count = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->count();
         if ($request->ajax())
             return response()->json(view('partials.otherUsersTable', compact('users'))->render());
 
-        return view('pages.otherUsers',compact('users', 'users_count'));
+        return view('pages.otherUsers', compact('users', 'users_count'));
 
     }
 
@@ -110,12 +110,12 @@ class UsersController extends Controller
     {
         $keyword = $request->keyword;
 
-        $identifier_id = Identifier::where('name','other')->first()->id;
+        $identifier_id = Identifier::where('name', 'other')->first()->id;
 
         if ($keyword == '') {
-            $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)->paginate(10);
+            $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->paginate(10);
         } else {
-            $users = Client::where('identifier_id',$identifier_id)->where('is_authorized' , false)
+            $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)
                 ->where(function ($query) use ($keyword) {
                     $query->orWhereRaw("regexp_like(users.firstname , '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(users.lastname, '$keyword', 'i')")
@@ -130,11 +130,18 @@ class UsersController extends Controller
             return response()->json(view('partials.otherUsersTable', compact('users'))->render());
     }
 
+    public function showFanapUser(Client $client)
+    {
+        $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
+        if ($client->identifier_id == $identifier_id) {
+            return response()->json(view('partials.otherUsersTable', compact('client'))->render());
+        }
+    }
 
     public function authorizeUser(Client $client)
     {
         $client->identifier_id = Auth::user()->currencyExchange->identifier->id;
-        $client->is_authorized = true ;
+        $client->is_authorized = true;
         $client->save();
 
         return json_encode(array('status' => true, 'msg' => 'با موفقیت تائید شد.'));
@@ -191,7 +198,7 @@ class UsersController extends Controller
     {
         $identifier_id = Auth::user()->currencyExchange->identifier->id;
 
-        $users = Authorized::where('identifier_id',$identifier_id)->get();
+        $users = Authorized::where('identifier_id', $identifier_id)->get();
         dd($users);
         if ($request->ajax())
             return response()->json(view('partials.singleTrans', compact('transaction'))->render());
@@ -215,9 +222,9 @@ class UsersController extends Controller
             ->orderBy($order, $option)->get();
         $usersArray = [];
 
-        $usersArray[] = ['reference_number', 'firstname','lastname','identity_number','mobile'];
+        $usersArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
 
-        $this->excel_export($users,$usersArray,'fanap_users','Exchanger','FANEx');
+        $this->excel_export($users, $usersArray, 'fanap_users', 'Exchanger', 'FANEx');
     }
 
     public function otherUsersExcel()
@@ -238,8 +245,8 @@ class UsersController extends Controller
             ->orderBy($order, $option)->get();
         $usersArray = [];
 
-        $usersArray[] = ['reference_number', 'firstname','lastname','identity_number','mobile'];
+        $usersArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
 
-        $this->excel_export($users,$usersArray,'fanap_users','Exchanger','FANEx');
+        $this->excel_export($users, $usersArray, 'fanap_users', 'Exchanger', 'FANEx');
     }
 }

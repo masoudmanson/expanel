@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Traits\ExportTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HistoryController extends Controller
 {
@@ -40,11 +41,13 @@ class HistoryController extends Controller
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
-        $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
-            ->filterBank('successful')
-            ->orderBy($order, $option)->paginate(10);
 
-//        return $transactions;
+        $query = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
+            ->filterBank('successful');
+
+        ($order == 'transactions.exchange_rate' || $order == 'transactions.payment_amount')?
+            $transactions = $query->orderBy(DB::raw('CAST('.$order.' AS FLOAT)'), $option)->paginate(10):
+            $transactions = $query->orderBy($order, $option)->paginate(10);
 
         $top_widget = array();
         $top_widget['transactions_count'] = $transactions->count();
