@@ -11,14 +11,14 @@ use Excel;
 
 trait ExportTrait
 {
-    public function excel_export($transactions,$paymentsArray,$file_name,$creator,$company,$description='')
+    public function excel_export($data,$inputsArray,$file_name,$creator,$company,$description='')
     {
-        foreach ($transactions as $payment) {
-            $paymentsArray[] = $payment->toArray();
+        foreach ($data as $row) {
+            $inputsArray[] = $row->toArray();
         }
 
         // Generate and return the spreadsheet
-        $excel = Excel::create($file_name, function($excel) use ($paymentsArray,$file_name,$creator,$company,$description) {
+        $excel = Excel::create($file_name, function($excel) use ($inputsArray,$file_name,$creator,$company,$description) {
 
             // Set the spreadsheet title, creator, and description
             $excel->setTitle($file_name);
@@ -26,8 +26,8 @@ trait ExportTrait
             $excel->setDescription($description);
 
             // Build the spreadsheet, passing in the payments array
-            $excel->sheet('sheet1', function($sheet) use ($paymentsArray) {
-                $sheet->fromArray($paymentsArray, null, 'A1', false, false);
+            $excel->sheet('sheet1', function($sheet) use ($inputsArray) {
+                $sheet->fromArray($inputsArray, null, 'A1', false, false);
             });
 
         })->download('xls');

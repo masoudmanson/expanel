@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('checkToken');
+        $this->middleware('checkUser');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -60,45 +71,7 @@ class UsersController extends Controller
         if ($keyword == '') {
             $users = Authorized::where('identifier_id', $identifier_id)->orderby("id", "desc")->paginate(10);
         } else {
-//            preg_match_all('/(?:(name|code|mobile):)([^: ]+(?:\s+[^: ]+\b(?!:))*)/xi', $request->keyword, $matches, PREG_SET_ORDER);
-//            $result = array();
 
-//            foreach ($matches as $match) {
-//                if (isset($result[$match[1]])) {
-//                    $result[$match[1]] = $result[$match[1]] . ' ' . $match[2];
-//                } else
-//                    $result[$match[1]] = $match[2];
-//            }
-//
-//            if ($result) {
-//                $users = Authorized::where('identifier_id', $identifier_id)
-//                    ->where(function ($query) use ($result) {
-//                        foreach ($result as $k => $v) {
-//                            switch (strtolower($k)) {
-//                                case 'name':
-//                                    $query->whereRaw("regexp_like(firstname, '$k', 'i')")
-//                                        ->orWhereRaw("regexp_like(lastname, '$k', 'i')");
-//
-//                                case 'code':
-//                                    if (ctype_digit($k)) {
-//                                        $query->whereRaw("regexp_like(identity_number, '$v', 'i')");
-//                                    }
-//                                    break;
-//
-//                                case 'mobile':
-//                                    if (ctype_digit($k)) {
-//                                        $query->whereRaw("regexp_like(mobile, '$k', 'i')");
-//                                    }
-//                                    break;
-//                                default:
-//                                    $query->where('id', 0);
-//                                    break;
-//                            }
-//                        }
-//
-//                    })->paginate(10);
-
-//            } else {
             $users = Authorized::where('identifier_id', $identifier_id)
                 ->where(function ($query) use ($keyword) {
                     $query->orWhereRaw("regexp_like(authorized.firstname , '$keyword', 'i')")
@@ -106,7 +79,6 @@ class UsersController extends Controller
                         ->orWhereRaw("regexp_like(identity_number, '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(mobile, '$keyword', 'i')");
                 })->orderby("id", "desc")->paginate(10);
-//            }
         }
 
         if ($request->ajax())
@@ -168,69 +140,106 @@ class UsersController extends Controller
         return json_encode(array('status' => true, 'msg' => 'با موفقیت تائید شد.'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function importFileIntoDB(Request $request)
     {
-        //
+        if (Input::hasFile('sample_file')) {
+            $path = Input::file('sample_file')->getRealPath();
+            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+            $data = Excel::load($path, function ($reader) {
+            })->get();
+            if (!empty($data) && $data->count()) {
+                foreach ($data as $key => $value) {
+                    $insert[] = [
+                        'firstname' => $value->firstname,
+                        'lastname' => $value->lastname,
+                        'identity_number' => $value->identity_number,
+                        'mobile' => $value->mobile,
+                        'identifier_id' => Auth::user()->currencyExchange->identifier->id,
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
+                    ];
+                }
+                if (!empty($insert)) {
+                    DB::table('authorized')->insert($insert);
+                    dd('Insert Record successfully.');
+                }
+            }
+        }
+        return back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function downloadExcelFile($type)
     {
-        //
+        $products = Authorized::get()->toArray();
+        return Excel::create('My_Users', function ($excel) use ($products) {
+            $excel->sheet('sheet name', function ($sheet) use ($products) {
+                $sheet->fromArray($products);
+            });
+        })->download($type);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function add_auth_user(Request $request)
     {
-        //
+        $request['identifier_id'] = Auth::user()->currencyExchange->identifier->id;
+
+        Authorized::create($request->all());
+
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function show_authorized_users(Request $request)
     {
-        //
+        $identifier_id = Auth::user()->currencyExchange->identifier->id;
+
+        $users = Authorized::where('identifier_id',$identifier_id)->get();
+        dd($users);
+        if ($request->ajax())
+            return response()->json(view('partials.singleTrans', compact('transaction'))->render());
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function fanapUsersExcel()
     {
-        //
+//        if ($request['order'] != null) {
+//            $order = $request['order'];
+//            $option = $request ['option'];
+//        } else {
+        $order = 'users.firstname';
+        $option = 'DESC';
+//        }
+
+        $extraInfo['order'] = $order;
+        $extraInfo['option'] = $option;
+
+        $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->paginate(10)
+            ->orderBy($order, $option)->get();
+        $usersArray = [];
+
+        $usersArray[] = ['reference_number', 'firstname','lastname','identity_number','mobile'];
+
+        $this->excel_export($users,$usersArray,'fanap_users','Exchanger','FANEx');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function otherUsersExcel()
     {
-        //
+//        if ($request['order'] != null) {
+//            $order = $request['order'];
+//            $option = $request ['option'];
+//        } else {
+        $order = 'users.firstname';
+        $option = 'DESC';
+//        }
+
+        $extraInfo['order'] = $order;
+        $extraInfo['option'] = $option;
+
+        $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->paginate(10)
+            ->orderBy($order, $option)->get();
+        $usersArray = [];
+
+        $usersArray[] = ['reference_number', 'firstname','lastname','identity_number','mobile'];
+
+        $this->excel_export($users,$usersArray,'fanap_users','Exchanger','FANEx');
     }
 }

@@ -32,6 +32,13 @@ Route::get('users/exhouseUsers', 'UsersController@indexExhouse')->name('indexExh
 Route::get('users/otherUsers', 'UsersController@indexOther')->name('indexOther');
 Route::put('users/authorization/{client}', 'UsersController@authorizeUser');
 
+Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'UsersController@importExportExcelORCSV'));
+Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'UsersController@importFileIntoDB'));
+Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'UsersController@downloadExcelFile'));
+
+Route::post('ex-add-user',array('as'=>'ex-add-user','uses'=>'UsersController@add_auth_user'));
+Route::get('ex-auth-users',array('as'=>'ex-auth-users','uses'=>'UsersController@show_authorized_users'));
+
 Route::resource('/users' , 'UsersController');
 
 Route::get('/search/transactions','TransactionController@search');
@@ -42,15 +49,9 @@ Route::get('/search/users/other','UsersController@searchOther');
 
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
 Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');
+Route::get('/excel/otherUsers','HistoryController@excel')->name('admin.otherUsers.excel');
+Route::get('/excel/fanapUsers','HistoryController@excel')->name('admin.fanapUsers.excel');
 Route::get('/excel/transactions','TransactionController@excel')->name('admin.transactions.excel');
-
-
-Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'UsersController2@importExportExcelORCSV'));
-Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'UsersController2@importFileIntoDB'));
-Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'UsersController2@downloadExcelFile'));
-
-Route::post('ex-add-user',array('as'=>'ex-add-user','uses'=>'UsersController2@add_auth_user'));
-Route::get('ex-auth-users',array('as'=>'ex-auth-users','uses'=>'UsersController2@show_authorized_users'));
 
 
 // ** just for ex-house dev.

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\Identifier;
+use App\Traits\ExportTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -15,6 +18,17 @@ use PHPExcel_Settings;
 
 class UsersController2 extends Controller
 {
+    use ExportTrait;
+    /**
+     * Create a new controller instance.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('checkToken');
+        $this->middleware('checkUser');
+    }
+
     public function index(Request $request , $page)
     {
         //$page = $request->page;
@@ -27,60 +41,4 @@ class UsersController2 extends Controller
         return view($view);
     }
 
-    public function importFileIntoDB(Request $request)
-    {
-        if (Input::hasFile('sample_file')) {
-            $path = Input::file('sample_file')->getRealPath();
-            PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
-            $data = Excel::load($path, function ($reader) {
-            })->get();
-            if (!empty($data) && $data->count()) {
-                foreach ($data as $key => $value) {
-                    $insert[] = [
-                        'firstname' => $value->firstname,
-                        'lastname' => $value->lastname,
-                        'identity_number' => $value->identity_number,
-                        'mobile' => $value->mobile,
-                        'identifier_id' => Auth::user()->currencyExchange->identifier->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ];
-                }
-                if (!empty($insert)) {
-                    DB::table('authorized')->insert($insert);
-                    dd('Insert Record successfully.');
-                }
-            }
-        }
-        return back();
-    }
-
-    public function downloadExcelFile($type)
-    {
-        $products = Authorized::get()->toArray();
-        return Excel::create('My_Users', function ($excel) use ($products) {
-            $excel->sheet('sheet name', function ($sheet) use ($products) {
-                $sheet->fromArray($products);
-            });
-        })->download($type);
-    }
-
-    public function add_auth_user(Request $request)
-    {
-        $request['identifier_id'] = Auth::user()->currencyExchange->identifier->id;
-
-        Authorized::create($request->all());
-
-        return redirect()->back();
-    }
-
-    public function show_authorized_users(Request $request)
-    {
-        $identifier_id = Auth::user()->currencyExchange->identifier->id;
-
-        $users = Authorized::where('identifier_id',$identifier_id)->get();
-        dd($users);
-        if ($request->ajax())
-            return response()->json(view('partials.singleTrans', compact('transaction'))->render());
-    }
 }
