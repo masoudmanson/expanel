@@ -19,32 +19,40 @@
                 </a>
             </li>
 
-            <li id="transactions-li" class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
+            <li id="statistic-li" class="nav-item">
+                <a href="{{ route('history.index') }}" class="nav-link nav-toggle">
                     <i class="icon-note"></i>
                     <span class="title">تراکنش ها</span>
-                    <span class="arrow"></span>
                     <span class="selected"></span>
                 </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="{{ route('transactions.index') }}" class="nav-link ">
-                            <span class="title">تراکنش های در انتظار تائید امروز</span>
-                        </a>
+            </li>
 
-                    </li>
+            {{--<li id="transactions-li" class="nav-item  ">--}}
+                {{--<a href="javascript:;" class="nav-link nav-toggle">--}}
+                    {{--<i class="icon-note"></i>--}}
+                    {{--<span class="title">تراکنش ها</span>--}}
+                    {{--<span class="arrow"></span>--}}
+                    {{--<span class="selected"></span>--}}
+                {{--</a>--}}
+                {{--<ul class="sub-menu">--}}
                     {{--<li class="nav-item  ">--}}
+                        {{--<a href="{{ route('transactions.index') }}" class="nav-link ">--}}
+                            {{--<span class="title">تراکنش های در انتظار تائید امروز</span>--}}
+                        {{--</a>--}}
+
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
                         {{--<a href="{{ route('factors.index') }}" class="nav-link ">--}}
                             {{--<span class="title">تراکنش های بسته بندی شده</span>--}}
                         {{--</a>--}}
                     {{--</li>--}}
-                    <li class="nav-item  ">
-                        <a href="{{ route('history.index') }}" class="nav-link ">
-                            <span class="title">تاریخچه ی تراکنش ها</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                    {{--<li class="nav-item  ">--}}
+                        {{--<a href="{{ route('history.index') }}" class="nav-link">--}}
+                            {{--<span class="title">تاریخچه ی تراکنش ها</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
             <li id="users-li" class="nav-item  ">
                 <a href="javascript:;" class="nav-link nav-toggle">

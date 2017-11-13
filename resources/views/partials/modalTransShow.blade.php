@@ -8,13 +8,12 @@
                     <span class="caption-helper"></span>
                 </div>
                 <div class="actions col-xs-6 text-align-reverse">
-                    <a href="#" class="btn btn-circle red btn-outline btn-sm">
-                        <i class="fa fa-file-pdf-o"></i> PDF </a>
+                    <a href="#" class="btn btn-circle red btn-outline btn-sm print-transaction">
+                        <i class="icon-printer"></i> چاپ </a>
                 </div>
             </div>
             <div class="modal-body">
                 <div id="transShowBody" class="modalData">
-
                 </div>
             </div>
             <div class="modal-footer">

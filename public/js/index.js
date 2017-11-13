@@ -131,6 +131,24 @@ $(document).on('ready', function() {
     // to die!'); toastr.success('Have fun storming the castle!', 'Miracle Max
     // Says'); toastr.error('I do not think that word means what you think it
     // means.', 'Inconceivable!');
+
+    $('.print-transaction').on('click', function(e) {
+        e.preventDefault();
+        if (!window.print) {
+            alert('You need NS4.x to use this print button!');
+            return;
+        }
+
+        $('.page-container').hide();
+        $('.modal-header').hide();
+        $('.modal-footer').hide();
+
+        window.print();
+
+        $('.page-container').show();
+        $('.modal-header').show();
+        $('.modal-footer').show();
+    });
 });
 
 $(document).on('click', '.transConfirmLinks', function(event) {
