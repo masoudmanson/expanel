@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ExportTrait;
 use App\Authorized;
 use App\Client;
 use App\Identifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Excel;
 
 class UsersController extends Controller
 {
+    use ExportTrait;
 
     /**
      * Create a new controller instance.
@@ -36,7 +39,6 @@ class UsersController extends Controller
             return response()->json(view('partials.otherUsersTable', compact('users'))->render());
 
         return view('pages.otherUsers', compact('users', 'users_count'));
-
     }
 
     public function indexFanap(Request $request)
@@ -213,15 +215,11 @@ class UsersController extends Controller
         $order = 'users.firstname';
         $option = 'DESC';
 //        }
-
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
         $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
-        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->paginate(10)
-            ->orderBy($order, $option)->get();
-        $usersArray = [];
-
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->orderBy($order, $option)->get();
         $usersArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
 
         $this->excel_export($users, $usersArray, 'fanap_users', 'Exchanger', 'FANEx');
@@ -236,17 +234,13 @@ class UsersController extends Controller
         $order = 'users.firstname';
         $option = 'DESC';
 //        }
-
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
-        $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
-        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->paginate(10)
-            ->orderBy($order, $option)->get();
-        $usersArray = [];
+        $identifier_id = Identifier::where('name', 'other')->first()->id;
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->orderBy($order, $option)->get();
+        $usersArray[] = ['reference_number', 'firstname_latin', 'lastname_latin', 'identity_number', 'mobile'];
 
-        $usersArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
-
-        $this->excel_export($users, $usersArray, 'fanap_users', 'Exchanger', 'FANEx');
+        $this->excel_export($users, $usersArray, 'other_users', 'Exchanger', 'FANEx');
     }
 }

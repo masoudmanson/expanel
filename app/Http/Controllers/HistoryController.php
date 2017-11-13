@@ -192,7 +192,7 @@ class HistoryController extends Controller
         return view('users.factor',compact('transaction','client','beneficiary'));
     }
 
-    public function excel()
+    public function historyExcel()
     {
 //        if ($request['order'] != null) {
 //            $order = $request['order'];

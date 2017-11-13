@@ -49,10 +49,10 @@ Route::get('/search/users/fanap','UsersController@searchFanap');
 Route::get('/search/users/other','UsersController@searchOther');
 
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
-Route::get('/excel/history','HistoryController@excel')->name('admin.history.excel');
-Route::get('/excel/otherUsers','HistoryController@excel')->name('admin.otherUsers.excel');
+Route::get('/excel/history','HistoryController@historyExcel')->name('admin.history.excel');
+Route::get('/excel/otherUsers','UsersController@otherUsersExcel')->name('admin.otherUsers.excel');
 Route::get('/excel/fanapUsers','HistoryController@excel')->name('admin.fanapUsers.excel');
-Route::get('/excel/transactions','TransactionController@excel')->name('admin.transactions.excel');
+Route::get('/excel/transactions','TransactionController@transactionsExcel')->name('admin.transactions.excel');
 
 
 // ** just for ex-house dev.

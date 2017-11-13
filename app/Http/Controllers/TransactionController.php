@@ -164,7 +164,7 @@ class TransactionController extends Controller
 
     }
 
-    public function excel()
+    public function transactionsExcel()
     {
         // Initialize the array which will be passed into the Excel
         // generator.
