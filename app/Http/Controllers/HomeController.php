@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\CurrencyExchange;
 use App\Exchanger;
+use App\Identifier;
 use App\Traits\ExportTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -41,6 +43,8 @@ class HomeController extends Controller
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
         $top_widget['transactions_sum'] = Transaction::filterBank('successful')->filterFanex('accepted')->filterUpt('successful')->sum('payment_amount');
         $top_widget['users_count'] = Transaction::filterBank('successful')->distinct('user_id')->count('user_id');
+        $identifier_id = Identifier::where('name', 'other')->first()->id;
+        $top_widget['unauthorized_users_count'] = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->count();
         //todo : /nzh/biz/getFollowers , count
 
         $currency_exchange = Auth::user()->currencyExchange;
