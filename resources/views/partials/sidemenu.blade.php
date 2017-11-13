@@ -19,7 +19,7 @@
                 </a>
             </li>
 
-            <li id="statistic-li" class="nav-item">
+            <li id="transactions-li" class="nav-item">
                 <a href="{{ route('history.index') }}" class="nav-link nav-toggle">
                     <i class="icon-note"></i>
                     <span class="title">تراکنش ها</span>
@@ -80,23 +80,23 @@
                             <span class="title" disabled="disabled"> فناپ</span>
                         </a>
                     </li>
-                    <li class="nav-item  ">
+                    {{--<li class="nav-item  ">--}}
 {{--                        <a href="{{ route('indexFanap') }}" class="nav-link ">--}}
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title font-grey-mint">بانک پاسارگاد</span>
-                        </a>
-                    </li>
+                        {{--<a href="javascript:;" class="nav-link ">--}}
+                            {{--<span class="title font-grey-mint">بانک پاسارگاد</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                 </ul>
             </li>
 
-            <li id="settings-li" class="nav-item">
+            {{--<li id="settings-li" class="nav-item">--}}
                 {{--<a href="{{ route('settings') }}" class="nav-link nav-toggle">--}}
-                <a href="javascript:;" class="nav-link font-grey-mint nav-toggle">
-                    <i class="icon-settings font-grey-mint"></i>
-                    <span class="title">تنظیمات</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+                {{--<a href="javascript:;" class="nav-link font-grey-mint nav-toggle">--}}
+                    {{--<i class="icon-settings font-grey-mint"></i>--}}
+                    {{--<span class="title">تنظیمات</span>--}}
+                    {{--<span class="selected"></span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

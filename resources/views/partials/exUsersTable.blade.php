@@ -1,5 +1,5 @@
 <!-- BEGIN Portlet PORTLET-->
-<div class="portlet light">
+<div class="portlet light tableContentWrapper">
     <div class="portlet-title tabbable-line">
         <div class="caption caption-md">
             <i class="icon-list font-yellow-casablanca"></i>

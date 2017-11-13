@@ -9,6 +9,7 @@ use App\Identifier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Excel;
+use Symfony\Component\Console\Input\Input;
 
 class UsersController extends Controller
 {
@@ -57,7 +58,7 @@ class UsersController extends Controller
     {
         $identifier_id = Auth::user()->currencyExchange->identifier->id;
 
-        $users = Authorized::where('identifier_id', $identifier_id)->paginate(10);
+        $users = Authorized::where('identifier_id', $identifier_id)->orderBy('created_at', 'DESC')->paginate(10);
         $users_count = Authorized::where('identifier_id', $identifier_id)->count();
         if ($request->ajax())
             return response()->json(view('partials.exUsersTable', compact('users'))->render());

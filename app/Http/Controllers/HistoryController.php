@@ -164,8 +164,10 @@ class HistoryController extends Controller
                         ->orWhereRaw("regexp_like(users.lastname, '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(beneficiaries.firstname, '$keyword', 'i')")
                         ->orWhereRaw("regexp_like(beneficiaries.lastname, '$keyword', 'i')")
-                        ->orWhere('transactions.premium_amount', 'like', "%$keyword%");
-                })->orderby("transactions.id", "desc")->paginate(10);
+                        ->orWhere('transactions.premium_amount', "$keyword")
+                        ->orWhere('transactions.exchange_rate', "$keyword")
+                        ->orWhere('transactions.payment_amount', "$keyword");
+                })->orderby("transactions.id", "desc")->paginate(100000);
 //        }
 
         if ($request->ajax())
