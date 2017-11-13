@@ -40,7 +40,7 @@
 
                     <div class="col-md-9 col-xs-12">
 
-                        {{-- Search in Transactions --}}
+                        {{-- Search in Fanap Users --}}
                         <div class="portlet light ">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
@@ -65,13 +65,13 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- End Search in transactions --}}
+                        {{-- End Search in Fanap Users --}}
                     </div>
 
                 </div>
 
                 <div class="row">
-                    {{-- Today's Transactions List --}}
+                    {{-- Fanap Users List --}}
                     <div class="col-lg-12">
 
                         <div class="portlet light tableContentWrapper">

@@ -21,7 +21,6 @@
                     <div class="row">
                         <div class="col-xs-6 exchange-cols">
                             <p>زمان اخرین تغییر: </p>
-                            {{--<div class="font-grey-silver server-time">بارگزاری ... </div>--}}
                             <div class="font-grey-silver ">{{$euro_last_set_time}}</div>
                         </div>
 
@@ -43,7 +42,6 @@
                     <div class="row">
                         <div class="col-xs-6 exchange-cols">
                             <p>زمان اخرین تغییر: </p>
-                            {{--<div class="font-grey-silver server-time">بارگزاری ... </div>--}}
                             <div class="font-grey-silver ">{{$lira_last_set_time}}</div>
                         </div>
 

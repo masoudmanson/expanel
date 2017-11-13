@@ -40,7 +40,7 @@
 
                     <div class="col-md-9 col-xs-12">
 
-                        {{-- Search in Transactions --}}
+                        {{-- Search in Unauthorized Users --}}
                         <div class="portlet light ">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
@@ -66,13 +66,13 @@
 
                             </div>
                         </div>
-                        {{-- End Search in transactions --}}
+                        {{-- End Search in Unauthorized Users --}}
 
                     </div>
                 </div>
 
                 <div class="row">
-                    {{-- Today's Transactions List --}}
+                    {{-- Unauthorized Users List --}}
                     <div class="col-lg-12">
                         <div class="portlet light tableContentWrapper">
                             <div class="portlet-title">
