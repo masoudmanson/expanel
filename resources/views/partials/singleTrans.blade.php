@@ -1,7 +1,7 @@
 <div class="mt-element-list">
     <div class="mt-list-head list-simple font-white bg-green-sharp">
         <div class="list-head-title-container">
-            <div class="list-date text-center">{{ jdate($transaction->payment_date)->format('%y %B %d  H:i:s') }}</div>
+            <div class="list-date text-center">{{ jdate($transaction->payment_date)->format('%d %B %Y  H:i:s') }}</div>
             <h3 class="list-title">{{ $transaction->uri }}</h3>
         </div>
     </div>
@@ -58,6 +58,17 @@
                 <div class="list-item-content">
                     <h3>
                         <p class="blue-hoki"><small class="font-grey-silver"> نرخ تبدیل ارز: </small> {{ number_format($transaction->exchange_rate) }} ريال</p>
+                    </h3>
+                </div>
+            </li>
+
+            <li class="mt-list-item">
+                <div class="list-icon-container">
+                    <i class="icon-calendar"></i>
+                </div>
+                <div class="list-item-content">
+                    <h3>
+                        <p class="blue-hoki"><small class="font-grey-silver"> تاریخ پرداخت: </small> {{ jdate($transaction->payment_date)->format('%d %B %Y - H:i:s') }}</p>
                     </h3>
                 </div>
             </li>

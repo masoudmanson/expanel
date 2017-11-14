@@ -47,7 +47,6 @@
                                 <tr>
                                     <th> ارز</th>
                                     <th> نرخ تبدیل</th>
-                                    {{--<th> زمان استفاده شده </th>--}}
                                     <th> تاریخ تنظیم</th>
                                     <th> IP</th>
                                 </tr>
@@ -56,14 +55,12 @@
                                     <tr>
                                         <td class="font-blue-chambray">یورو €  </td>
                                         <td class="font-red-haze bold">{{ number_format($rate->rate) }} ریال</td>
-                                        {{--<td></td>--}}
                                         <td>{{ jdate($rate->created_at)->format('%y/%m/%d , H:i:s') }}</td>
                                         <td>{{ $rate->ip }}</td>
                                     </tr>
                                 @endforeach
                             </table>
                             <br>
-                            {{--{{ $rates['euro']['list']->links() }}--}}
                             {{ $rates['euro']['list']->appends(Request::query())->render() }}
                         @else
                             <h4 class="font-grey-silver text-center">نرخی برای نمایش وجود ندارد</h4>
@@ -107,7 +104,6 @@
                                 <tr>
                                     <th> ارز</th>
                                     <th> نرخ تبدیل</th>
-                                    {{--<th> زمان استفاده شده </th>--}}
                                     <th> تاریخ تنظیم</th>
                                     <th> IP</th>
                                 </tr>
@@ -116,14 +112,12 @@
                                     <tr>
                                         <td class="font-blue-chambray">لیره ₺</td>
                                         <td class="font-red-haze bold">{{ number_format($rate->rate) }} ریال</td>
-                                        {{--<td></td>--}}
                                         <td>{{ jdate($rate->created_at)->format('%y/%m/%d , H:i:s') }}</td>
                                         <td>{{ $rate->ip }}</td>
                                     </tr>
                                 @endforeach
                             </table>
                             <br>
-                            {{--{{ $rates['lira']['list']->links() }}--}}
                             {{ $rates['lira']['list']->appends(Request::query())->render() }}
                         @else
                             <h4 class="font-grey-silver text-center">نرخی برای نمایش وجود ندارد</h4>

@@ -32,17 +32,6 @@
                        data-id="{{ $user->id }}">
                         <i class="icon-user-follow"></i> تائید کاربر
                     </a>
-
-                    {{--<a data-target="#transRejectModal" data-toggle="modal"--}}
-                       {{--class="btn btn-circle btn-outline btn-sm red-haze transRejectLinks"--}}
-                       {{--data-id="345">--}}
-                        {{--<i class="icon-close"></i> رد کردن کاربر--}}
-                    {{--</a>--}}
-
-                    {{--<a href="#" disabled="disabled"--}}
-                       {{--class="btn btn-circle btn-outline btn-sm grey">--}}
-                        {{--<i class="icon-user-follow"></i> احراز هویت--}}
-                    {{--</a>--}}
                 </td>
             </tr>
         @endforeach

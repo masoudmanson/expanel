@@ -32,7 +32,6 @@
                                     <span class="widget-thumb-subtitle">تراکنش</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($today['count']) }}">0</span>
-                                          {{--data-value="{{ number_format($top_widget['transactions_count']) }}">0</span>--}}
                                 </div>
                             </div>
                         </div>
@@ -49,7 +48,6 @@
                                     <span class="widget-thumb-subtitle">ریال</span>
                                     <span class="widget-thumb-body-stat" data-counter="counterup"
                                           data-value="{{ number_format($today['sum']) }}">0</span>
-                                          {{--data-value="{{ number_format($top_widget['transactions_sum']) }}">0</span>--}}
                                 </div>
                             </div>
                         </div>

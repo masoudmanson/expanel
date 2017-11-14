@@ -15,7 +15,6 @@
             <th data-option="ASC" data-url="/transactions" data-order="premium_amount" class="orderBy"> مبلغ <small class="font-red"></small></th>
         @endif
 
-        {{--<th> مبلغ</th>--}}
         <th>وضعیت</th>
         <th> مقصد</th>
         <th> گیرنده</th>

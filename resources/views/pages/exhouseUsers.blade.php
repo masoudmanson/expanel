@@ -22,7 +22,7 @@
                 <h1 class="page-title"> لیست کاربران صرافی </h1>
 
                 <div class="row widget-row">
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-3 col-xs-12">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">کل کاربران</h4>
@@ -38,10 +38,10 @@
                         <!-- END WIDGET THUMB -->
                     </div>
 
-                    <div class="col-md-6 col-xs-12">
+                    <div class="col-md-9 col-xs-12">
 
                         {{-- Search in Transactions --}}
-                        <div class="portlet light ">
+                        <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="fa fa-search font-yellow-casablanca"></i>
@@ -49,16 +49,18 @@
                                     <span class="caption-helper">در لیست کاربران</span>
                                 </div>
                             </div>
-                            <div class="portlet-body">
-
+                            <div class="portlet-body pt5">
                                 <div class="row">
                                     <div class="form-body col-xs-9 col-sm-10">
-                                        <div class="form-group">
-                                            <input class="form-control input-lg searchExhouseForm" placeholder="جستجو کنید" type="text" name="input">
+                                        <div class="form-group mb0">
+                                            <input class="form-control input-lg searchForm" data-target=".tableContentWrapper" data-url="/search/users/exhouse" placeholder="جستجو کنید" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-actions right col-xs-3 col-sm-2">
-                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    <div class="form-actions right col-xs-2 col-sm-1">
+                                        <button class="btn green btn-lg fullWidth searchBtn">بیاب</button>
+                                    </div>
+                                    <div class="form-actions right col-xs-1 col-sm-1">
+                                        <a href="{{ route('indexExhouse') }}" class="btn grey btn-lg fullWidth">همه</a>
                                     </div>
                                 </div>
 
@@ -69,17 +71,16 @@
 
                 </div>
 
-                <div class="row">
-                    {{-- Exchage Rate Setting Form --}}
-                    <div class="col-lg-6 col-xs-12 col-sm-12">
-                        @include('partials.exAddUserForm')
-                    </div>
-
+                <div class="row ">
                     {{-- Top Transactions List --}}
-                    <div class="col-lg-6 col-xs-12 col-sm-12" id="ajax-transaction-list">
+                    <div class="col-xs-12 col-sm-12" id="ajax-transaction-list">
                         @include('partials.exUsersTable', ['users' => $users])
                     </div>
+                </div>
 
+                <div class="row">
+                    {{-- Exchage Rate Setting Form --}}
+                    @include('partials.exAddUserForm')
                 </div>
             </div>
             <!-- END CONTENT BODY -->
@@ -90,6 +91,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-    </script>
 @endsection

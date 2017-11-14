@@ -100,23 +100,24 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                {{--<form role="form" action="">--}}
                                 <div class="row">
                                     <div class="form-body col-xs-9 col-sm-10">
                                         <div class="form-group">
-                                            <input class="form-control input-lg searchHistoryForm" placeholder="جستجو کنید" type="text" name="input">
+                                            <input class="form-control input-lg searchForm" data-target=".tableContentWrapper" data-url="/search/histories" placeholder="جستجو کنید" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-actions right col-xs-3 col-sm-2">
-                                        <button type="submit" class="btn green btn-lg fullWidth">بیاب</button>
+                                    <div class="form-actions right col-xs-2 col-sm-1">
+                                        <button type="submit" class="btn green btn-lg fullWidth searchBtn">بیاب</button>
+                                    </div>
+                                    <div class="form-actions right col-xs-1 col-sm-1">
+                                        <a href="{{ route('history.index') }}" class="btn grey btn-lg fullWidth">همه</a>
                                     </div>
                                 </div>
-                                {{--</form>--}}
                             </div>
                         </div>
                         {{-- End Search in transactions --}}
 
-                        <div class="portlet light ">
+                        <div class="portlet light tableContentWrapper">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
@@ -126,8 +127,6 @@
                                 <div class="actions">
                                     <a href="{{route('admin.history.excel')}}" class="btn btn-circle green btn-outline btn-sm">
                                         <i class="fa fa-file-excel-o"></i> Excel </a>
-                                    {{--<a href="#" class="btn btn-circle red btn-outline btn-sm">--}}
-                                        {{--<i class="fa fa-file-pdf-o"></i> PDF </a>--}}
                                 </div>
                             </div>
                             <div class="portlet-body">

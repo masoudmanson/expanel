@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 
-<!--[if IE 8]>
-<html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en" dir="rtl"><!--<![endif]-->
+<!--[if IE 8]><html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--><html lang="en" dir="rtl"><!--<![endif]-->
 
 <!-- BEGIN HEAD -->
 <head>
@@ -20,16 +17,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ asset('assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ asset('assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap-rtl.min.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch-rtl.min.css') }}" rel="stylesheet"
-          type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch-rtl.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/plugins/bootstrap-toastr/toastr-rtl.css') }}" rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
 
@@ -39,15 +31,13 @@
     <!-- END PAGE LEVEL PLUGINS -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="{{ asset('assets/global/css/components-rtl.min.css') }}" rel="stylesheet" id="style_components"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components-rtl.min.css') }}" rel="stylesheet" id="style_components" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins-rtl.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- END THEME GLOBAL STYLES -->
 
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{{ asset('assets/layouts/layout2/css/layout-rtl.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/layouts/layout2/css/themes/dark-rtl.css') }}" rel="stylesheet" type="text/css"
-          id="style_color"/>
+    <link href="{{ asset('assets/layouts/layout2/css/themes/dark-rtl.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="{{ asset('assets/layouts/layout2/css/custom-rtl.css') }}" rel="stylesheet" type="text/css"/>
     <!-- END THEME LAYOUT STYLES -->
 
@@ -58,11 +48,8 @@
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
 
 @include('partials.modalRate')
-@include('partials.modalTransConfirm')
-{{--@include('partials.modalTransReject')--}}
 @include('partials.modalTransShow')
 @include('partials.modalFanapUser')
-{{--@include('partials.modalFactorConfirm')--}}
 
 @yield('content')
 
@@ -85,11 +72,9 @@
 <!-- BEGIN CORE PLUGINS -->
 <script src="{{ asset('assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/js.cookie.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
-        type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"
-        type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -113,10 +98,10 @@
 <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
+
 @yield('scripts')
 <script>
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
-    var serverTime = {{ time()*1000 }};
 </script>
 <script src="{{ asset('js/index.js') }}"></script>
 </body>
