@@ -36,7 +36,7 @@ class RateController extends Controller
         $rates = array();
 
         if ($type == 'lira') {
-            $rates['lira']['list'] = $currency_exchange->rates()->currency('TRY')->orderBy('rates.created_at')->paginate(10);
+            $rates['lira']['list'] = $currency_exchange->rates()->currency('TRY')->orderBy('rates.created_at', 'DESC')->paginate(10);
             $rates['lira']['max'] = $currency_exchange->rates()->currency('TRY')->get()->max('rate');
             $rates['lira']['min'] = $currency_exchange->rates()->currency('TRY')->get()->min('rate');
 
@@ -52,7 +52,7 @@ class RateController extends Controller
             return view('pages.rate', compact('type', 'rates', 'top_widget', 'lira_last_set_time'));
         }
         elseif($type == 'euro') {
-            $rates['euro']['list'] = $currency_exchange->rates()->currency('EUR')->orderBy('rates.created_at')->paginate(10);
+            $rates['euro']['list'] = $currency_exchange->rates()->currency('EUR')->orderBy('rates.created_at', 'DESC')->paginate(10);
             $rates['euro']['max'] = $currency_exchange->rates()->currency('EUR')->get()->max('rate');
             $rates['euro']['min'] = $currency_exchange->rates()->currency('EUR')->get()->min('rate');
 
