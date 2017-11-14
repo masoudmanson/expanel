@@ -138,6 +138,67 @@ $(document).on('click', '.ajaxModalLinks', function(event) {
     ajaxModal(modal, url, id);
 });
 
+$(document).on('click', '.transConfirmLinks', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('data-url');
+    var transId = $(this).attr('data-id');
+    var transUserID = $(this).attr('data-userId');
+    var transUser = $(this).attr('data-user');
+    var transUserMobile = $(this).attr('data-userMobile');
+
+    $('#transConfirmModal').modal('show');
+    $('#transConfirmModal').
+        find('#transConfirmBody').
+        html(
+            '<h4 class="text-center">کاربر : <span class="font-green-meadow" id="transConfirmUser"></span></h4>' +
+            '<p class="text-center">کد ملی : <span class="font-green-meadow" id="transConfirmUserID"></span></p>' +
+            '<p class="text-center">شماره موبایل : <span class="font-green-meadow" id="transConfirmUserMobile"></span></p>');
+    $('#transConfirmModal').find('#transConfirmSubmit').show();
+
+    $('#transConfirmModal').find('#transConfirmUser').text(transUser);
+    $('#transConfirmModal').find('#transConfirmUserID').text(transUserID);
+    $('#transConfirmModal').
+        find('#transConfirmUserMobile').
+        text(transUserMobile);
+    $('.modal:visible').each(modalReposition);
+    $('#transConfirmSubmit').on('click', function() {
+        $('#transConfirmModal').
+            find('#transConfirmBody').
+            html(
+                '<h3 class="font-grey-silver text-center">لطفا شکیبا باشید ...</h3>');
+        $('#transConfirmModal').find('#transConfirmSubmit').hide();
+        $.ajax({
+            method: 'PUT',
+            url: url + transId,
+            data: {
+                'confirmed': true,
+                '_token': csrfToken,
+                'X-CSRF-TOKEN': csrfToken,
+            },
+        }).done(function(data) {
+            var message = $.parseJSON(data);
+            $('#transConfirmModal').
+                find('#transConfirmBody').
+                html('<h2 class="font-green-meadow text-center">' +
+                    message.msg +
+                    '</h2>');
+            $('.modal:visible').each(modalReposition);
+            if (message.status) {
+                $('#trans_' + transId).slideUp(200);
+            }
+        }).fail(function(data) {
+            var message = $.parseJSON(data);
+            $('#transConfirmModal').
+                find('#transConfirmBody').
+                html(
+                    '<h2 class="font-red-mint text-center">' + message.msg +
+                    '</h2>');
+            $('.modal:visible').each(modalReposition);
+        });
+    });
+});
+
 $(document).on('click', '.pagination a', function(e) {
     // uncomment to load data by ajax
     // e.preventDefault();

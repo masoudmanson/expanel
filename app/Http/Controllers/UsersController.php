@@ -58,8 +58,8 @@ class UsersController extends Controller
     {
         $identifier_id = Auth::user()->currencyExchange->identifier->id;
 
-        $users = Authorized::where('identifier_id', $identifier_id)->orderBy('created_at', 'DESC')->paginate(10);
-        $users_count = Authorized::where('identifier_id', $identifier_id)->count();
+        $users = Client::where('identifier_id', $identifier_id)->orderBy('created_at', 'DESC')->paginate(10);
+        $users_count = Client::where('identifier_id', $identifier_id)->count();
         if ($request->ajax())
             return response()->json(view('partials.exUsersTable', compact('users'))->render());
 
