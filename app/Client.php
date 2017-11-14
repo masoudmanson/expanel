@@ -12,7 +12,7 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'api_token','firstname', 'lastname', 'email', 'password',
+        'api_token', 'firstname', 'lastname', 'email', 'password',
     ];
 
     /**
@@ -30,9 +30,19 @@ class Client extends Model
 
     protected $table = 'users';
 
-    public function scopeFindByUserId($query,$userId)
+    public function scopeFindByUserId($query, $userId)
     {
         return $query->where('userId', $userId);
+    }
+
+    public function scopeArraySelect($query , $inputArray)
+    {
+        $query = $query->select($inputArray[0]);
+        unset($inputArray[0]);
+        foreach ($inputArray as $element) {
+            $query = $query->addSelect($element);
+        }
+        return $query;
     }
 
     public function beneficiary()

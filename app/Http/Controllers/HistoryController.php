@@ -205,19 +205,24 @@ class HistoryController extends Controller
         $extraInfo['order'] = $order;
         $extraInfo['option'] = $option;
 
-        $transactions = Transaction::joinUsers()->joinBeneficiaries()->selectBoth()
-            ->filterBank('successful')
-//            ->per('daily')
-//            ->orderBy('premium_amount', 'DESC')
-            ->orderBy($order, $option)->get();
-        $paymentsArray = [];
-
-        // Define the Excel spreadsheet headers
-        $paymentsArray[] = ['reference_number', 'bank_status','fanex_status','upt_status','currency','rate',
+        $titlesArray[] = ['id','bank_status','fanex_status','upt_status','currency','rate',
             'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
-            ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban','swift'];
-        // Convert each member of the returned collection into an array,
-        // and append it to the payments array.
-        $this->excel_export($transactions,$paymentsArray,'special_transactions','Exchanger','FANEx');
+            ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban_code','swift_code'];
+
+
+        $paymentsArray[] = ["transactions.id as reference_number","transactions.bank_status","transactions.fanex_status"
+            ,"transactions.upt_status","transactions.currency","transactions.exchange_rate","transactions.premium_amount"
+            ,"transactions.payment_type","transactions.payment_date","transactions.country"
+            ,"transactions.upt_ref as upt_reference","transactions.updated_at","users.firstname as sender_fname", "users.lastname as sender_lname"
+            ,"users.identity_number as sender_identity_number","users.mobile as sender_mobile"
+            ,"beneficiaries.firstname as bnf_fname", "beneficiaries.lastname as bnf_lname","beneficiaries.account_number"
+            ,"bank_name","branch_address","iban_code","swift_code"];
+
+        $transactions = Transaction::joinUsers()->joinBeneficiaries()
+            ->arraySelect($paymentsArray[0])
+            ->filterBank('successful')
+            ->orderBy($order, $option)
+            ->get();
+        $this->excel_export($transactions,$titlesArray,'special_transactions','Exchanger','FANEx');
     }
 }

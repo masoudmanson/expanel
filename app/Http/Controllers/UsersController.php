@@ -220,9 +220,10 @@ class UsersController extends Controller
 
         $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
         $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->orderBy($order, $option)->get();
-        $usersArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
+        $keysArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
+        $users = $users->arraySelect($keysArray[0])->orderBy($order,$option)->get();
 
-        $this->excel_export($users, $usersArray, 'fanap_users', 'Exchanger', 'FANEx');
+        $this->excel_export($users, $keysArray, 'fanap_users', 'Exchanger', 'FANEx');
     }
 
     public function otherUsersExcel()
@@ -238,9 +239,10 @@ class UsersController extends Controller
         $extraInfo['option'] = $option;
 
         $identifier_id = Identifier::where('name', 'other')->first()->id;
-        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false)->orderBy($order, $option)->get();
-        $usersArray[] = ['reference_number', 'firstname_latin', 'lastname_latin', 'identity_number', 'mobile'];
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', false);
+        $keysArray[] = ['firstname_latin', 'lastname_latin', 'identity_number', 'mobile'];
+        $users = $users->arraySelect($keysArray[0])->orderBy($order,$option)->get();
 
-        $this->excel_export($users, $usersArray, 'other_users', 'Exchanger', 'FANEx');
+        $this->excel_export($users, $keysArray, 'other_users', 'Exchanger', 'FANEx');
     }
 }

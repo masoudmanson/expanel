@@ -81,7 +81,7 @@ class Transaction extends Model
 
     public function scopeSelectBoth($query)
     {
-        $query->select("transactions.*", "users.firstname as sender_fname", "users.lastname as sender_lname", "users.identity_number as sender_identity_number"
+        return $query->select("transactions.*", "users.firstname as sender_fname", "users.lastname as sender_lname", "users.identity_number as sender_identity_number"
             , "users.mobile as sender_mobile"
             ,"beneficiaries.firstname as bnf_fname", "beneficiaries.lastname as bnf_lname","beneficiaries.account_number","bank_name","branch_address"
             ,"iban_code","swift_code");
@@ -108,6 +108,16 @@ class Transaction extends Model
                 return $query;
                 break;
         }
+    }
+
+    public function scopeArraySelect($query , $inputArray)
+    {
+        $query = $query->select($inputArray[0]);
+        unset($inputArray[0]);
+        foreach ($inputArray as $element) {
+            $query = $query->addSelect($element);
+        }
+        return $query;
     }
 
 //    public function scopeDailyFactor($query)
