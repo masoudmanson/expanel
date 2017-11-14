@@ -50,6 +50,7 @@
 @include('partials.modalRate')
 @include('partials.modalTransShow')
 @include('partials.modalFanapUser')
+@include('partials.modalTransConfirm')
 
 @yield('content')
 
