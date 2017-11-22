@@ -49,6 +49,7 @@ class HomeController extends Controller
         $type = $request->input('type');
         if(empty($type)) {
             $type = 'euro';
+            $product_id = 0;
             foreach ($products as $product){
                 if($product->description == 'EUR'){
                     $product_id = $product->entityId;
