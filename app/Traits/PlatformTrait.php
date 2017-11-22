@@ -123,6 +123,88 @@ trait PlatformTrait
         return $res;
     }
 
+    public function createProduct()
+    {
+        //nzh/biz/addProduct
+
+    }
+
+    public function updateProduct($attributes)
+    {
+//        $token = config('services.sso.api');
+        $token = config('exchanger.token');
+        $client = new Client();
+        $res = $client->get(config('urls.platform') . 'nzh/biz/updateProduct', [
+            'headers' => [
+                '_token_' => $token,// get business token and put in here
+                '_token_issuer_' => 1
+            ],
+            'form_params' => [
+                'entityId' => $attributes['entityId'],
+                'name' => $attributes['name'],
+                'description' => $attributes['description'],
+                'canComment' => 'false',
+                'canLike' => 'false',
+                'enable' => 'true',
+                'businessId' => config('exchanger.businessId'),
+                'availableCount' => $attributes['availableCount'],
+                'price' => $attributes['price'],
+                'discount' => '0'
+            ],
+        ]);
+        return $res;
+    }
+
+    public function listProduct($attributes=array())
+    {
+//        $token = config('services.sso.api');
+        $token = config('exchanger.token');
+        $client = new Client();
+        $data = [
+            'size' => 100,
+            'offset' => 0,
+            'businessId' => config('exchanger.businessId'),
+        ];
+        if (!empty($attributes['entityId'])) {
+            $data = $data + ['id' => $attributes['entityId']];
+        }
+
+        if (!empty($attributes['tag'])) {
+            $data = $data + ['tags' => $attributes['tag']];
+        }
+
+        if (!empty($attributes['attributeCode'])) {
+            $data = $data + ['attributeCode[]' => $attributes['attributeCode']];
+            $data = $data + ['attributeValue[]' => $attributes['attributeValue']];
+        }
+        //business token must taken from sso
+        $res = $client->post(config('urls.platform') . 'nzh/productList', [
+            'headers' => [
+                '_token_' => $token,
+                '_token_issuer_' => 1
+            ],
+            'form_params' => $data
+        ]);
+        return $res;
+    }
+
+    public function loadProduct($entityId)
+    {
+        $token = config('exchanger.token');
+        $client = new Client();
+        $data = [
+            'id' => $entityId
+        ];
+        $res = $client->post(config('urls.platform') . 'nzh/biz/loadProduct/', [
+            'headers' => [
+                '_token_' => $token,
+                '_token_issuer_' => 1
+            ],
+            'form_params' => $data
+        ]);
+        return $res;
+    }
+
     public function userInvoice(Request $request, Backlog $backlog)
     {
 //        $client = new Client();

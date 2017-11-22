@@ -7,10 +7,13 @@ use App\User;
 use App\Rate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\PlatformTrait;
 use jDate;
 
 class RateController extends Controller
 {
+    use PlatformTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -33,12 +36,20 @@ class RateController extends Controller
             $type = 'euro';
 
         $currency_exchange = Auth::user()->currencyExchange;
+        $result = $this->listProduct();
+        $products = json_decode($result->getBody()->getContents())->result;
         $rates = array();
 
+        $product_id = 0;
         if ($type == 'lira') {
             $rates['lira']['list'] = $currency_exchange->rates()->currency('TRY')->orderBy('rates.created_at', 'DESC')->paginate(10);
             $rates['lira']['max'] = $currency_exchange->rates()->currency('TRY')->get()->max('rate');
             $rates['lira']['min'] = $currency_exchange->rates()->currency('TRY')->get()->min('rate');
+            foreach ($products as $product){
+                if($product->description == 'TRY'){
+                    $product_id = $product->entityId;
+                }
+            }
 
             $rate_lira = $currency_exchange->rates()->currency('TRY')->last();
 
@@ -50,11 +61,15 @@ class RateController extends Controller
                 $lira_last_set_time = 0;
             }
             return view('pages.rate', compact('type', 'rates', 'top_widget', 'lira_last_set_time'));
-        }
-        elseif($type == 'euro') {
+        } elseif ($type == 'euro') {
             $rates['euro']['list'] = $currency_exchange->rates()->currency('EUR')->orderBy('rates.created_at', 'DESC')->paginate(10);
             $rates['euro']['max'] = $currency_exchange->rates()->currency('EUR')->get()->max('rate');
             $rates['euro']['min'] = $currency_exchange->rates()->currency('EUR')->get()->min('rate');
+            foreach ($products as $product){
+                if($product->description == 'EUR'){
+                    $product_id = $product->entityId;
+                }
+            }
 
             $rate_euro = $currency_exchange->rates()->currency('EUR')->last();
 
@@ -65,8 +80,9 @@ class RateController extends Controller
                 $top_widget['euro_last_rate'] = 0;
                 $euro_last_set_time = 0;
             }
-            return view('pages.rate', compact('type', 'rates', 'top_widget', 'euro_last_set_time'));
+            return view('pages.rate', compact('type', 'rates', 'top_widget', 'euro_last_set_time','product_id'));
         }
+
     }
 
     /**
@@ -79,9 +95,17 @@ class RateController extends Controller
     {
         $request['exchanger_user_id'] = Auth::user()->id;
         $request['ip'] = $request->ip();
-
-        Rate::create($request->all());
-
-        return redirect()->back();
+        dd($request);
+        $response = $this->loadProduct($request->product_id)->getBody()->getContents();
+        if(isset($response->result)) {
+            $product = json_decode($response)->result;
+            $product->price = $request->rate;
+            $response = $this->updateProduct($product)->getBody()->getContents();
+            if(isset($response->result)) {
+                Rate::create($request->all());
+                return redirect()->back();
+            }
+        }
+        //return with error
     }
 }
