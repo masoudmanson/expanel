@@ -4,6 +4,7 @@
         <div class="form-group">
             <input type="text" name="rate" class="form-control input-lg rateFormRate">
             <input type="hidden" name="currency_id" value="{{ $model }}">
+            <input type="hidden" name="product_id" value="{{ $product_id }}">
         </div>
     </div>
 

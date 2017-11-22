@@ -34,7 +34,7 @@
                         <h4>تنظیم نرخ تبدیل <b>یورو €</b> به <b>ریال</b></h4>
                         <br>
 
-                        @include('partials.rateForm', ['model' => 1])
+                        @include('partials.rateForm', ['model' => 1, 'product_id' => $product_id])
                     </div>
                 </div>
             @elseif($type == 'lira')
@@ -54,7 +54,7 @@
                     <div>
                         <h4>تنظیم نرخ تبدیل <b>لیر ترکیه ₺</b> به <b>ریال</b></h4>
                         <br>
-                        @include('partials.rateForm', ['model' => 2])
+                        @include('partials.rateForm', ['model' => 2, 'product_id' => $product_id])
                     </div>
                 </div>
             @endif

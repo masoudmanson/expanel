@@ -60,8 +60,8 @@ class RateController extends Controller
                 $top_widget['lira_last_rate'] = 0;
                 $lira_last_set_time = 0;
             }
-            return view('pages.rate', compact('type', 'rates', 'top_widget', 'lira_last_set_time'));
-        } elseif ($type == 'euro') {
+            return view('pages.rate', compact('type', 'rates', 'top_widget', 'lira_last_set_time', 'product_id'));
+        }  elseif ($type == 'euro') {
             $rates['euro']['list'] = $currency_exchange->rates()->currency('EUR')->orderBy('rates.created_at', 'DESC')->paginate(10);
             $rates['euro']['max'] = $currency_exchange->rates()->currency('EUR')->get()->max('rate');
             $rates['euro']['min'] = $currency_exchange->rates()->currency('EUR')->get()->min('rate');
@@ -80,7 +80,7 @@ class RateController extends Controller
                 $top_widget['euro_last_rate'] = 0;
                 $euro_last_set_time = 0;
             }
-            return view('pages.rate', compact('type', 'rates', 'top_widget', 'euro_last_set_time','product_id'));
+            return view('pages.rate', compact('type', 'rates', 'top_widget', 'euro_last_set_time', 'product_id'));
         }
 
     }
@@ -95,17 +95,21 @@ class RateController extends Controller
     {
         $request['exchanger_user_id'] = Auth::user()->id;
         $request['ip'] = $request->ip();
-        dd($request);
-        $response = $this->loadProduct($request->product_id)->getBody()->getContents();
+
+        $response = json_decode($this->loadProduct($request->product_id)->getBody()->getContents());
+
         if(isset($response->result)) {
-            $product = json_decode($response)->result;
+            $product = $response->result;
             $product->price = $request->rate;
-            $response = $this->updateProduct($product)->getBody()->getContents();
+            $response = json_decode($this->updateProduct($product)->getBody()->getContents());
+
             if(isset($response->result)) {
                 Rate::create($request->all());
                 return redirect()->back();
             }
         }
-        //return with error
+
+
+        return redirect()->back()->withErrors('مشکلی در آپدیت مقادیر به وجود آمد. لطفا دوباره تلاش نمائید.');
     }
 }

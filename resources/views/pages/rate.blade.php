@@ -30,7 +30,6 @@
                     <div class="col-lg-6 col-xs-12 col-sm-12" id="ajax-transaction-list">
                         @include('partials.rateTables')
                     </div>
-
                 </div>
             </div>
             <!-- END CONTENT BODY -->
@@ -41,4 +40,13 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+            @if(count($errors))
+                @foreach ($errors->all() as $error)
+                    toastr.warning('{{ $error }}');
+                @endforeach
+            @endif
+        });
+    </script>
 @endsection

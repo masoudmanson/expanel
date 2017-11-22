@@ -131,10 +131,10 @@ trait PlatformTrait
 
     public function updateProduct($attributes)
     {
-//        $token = config('services.sso.api');
+        $attributes = (array)$attributes;
         $token = config('exchanger.token');
         $client = new Client();
-        $res = $client->get(config('urls.platform') . 'nzh/biz/updateProduct', [
+        $res = $client->post(config('urls.platform') . 'nzh/biz/updateProduct', [
             'headers' => [
                 '_token_' => $token,// get business token and put in here
                 '_token_issuer_' => 1
@@ -145,13 +145,16 @@ trait PlatformTrait
                 'description' => $attributes['description'],
                 'canComment' => 'false',
                 'canLike' => 'false',
+                'cahangePreview' => false,
                 'enable' => 'true',
+                'metadata' => null,
                 'businessId' => config('exchanger.businessId'),
                 'availableCount' => $attributes['availableCount'],
                 'price' => $attributes['price'],
                 'discount' => '0'
             ],
         ]);
+
         return $res;
     }
 
