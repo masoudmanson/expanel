@@ -110,6 +110,6 @@ class RateController extends Controller
         }
 
 
-        return redirect()->back()->withErrors('مشکلی در آپدیت مقادیر به وجود آمد. لطفا دوباره تلاش نمائید.');
+        return redirect()->back()->withErrors('فعلا امکان تغییر نرخ یورو وجود ندارد. لطفا نرخ لیره را تست نمائید.');
     }
 }
