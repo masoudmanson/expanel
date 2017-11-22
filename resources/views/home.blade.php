@@ -134,4 +134,13 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+            @if(count($errors))
+                @foreach ($errors->all() as $error)
+                    toastr.warning('{{ $error }}');
+                @endforeach
+            @endif
+        });
+    </script>
 @endsection

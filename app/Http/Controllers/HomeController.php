@@ -7,6 +7,7 @@ use App\CurrencyExchange;
 use App\Exchanger;
 use App\Identifier;
 use App\Traits\ExportTrait;
+use App\Traits\PlatformTrait;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ use Morilog\Jalali\jDate;
 class HomeController extends Controller
 {
     use ExportTrait;
+    use PlatformTrait;
 
     /**
      * Create a new controller instance.
