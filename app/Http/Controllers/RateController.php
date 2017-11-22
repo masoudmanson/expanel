@@ -33,7 +33,7 @@ class RateController extends Controller
     {
         $type = $request->input('type');
         if (empty($type))
-            $type = 'euro';
+            $type = 'lira';
 
         $currency_exchange = Auth::user()->currencyExchange;
         $result = $this->listProduct();
