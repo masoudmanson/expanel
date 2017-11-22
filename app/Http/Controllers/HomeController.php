@@ -35,9 +35,24 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $result = $this->listProduct();
+        $products = json_decode($result->getBody()->getContents())->result;
+        $product_id = 0;
+        foreach ($products as $product){
+            if($product->description == 'TRY'){
+                $product_id = $product->entityId;
+            }
+        }
+
         $type = $request->input('type');
-        if(empty($type))
+        if(empty($type)) {
             $type = 'euro';
+            foreach ($products as $product){
+                if($product->description == 'EUR'){
+                    $product_id = $product->entityId;
+                }
+            }
+        }
 
         $top_widget = array();
         $top_widget['transactions_count'] = Transaction::filterBank('successful')->count();
@@ -86,7 +101,7 @@ class HomeController extends Controller
         if ($request->ajax())
             return response()->json(view('partials.specialTrans', compact('today'))->render());
 
-        return view('home', compact('type','top_widget', 'today', 'euro_last_set_time', 'lira_last_set_time'));
+        return view('home', compact('type','top_widget', 'today', 'euro_last_set_time', 'lira_last_set_time','product_id'));
     }
 
     public function special_transaction_excel(Request $request)
