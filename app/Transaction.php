@@ -98,7 +98,7 @@ class Transaction extends Model
 
             case 'weekly':
 //                return $query->whereBetween('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'));
-                return $query->whereRaw("payment_date between next_day(TRUNC(SYSDATE) - 7, 'sat') and trunc(sysdate)");
+                return $query->whereRaw("payment_date between next_day(TRUNC(SYSDATE) - 7, 'sat') and sysdate");
                 break;
 
             case 'monthly':
