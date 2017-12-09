@@ -19,6 +19,10 @@ $(document).on('ready', function() {
             $('#rateModal').modal('show');
             $('.modal:visible').each(modalReposition);
             $('#modalSubmit').on('click', function() {
+                App.blockUI({
+                    target: '#rateModal .modal-dialog .modal-content',
+                    animate: !0,
+                });
                 $('#rateForm' + id)[0]['rate'].value = amount;
                 $('#rateForm' + id)[0].submit();
             });
