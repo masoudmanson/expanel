@@ -93,7 +93,7 @@
             <td class="font-red-haze bold">{{ number_format($transaction->payment_amount, 2) }} ريال</td>
             <td>{{ number_format($transaction->exchange_rate) }} ريال</td>
             <td class="font-blue-dark">{{ $transaction->country }}</td>
-            <td class="font-blue-chambray">{{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</td>
+            <td class="font-blue-chambray">{{ $transaction->receiver_firstname . ' ' . $transaction->receiver_lastname }}</td>
             <td class="bold font-dark">{{ $transaction->uri }}</td>
             <td>{{($transaction->payment_date)?jdate($transaction->payment_date)->format('%y %B %d , H:i:s'):'پرداخت نشده است' }}</td>
             <td>

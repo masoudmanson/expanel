@@ -37,33 +37,55 @@
             </div>
         </div>
         <div class="portlet-body">
-            <form role="form" action="{{ route('ex-add-user') }}" method="post">
+            <form role="form" action="{{ route('ex-add-user') }}" method="post" data-parsley-validate="" id="exUser-form">
                 {{ csrf_field() }}
                 <div class="form-body">
                     <div class="form-group">
                         <label for="firstname">نام:</label>
-                        <input type="text" id="firstname" name="firstname" class="form-control input-lg">
+                        <input type="text" id="firstname" name="firstname"
+                               class="form-control input-lg noSpecialChars noDigits"
+                               required
+                               data-parsley-required-message="لطفا نام را وارد نمائید">
                     </div>
                 </div>
 
                 <div class="form-body">
                     <div class="form-group">
                         <label for="lastname">نام خانوادگی:</label>
-                        <input type="text" id="lastname" name="lastname" class="form-control input-lg">
+                        <input type="text" id="lastname" name="lastname"
+                               class="form-control input-lg noSpecialChars noDigits"
+                               required
+                               data-parsley-required-message="لطفا نام خانوادگی را وارد نمائید">
                     </div>
                 </div>
 
                 <div class="form-body">
                     <div class="form-group">
                         <label for="code">کد ملی:</label>
-                        <input type="text" id="code" name="identity_number" class="form-control input-lg">
+                        <input type="text" id="code" name="identity_number"
+                               class="form-control input-lg onlyDigits"
+                               data-parsley-trigger="keyup"
+                               required
+                               maxlength="10"
+                               data-parsley-minlength="10"
+                               data-parsley-maxlength="10"
+                               data-parsley-minlength-message="طول کد ملی صحیح نمی باشد."
+                               data-parsley-required-message="لطفا کد ملی را وارد نمائید">
                     </div>
                 </div>
 
                 <div class="form-body">
                     <div class="form-group">
                         <label for="mobile">شماره موبایل:</label>
-                        <input type="text" id="mobile" name="mobile" class="form-control input-lg">
+                        <input type="text" id="mobile" name="mobile"
+                               class="form-control input-lg onlyDigits"
+                               data-parsley-trigger="keyup"
+                               required
+                               maxlength="11"
+                               data-parsley-minlength="10"
+                               data-parsley-maxlength="10"
+                               data-parsley-minlength-message="طول شماره موبایل صحیح نمی باشد."
+                               data-parsley-required-message="لطفا شماره موبایل را وارد نمائید">
                     </div>
                 </div>
 

@@ -22,7 +22,7 @@
                 <h1 class="page-title"> تاریخچه ی تراکنش ها </h1>
 
                 <div class="row widget-row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">تعداد کل تراکنش ها</h4>
@@ -38,7 +38,7 @@
                         <!-- END WIDGET THUMB -->
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">مجموع مبلغ تراکنش های دریافتی</h4>
@@ -54,23 +54,23 @@
                         <!-- END WIDGET THUMB -->
                     </div>
 
-                    <div class="col-md-3">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white margin-bottom-20 ">
-                            <h4 class="widget-thumb-heading">مجموع مبلغ تراکنش های تائید شده</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-yellow-lemon fa fa-money"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle">ریال</span>
-                                    <span class="widget-thumb-body-stat" data-counter="counterup"
-                                          data-value="{{ number_format($top_widget['transactions_sum_accepted']) }}">0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
+                    {{--<div class="col-md-3">--}}
+                        {{--<!-- BEGIN WIDGET THUMB -->--}}
+                        {{--<div class="widget-thumb widget-bg-color-white margin-bottom-20 ">--}}
+                            {{--<h4 class="widget-thumb-heading">مجموع مبلغ تراکنش های تائید شده</h4>--}}
+                            {{--<div class="widget-thumb-wrap">--}}
+                                {{--<i class="widget-thumb-icon bg-yellow-lemon fa fa-money"></i>--}}
+                                {{--<div class="widget-thumb-body">--}}
+                                    {{--<span class="widget-thumb-subtitle">ریال</span>--}}
+                                    {{--<span class="widget-thumb-body-stat" data-counter="counterup"--}}
+                                          {{--data-value="{{ number_format($top_widget['transactions_sum_accepted']) }}">0</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- END WIDGET THUMB -->--}}
+                    {{--</div>--}}
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">مجموع مبلغ حواله های پایان یافته</h4>

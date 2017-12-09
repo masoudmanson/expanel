@@ -29,6 +29,40 @@ $(document).on('ready', function() {
         }
     });
 
+    $('.noSpecialChars').keydown(function(e){
+        var iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?؟";
+        if (iChars.indexOf(e.key) != -1)
+            return false;
+    });
+
+    $('.noDigits').keydown(function(e){
+        var iChars = "0123456789";
+        if (iChars.indexOf(e.key) != -1)
+            return false;
+    });
+
+    $('.onlyDigits').keydown(function(e){
+        var iChars = "0123456789";
+
+        // Allow: backspace, delete, tab, escape, enter and . , 110, 190
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if (iChars.indexOf(e.key) == -1) {
+            e.preventDefault();
+        }
+    });
+
     $('.modal').on('show.bs.modal', modalReposition);
 
     $(window).on('resize', function() {
