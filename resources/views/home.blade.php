@@ -100,7 +100,7 @@
                                 <div class="caption caption-md">
                                     <i class="icon-bar-chart font-yellow-casablanca"></i>
                                     <span class="caption-subject font-yellow-casablanca bold">لیست</span>
-                                    <span class="caption-helper">تراکنش های بخصوص</span>
+                                    <span class="caption-helper">حواله های موفق با بالاترین مبلغ</span>
                                 </div>
                                 <div class="actions">
                                     <div class="btn-group btn-group-devided" data-toggle="buttons">
