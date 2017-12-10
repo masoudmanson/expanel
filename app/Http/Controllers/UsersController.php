@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Traits\ExportTrait;
 use App\Authorized;
 use App\Client;
 use App\Identifier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Excel;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\DB;
+use PHPExcel_Settings;
+use Illuminate\Support\Facades\Input;
 
 class UsersController extends Controller
 {
@@ -171,11 +175,11 @@ class UsersController extends Controller
                 }
                 if (!empty($insert)) {
                     DB::table('authorized')->insert($insert);
-                    dd('Insert Record successfully.');
+                    return back();
                 }
             }
         }
-        return back();
+        return back();//todo : with error => integrate with masoud
     }
 
     public function downloadExcelFile($type)
@@ -188,7 +192,7 @@ class UsersController extends Controller
         })->download($type);
     }
 
-    public function add_auth_user(Request $request)
+    public function add_auth_user(AuthRequest $request)
     {
         $request['identifier_id'] = Auth::user()->currencyExchange->identifier->id;
 
@@ -220,8 +224,8 @@ class UsersController extends Controller
         $extraInfo['option'] = $option;
 
         $identifier_id = Identifier::where('name', 'fanapium')->first()->id;
-        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true)->orderBy($order, $option)->get();
-        $keysArray[] = ['reference_number', 'firstname', 'lastname', 'identity_number', 'mobile'];
+        $users = Client::where('identifier_id', $identifier_id)->where('is_authorized', true);
+        $keysArray[] = ['firstname', 'lastname', 'identity_number', 'mobile'];
         $users = $users->arraySelect($keysArray[0])->orderBy($order,$option)->get();
 
         $this->excel_export($users, $keysArray, 'fanap_users', 'Exchanger', 'FANEx');

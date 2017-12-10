@@ -51,7 +51,7 @@ Route::get('/search/users/other','UsersController@searchOther');
 Route::get('/excel/special','HomeController@special_transaction_excel')->name('admin.special.excel');
 Route::get('/excel/history','HistoryController@historyExcel')->name('admin.history.excel');
 Route::get('/excel/otherUsers','UsersController@otherUsersExcel')->name('admin.otherUsers.excel');
-Route::get('/excel/fanapUsers','HistoryController@excel')->name('admin.fanapUsers.excel');
+Route::get('/excel/fanapUsers','UsersController@fanapUsersExcel')->name('admin.fanapUsers.excel');
 Route::get('/excel/transactions','TransactionController@transactionsExcel')->name('admin.transactions.excel');
 
 
