@@ -76,7 +76,7 @@
                                     <div id="sparkline_bar"></div>
                                 </div>
                                 <div class="stat-number">
-                                    <div class="title" style="padding-bottom: 5px"> بیشترین نرخ
+                                    <div class="title" style="padding-bottom: 5px"> بیشترین نرخ لیره
                                         <small>(ریال)</small>
                                     </div>
                                     <div class="number  font-red-haze">{{ number_format($rates['lira']['max']) }}</div>
@@ -89,7 +89,7 @@
                                     <div id="sparkline_bar2"></div>
                                 </div>
                                 <div class="stat-number">
-                                    <div class="title" style="padding-bottom: 5px"> کمترین نرخ
+                                    <div class="title" style="padding-bottom: 5px"> کمترین نرخ لیره
                                         <small>(ریال)</small>
                                     </div>
                                     <div class="number font-blue-soft">{{ number_format($rates['lira']['min']) }}</div>
