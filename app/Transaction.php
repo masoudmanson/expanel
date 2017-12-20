@@ -93,16 +93,16 @@ class Transaction extends Model
             case 'daily':
 //                $query->where(DB::raw('DATE_FORMAT(payment_date, "%Y-%m-%d")'), '=', DB::raw('CURDATE()'));
 //                return $query->whereRaw("to_date(to_char(sysdate,'dd/mm/yyyy'),'dd/mm/yyyy') = to_date(to_char(payment_date, 'dd/mm/yyyy'),'dd/mm/yyyy')");
-                return $query->whereRaw("TRUNC(sysdate) = TRUNC(payment_date)");
+                return $query->whereRaw("TRUNC(SYSDATE) = TRUNC(payment_date)");
                 break;
 
             case 'weekly':
 //                return $query->whereBetween('payment_date', '>', DB::raw('DATE_SUB(NOW(), INTERVAL 1 WEEK)'));
-                return $query->whereRaw("payment_date between next_day(TRUNC(SYSDATE) - 7, 'sat') and sysdate");
+                return $query->whereRaw("TRUNC(payment_date) BETWEEN next_day(TRUNC(SYSDATE) - 7, 'sat') AND SYSDATE");
                 break;
 
             case 'monthly':
-                return $query->whereRaw("payment_date between trunc(sysdate, 'mm') AND SYSDATE");
+                return $query->whereRaw("TRUNC(payment_date) BETWEEN TRUNC(SYSDATE, 'mm') AND SYSDATE");
                 break;
             default:
                 return $query;
