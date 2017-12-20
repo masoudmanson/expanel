@@ -97,7 +97,7 @@ class HomeController extends Controller
             ->filterBank('successful')
             ->filterFanex('accepted')
             ->per($per)
-            ->orderBy('premium_amount', 'DESC')
+            ->orderByRaw('TO_NUMBER(premium_amount) DESC')
             ->limit(10)
             ->get();
 
