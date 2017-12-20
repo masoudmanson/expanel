@@ -163,15 +163,17 @@ class UsersController extends Controller
             })->get();
             if (!empty($data) && $data->count()) {
                 foreach ($data as $key => $value) {
-                    $insert[] = [
-                        'firstname' => $value->firstname,
-                        'lastname' => $value->lastname,
-                        'identity_number' => $value->identity_number,
-                        'mobile' => $value->mobile,
-                        'identifier_id' => Auth::user()->currencyExchange->identifier->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ];
+                    if(!empty($value->firstname) && !empty($value->lastname) && !empty($value->identity_number) && !empty($value->mobile)) {
+                        $insert[] = [
+                            'firstname' => $value->firstname,
+                            'lastname' => $value->lastname,
+                            'identity_number' => $value->identity_number,
+                            'mobile' => $value->mobile,
+                            'identifier_id' => Auth::user()->currencyExchange->identifier->id,
+                            'created_at' => Carbon::now()->toDateTimeString(),
+                            'updated_at' => Carbon::now()->toDateTimeString(),
+                        ];
+                    }
                 }
                 if (!empty($insert)) {
                     DB::table('authorized')->insert($insert);
