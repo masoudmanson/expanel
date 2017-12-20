@@ -24,7 +24,7 @@
                 </div>
                 <div class="list-item-content">
                     <h3>
-                        <p class="blue-hoki"><small class="font-grey-silver"> گیرنده: </small> {{ $transaction->bnf_fname . ' ' . $transaction->bnf_lname }}</p>
+                        <p class="blue-hoki"><small class="font-grey-silver"> گیرنده: </small> {{  $transaction->receiver_firstname . ' ' . $transaction->receiver_lastname  }}</p>
                     </h3>
                 </div>
             </li>
