@@ -51,15 +51,15 @@
                             </div>
                             <div class="portlet-body pt5">
                                 <div class="row">
-                                    <div class="form-body col-xs-9 col-sm-10">
-                                        <div class="form-group mb0">
+                                    <div class="form-body col-xs-12 col-md-6 col-lg-8 pl0">
+                                        <div class="form-group lg-mb0">
                                             <input class="form-control input-lg searchForm" data-target=".tableContentWrapper" data-url="/search/users/exhouse" placeholder="جستجو کنید" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-actions right col-xs-2 col-sm-1">
+                                    <div class="form-actions right col-xs-6 col-md-3 col-lg-2 p0">
                                         <button class="btn green btn-lg fullWidth searchBtn">بیاب</button>
                                     </div>
-                                    <div class="form-actions right col-xs-1 col-sm-1">
+                                    <div class="form-actions right col-xs-6 col-md-3 col-lg-2 pr0">
                                         <a href="{{ route('indexExhouse') }}" class="btn grey btn-lg fullWidth">همه</a>
                                     </div>
                                 </div>

@@ -101,15 +101,15 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="form-body col-xs-9 col-sm-10">
+                                    <div class="form-body col-xs-12 col-md-8 col-lg-10 pl0">
                                         <div class="form-group">
                                             <input class="form-control input-lg searchForm" data-target=".tableContentWrapper" data-url="/search/histories" placeholder="جستجو کنید" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-actions right col-xs-2 col-sm-1">
+                                    <div class="form-actions right col-xs-6 col-md-2 col-lg-1 p0">
                                         <button type="submit" class="btn green btn-lg fullWidth searchBtn">بیاب</button>
                                     </div>
-                                    <div class="form-actions right col-xs-1 col-sm-1">
+                                    <div class="form-actions right col-xs-6 col-md-2 col-lg-1 pr0">
                                         <a href="{{ route('history.index') }}" class="btn grey btn-lg fullWidth">همه</a>
                                     </div>
                                 </div>
