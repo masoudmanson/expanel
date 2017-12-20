@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     protected $table = 'transactions';
 
-    protected $hidden = ['id','user_id','beneficiary_id','backlog_id','ttl','vat','payment_amount','created_at']; //todo : check with parham for available fields in exchanger pdf
+    protected $hidden = ['id','user_id','beneficiary_id','backlog_id','ttl','vat','created_at']; //todo : check with parham for available fields in exchanger pdf
 
     protected $dates = [
         'payment_date',

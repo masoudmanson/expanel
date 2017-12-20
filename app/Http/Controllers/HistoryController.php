@@ -208,13 +208,13 @@ class HistoryController extends Controller
         $extraInfo['option'] = $option;
 
         $titlesArray[] = ['id','bank_status','fanex_status','upt_status','currency','rate',
-            'premium_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
+            'premium_amount','payment_amount','payment_type','payment_date','country','upt_reference','updated_at','sender_firstname','sender_lastname'
             ,'identity_number','tel_number','beneficiary_firstname','beneficiary_lastname','account_number','bank_name','branch_address','iban_code','swift_code'];
 
 
         $paymentsArray[] = ["transactions.id as reference_number","transactions.bank_status","transactions.fanex_status"
             ,"transactions.upt_status","transactions.currency","transactions.exchange_rate","transactions.premium_amount"
-            ,"transactions.payment_type","transactions.payment_date","transactions.country"
+            ,"transactions.payment_amount","transactions.payment_type","transactions.payment_date","transactions.country"
             ,"transactions.upt_ref as upt_reference","transactions.updated_at","users.firstname as sender_fname", "users.lastname as sender_lname"
             ,"users.identity_number as sender_identity_number","users.mobile as sender_mobile"
             ,"beneficiaries.firstname as bnf_fname", "beneficiaries.lastname as bnf_lname","beneficiaries.account_number"
