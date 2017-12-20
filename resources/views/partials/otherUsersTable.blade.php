@@ -14,7 +14,7 @@
         </thead>
 
         @foreach($users as $user)
-            <tr id="">
+            <tr id="trans_{{$user->id}}">
                 <td>{{ $user->id }}</td>
                 <td class="font-blue-chambray">{{ $user->firstname_latin }}</td>
                 <td class="font-blue-chambray">{{ $user->lastname_latin }}</td>
