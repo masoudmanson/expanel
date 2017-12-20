@@ -12,6 +12,10 @@
     margin: 0;
 }
 
+.input-lg {
+    width: 100% !important;
+}
+
 .btn.fullWidth {
     width: 100% !important;
 }
@@ -110,5 +114,22 @@
     40% {
         -webkit-transform: scale(1.0);
         transform: scale(1.0);
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .pr0 {
+        padding-right: 0 !important;
+    }
+
+    .p0 {
+        padding: 0 !important;
+    }
+
+    .pl0 {
+        padding-left: 0 !important;
+    }
+    .lg-mb0 {
+        margin-bottom: 0 !important;
     }
 }
