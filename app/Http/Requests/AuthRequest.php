@@ -30,4 +30,11 @@ class AuthRequest extends FormRequest
             'mobile' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+          'unique' => 'این کد ملی قبلا در سیستم ثبت شده است'
+        ];
+    }
 }
