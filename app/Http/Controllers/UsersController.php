@@ -171,7 +171,8 @@ class UsersController extends Controller
                         $request->request->set('mobile', $value->mobile);
 
                         $messages = array(
-                            'unique' => 'این کد ملی قبلا انتخاب شده است.',
+                            'unique' => 'کد ملی یکی از اشخاص در فایل اکسل قبلا در سیستم ذخیره شده و امکان ایجاد دوباره ی آن وجود ندارد.',
+                            'unique_with' => 'ترکیب کد ملی / شماره موبایل یکی از اشخاص در فایل اکسل، قبلا در سیستم ثبت شده و امکان ثبت دوباره ی آن وجود ندارد.',
                         );
 
                         $this->validate($request, [
