@@ -247,6 +247,9 @@ return [
 
     'attributes' => [
         'name'                  => 'نام',
+        'identity_number‌'       => 'کد ملی',
+        'identity number‌'       => 'کد ملی',
+        'identitynumber‌'        => 'کد ملی',
         'username'              => 'نام کاربری',
         'email'                 => 'ایمیل',
         'firstname'             => 'نام',
@@ -286,9 +289,6 @@ return [
         'amount'                => 'مقدار پول',
         'contactText'           => 'متن ارسالی',
         'account_number‌'        => 'شماره حساب',
-        'identity_number‌'       => 'کد ملی',
-        'identity number‌'       => 'کد ملی',
-        'identitynumber‌'        => 'کد ملی',
         'user_id‌'               => 'شناسه ی کاربر'
     ]
 ];
