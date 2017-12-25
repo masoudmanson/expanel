@@ -1,5 +1,5 @@
 <?php
-//
+
 //return [
 //
 //    /*
@@ -118,8 +118,6 @@
 //    'attributes' => [],
 //
 //];
-
-<?php
 
 return [
 
