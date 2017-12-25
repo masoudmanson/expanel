@@ -1,6 +1,12 @@
 @if ($errors->any())
     <div class="col-xs-12">
         <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa-close fa font-red-mint"></i>
+                    <span class="caption-subject bold font-red-mint"> مشکل در ثبت کاربر جدید </span>
+                </div>
+            </div>
             <div class="portlet-body">
                 <div class="alert alert-danger">
                     <ul>
