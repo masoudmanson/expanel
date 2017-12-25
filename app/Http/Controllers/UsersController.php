@@ -175,13 +175,17 @@ class UsersController extends Controller
                             'unique_with' => 'ترکیب کد ملی / شماره موبایل یکی از اشخاص در فایل اکسل، قبلا در سیستم ثبت شده و امکان ثبت دوباره ی آن وجود ندارد.',
                         );
 
+                        $attributes = array(
+                            'identity_number' => 'کد ملی'
+                        );
+
                         $this->validate($request, [
                             'firstname' => 'required|alpha|between:2,10',
                             'lastname' => 'required|alpha|between:2,50',
                             'mobile' => 'required|digits_between:8,12',
 //                            'mobile' => 'required|unique_with:authorized,identity_number|digits_between:8,12',
                             'identity_number' => 'required|unique:authorized,identity_number|digits_between:8,10',
-                        ], $messages);
+                        ], $messages, $attributes);
 
                         $insert[] = [
                             'firstname' => $value->firstname,

@@ -37,4 +37,11 @@ class AuthRequest extends FormRequest
           'unique' => 'این کد ملی قبلا در سیستم ثبت شده است'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'identity_number' => 'کد ملی'
+        ];
+    }
 }
