@@ -171,7 +171,7 @@ class UsersController extends Controller
                         $request->request->set('mobile', $value->mobile);
 
                         $messages = array(
-                            'unique' => ':attribute قبلا انتخاب شده است. مسعود هستم',
+                            'unique' => 'این کد ملی قبلا انتخاب شده است.',
                         );
 
                         $this->validate($request, [
