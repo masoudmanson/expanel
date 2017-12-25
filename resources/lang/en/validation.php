@@ -286,6 +286,7 @@ return [
         'amount'                => 'مقدار پول',
         'contactText'           => 'متن ارسالی',
         'account_number‌'        => 'شماره حساب',
+        'identity_number‌'        => 'کدملی',
         'user_id‌'               => 'شناسه ی کاربر',
     ]
 ];
