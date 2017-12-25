@@ -26,7 +26,7 @@ class AuthRequest extends FormRequest
         return [
             'firstname' => 'required',
             'lastname' => 'required',
-            'identity_number' => 'required',
+            'identity_number' => 'required|unique:authorized,identity_number',
             'mobile' => 'required',
         ];
     }
