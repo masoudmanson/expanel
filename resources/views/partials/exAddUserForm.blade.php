@@ -56,6 +56,10 @@
                         <input type="text" id="firstname" name="firstname"
                                class="form-control input-lg noSpecialChars noDigits"
                                required
+                               minlength="3"
+                               maxlength="24"
+                               data-parsley-minlength="3"
+                               data-parsley-minlength-message="نام نمی تواند از 3 کاراکتر کوتاه تر باشد."
                                data-parsley-required-message="لطفا نام را وارد نمائید">
                     </div>
                 </div>
@@ -66,6 +70,10 @@
                         <input type="text" id="lastname" name="lastname"
                                class="form-control input-lg noSpecialChars noDigits"
                                required
+                               minlength="3"
+                               maxlength="24"
+                               data-parsley-minlength="3"
+                               data-parsley-minlength-message="نام خانوادگی نمی تواند از 3 کاراکتر کوتاه تر باشد."
                                data-parsley-required-message="لطفا نام خانوادگی را وارد نمائید">
                     </div>
                 </div>
