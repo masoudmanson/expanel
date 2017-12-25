@@ -20,6 +20,10 @@
     padding-top: 15px !important;
 }
 
+.parsley-errors-list li {
+    color: #f23 !important;
+}
+
 .btn.fullWidth {
     width: 100% !important;
 }
