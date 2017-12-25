@@ -170,12 +170,16 @@ class UsersController extends Controller
                         $request->request->set('identity_number', $value->identity_number);
                         $request->request->set('mobile', $value->mobile);
 
+                        $messages = array(
+                            'unique' => ':attribute قبلا انتخاب شده است. مسعود هستم',
+                        );
+
                         $this->validate($request, [
                             'firstname' => 'required|alpha|between:2,10',
                             'lastname' => 'required|alpha|between:2,50',
                             'mobile' => 'required|unique_with:authorized,identity_number|digits_between:8,12',
                             'identity_number' => 'required|unique:authorized,identity_number|digits_between:8,10',
-                        ]);
+                        ], $messages);
 
                         $insert[] = [
                             'firstname' => $value->firstname,
