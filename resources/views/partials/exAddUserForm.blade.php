@@ -1,3 +1,19 @@
+@if ($errors->any())
+    <div class="col-xs-12">
+        <div class="portlet light">
+            <div class="portlet-body">
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 <div class="col-md-6 col-xs-12">
     <div class="portlet light exchange-rate">
         <div class="portlet-title">
@@ -23,16 +39,6 @@
                 {!! Form::submit('افزودن',['class'=>'btn green-haze']) !!}
                 {!! Form::reset('انصراف',['class'=>'btn default']) !!}
             </div>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             {!! Form::close() !!}
         </div>
