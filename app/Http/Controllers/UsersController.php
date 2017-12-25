@@ -173,8 +173,8 @@ class UsersController extends Controller
                         $this->validate($request, [
                             'firstname' => 'required|alpha|between:2,10',
                             'lastname' => 'required|alpha|between:2,50',
-                            'mobile' => 'required|digits_between:8,12',
-                            'identity_number' => 'required|unique_with:authorized,mobile|digits_between:2,20',
+                            'mobile' => 'required|unique_with:authorized,identity_number|digits_between:8,12',
+                            'identity_number' => 'required|unique:authorized,identity_number|digits_between:8,10',
                         ]);
 
                         $insert[] = [
