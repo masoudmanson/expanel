@@ -164,6 +164,19 @@ class UsersController extends Controller
             if (!empty($data) && $data->count()) {
                 foreach ($data as $key => $value) {
                     if(!empty($value->firstname) && !empty($value->lastname) && !empty($value->identity_number) && !empty($value->mobile)) {
+
+                        $request->request->set('firstname', $value->firstname);
+                        $request->request->set('lastname', $value->lastname);
+                        $request->request->set('identity_number', $value->identity_number);
+                        $request->request->set('mobile', $value->mobile);
+
+                        $this->validate($request, [
+                            'firstname' => 'required|alpha|between:2,10',
+                            'lastname' => 'required|alpha|between:2,50',
+                            'mobile' => 'required|digits_between:8,12',
+                            'identity_number' => 'required|unique_with:authorized,mobile|digits_between:2,20',
+                        ]);
+
                         $insert[] = [
                             'firstname' => $value->firstname,
                             'lastname' => $value->lastname,
