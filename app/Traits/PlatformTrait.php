@@ -153,6 +153,7 @@ trait PlatformTrait
                 'price' => $attributes['price'],
                 'discount' => '0'
             ],
+            'verify' => false
         ]);
 
         return $res;
@@ -186,7 +187,8 @@ trait PlatformTrait
                 '_token_' => $token,
                 '_token_issuer_' => 1
             ],
-            'form_params' => $data
+            'form_params' => $data,
+            'verify' => false
         ]);
         return $res;
     }
@@ -203,7 +205,8 @@ trait PlatformTrait
                 '_token_' => $token,
                 '_token_issuer_' => 1
             ],
-            'form_params' => $data
+            'form_params' => $data,
+            'verify' => false
         ]);
         return $res;
     }
@@ -274,7 +277,8 @@ trait PlatformTrait
                 'headers' => [
                     '_token_' => $token,
                     '_token_issuer_' => 1
-                ]
+                ],
+                'verify' => false
             ]
         );
         return $res;
